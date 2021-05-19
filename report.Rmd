@@ -1,0 +1,146 @@
+---
+title: "Report: Australian Census Data"
+subtitle: "ETC5513 Assignment 4: Star Wars"
+author:
+- familyname: Faizan
+  othernames: Mohammed
+  address: Monash University
+  email: mfai0014@student.monash.edu
+  correspondingauthor: true
+  qualifications:  MBAt
+- familyname: More
+  othernames: Adarsh
+  address: Monash University
+  email: amor0060@student.monash.edu
+  qualifications: MBAt
+- familyname: LI
+  othernames: Yanhui
+  address: Monash University
+  email: yli807@student.monash.edu
+  correspondingauthor: true
+  qualifications:  MBAt
+department: Our consultancy - Star Wars\newline Mohammed Faizan &\newline Adarsh More&\newline Yanhui LI
+organization: Monash University
+bibliography: 
+- references.bib
+- packages.bib
+biblio-style: authoryear-comp
+linestretch: 1.5
+output:
+  bookdown::pdf_document2:
+    template: monashreport2.tex
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 8
+    includes:
+      in_header: preamble.tex
+    keep_tex: yes
+    number_sections: yes
+    citation_package: biblatex
+    toc: true
+keep_md: true
+---
+
+```{r echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(fig.path = "Figures/", fig.align ="center",
+                      out.width = "50%", echo = FALSE, 
+                      messages = FALSE, 
+                      warning = FALSE)
+
+# Loading Libraries
+library(tidyverse)
+library(readr)
+library(kableExtra)
+library(tinytex)
+library(bookdown)
+library(naniar)
+library(visdat)
+library(citation)
+library(knitr)
+library(scales)
+library(patchwork)
+library(sf)
+library(glue)
+library(unglue)
+library(sugarbag)
+library(readxl)
+```
+
+
+```{r writing_packages_bibliographies}
+knitr::write_bib(c(.packages()), "packages.bib")
+```
+
+```{r}
+celldiscriptors <- read_excel(here::here("data/australian_census_data_2016/Metadata/Metadata_2016_GCP_DataPack.xlsx"), sheet=2, skip=10)
+```
+
+
+```{r}
+data_path <- here::here("data/australian_census_data_2016/")
+
+census_paths <- glue::glue(data_path, "2016 Census GCP All Geographies for VIC/SA4/VIC/2016Census_G{number}{alpha}_VIC_SA4.csv", 
+                         number = c("46","46"), alpha = c("A","B"))
+```
+```{r geopath, include=FALSE}
+geopath <- glue::glue(data_path, "2016_SA4_shape/SA4_2016_AUST.shp")
+
+sa4_codes<- read_csv(census_paths[2]) %>% 
+                mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
+                select(SA4_CODE_2016)
+
+
+sa4_geomap <- read_sf(geopath) %>%
+  right_join(sa4_codes, by=c("SA4_CODE16" = "SA4_CODE_2016"))
+
+
+```
+
+```{r}
+ggplot(sa4_geomap) +
+  geom_sf()
+```
+
+```{r g46read, include=FALSE}
+g46b<- read_csv(census_paths[2]) %>%
+  select(P_PGrad_Deg_Total,
+P_GradDip_and_GradCert_Total,
+P_BachDeg_Total,
+P_AdvDip_and_Dip_Total,
+P_Cert_III_IV_Total,
+P_Cert_I_II_Total,
+P_Cert_Levl_nfd_Total,
+P_Lev_Edu_IDes_Total,
+P_Lev_Edu_NS_Total,SA4_CODE_2016) %>%
+            mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
+  pivot_longer(cols = -c(SA4_CODE_2016),
+                  names_to = "category",
+                  values_to = "count") %>%
+  unglue_unnest(category, 
+                    c("P_{educationlevel=GradDip_and_GradCert}_Total",
+                      "P_{educationlevel=PGrad}_Deg_Total",
+                      "P_{educationlevel=BachDeg}_Total",
+                      "P_{educationlevel=AdvDip_and_Dip}_Total",
+                      "P_{educationlevel=Cert_III_IV}_Total",
+                      "P_{educationlevel=Cert_I_II}_Total",
+                      "P_{educationlevel=Cert_Levl_nfd}_Total",
+                      "P_{educationlevel=Lev_Edu_IDes}_Total",
+                      "P_{educationlevel=Lev_Edu_NS}_Total"
+                      ),
+                remove = FALSE)
+  
+```
+
+```{r}
+g46b <- g46b %>% 
+  mutate(afq_level =case_when(str_detect(educationlevel, "GradDip_and_GradCert") ~ "Level 8",
+                            str_detect(educationlevel, "PGrad") ~ "Level 9",
+                            str_detect(educationlevel, "BachDeg") ~ "Level 7",
+                            str_detect(educationlevel, "AdvDip_and_Dip") ~ "Level 5 & 6",
+                            str_detect(educationlevel, "Cert_III_IV") ~ "Level 3 & 4",
+                            str_detect(educationlevel, "Cert_I_II") ~ "Level 1 & 2",
+                            str_detect(educationlevel, "Cert_Levl_nfd") ~ "Level 3 & 4",
+                            str_detect(educationlevel, "Lev_Edu_IDes") ~ "Level Inadequately Described",
+                            str_detect(educationlevel, "Lev_Edu_NS") ~ "Not Stated",
+                            TRUE ~ educationlevel))
+```
