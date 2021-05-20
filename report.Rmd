@@ -79,8 +79,8 @@ celldescriptors <- read_excel(here::here("data/australian_census_data_2016/Metad
 data_path <- here::here("data/australian_census_data_2016/")
 
 census_paths <- glue::glue(data_path, "2016 Census GCP All Geographies for VIC/SA4/VIC/2016Census_G{number}{alpha}_VIC_SA4.csv", 
-                         number = c("52","52","52","52","53","53","57","57","58","58"), 
-                         alpha = c("A","B","C","D","A","B","A","B","A","B"))
+                         number = c("46","46","47","47","47"), 
+                         alpha = c("A","B","A","B","C"))
 ```
 
 
@@ -100,3 +100,90 @@ sa4_geomap <- read_sf(geopath) %>%
 ggplot(sa4_geomap) +
   geom_sf()
 ```
+
+```{r g46read, include=FALSE}
+g46a<- read_csv(census_paths[1]) %>%
+  select(-starts_with("P"), -contains("Tot"), -contains("nfd"), -contains("IDes")) %>%
+            mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
+  pivot_longer(cols = -c(SA4_CODE_2016),
+                  names_to = "category",
+                  values_to = "count") %>%
+  unglue_unnest(category, 
+                    c("{sex=[MF]}_{educationlevel=GradDip_and_GradCert}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{educationlevel=PGrad_Deg}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{educationlevel=BachDeg}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{educationlevel=AdvDip_and_Dip}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{educationlevel=Cert_III_IV}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{educationlevel=Cert_I_II}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{educationlevel=Lev_Edu_NS}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{educationlevel=Lev_Edu_NS|GradDip_and_GradCert|PGrad_Deg|BachDeg|AdvDip_and_Dip|Cert_III_IV|Cert_I_II}_{age_min=\\d+}ov"
+                      
+                      ),
+                remove = FALSE) %>% 
+  select(-category)
+  
+```
+
+```{r}
+g46a <- g46a %>% 
+  mutate(afq_level =case_when(str_detect(educationlevel, "GradDip_and_GradCert") ~ "Level 8",
+                            str_detect(educationlevel, "PGrad") ~ "Level 9",
+                            str_detect(educationlevel, "BachDeg") ~ "Level 7",
+                            str_detect(educationlevel, "AdvDip_and_Dip") ~ "Level 5 & 6",
+                            str_detect(educationlevel, "Cert_III_IV") ~ "Level 3 & 4",
+                            str_detect(educationlevel, "Cert_I_II") ~ "Level 1 & 2",
+                            str_detect(educationlevel, "Cert_Levl_nfd") ~ "Level 3 & 4",
+                            str_detect(educationlevel, "Lev_Edu_IDes") ~ "Level Inadequately Described",
+                            str_detect(educationlevel, "Lev_Edu_NS") ~ "Not Stated",
+                            TRUE ~ educationlevel)) %>% 
+  rename(count_edu_lvl = count)
+```
+
+```{r}
+g47 <- map_dfr(census_paths[3:4], ~{
+  df <- read_csv(.x) %>%
+      select(-starts_with("P"), -contains("Tot"), -contains("InadDes")) %>%
+            mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
+  pivot_longer(cols = -c(SA4_CODE_2016),
+                  names_to = "category",
+                  values_to = "count") %>%
+  unglue_unnest(category, 
+                    c("{sex=[MF]}_{field=(Mgnt_Com|Society_Cult|Fd_Hosp_Psnl_Svcs|MixFld_Prgm|FldStd_NS|NatPhyl_Scn|InfoTech|Eng_RelTec|ArchtBldng|Ag_Envir_Rltd_Sts|Health|Educ|Creative_Arts)}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{field=(Mgnt_Com|Society_Cult|Fd_Hosp_Psnl_Svcs|MixFld_Prgm|FldStd_NS|NatPhyl_Scn|InfoTech|Eng_RelTec|ArchtBldng|Ag_Envir_Rltd_Sts|Health|Educ|Creative_Arts)}_{age_min=\\d+}ov",
+                      "{sex=[MF]}_{field=(Mgnt_Com|Society_Cult|Fd_Hosp_Psnl_Svcs|MixFld_Prgm|FldStd_NS|NatPhyl_Scn|InfoTech|Eng_RelTec|ArchtBldng|Ag_Envir_Rltd_Sts|Health|Educ|Creative_Arts)}_{age_min=\\d+}_years_and_over"
+                      
+                      ),
+                remove = FALSE)
+})
+
+```
+```{r}
+g47 <- g47 %>% 
+  mutate(field =case_when(
+    str_detect(field, "NatPhyl_Scn") ~ "Natural_and_Physical_Sciences",
+                            str_detect(field, "InfoTech") ~ "Information_Technology",
+                            str_detect(field, "Eng_RelTec") ~ "Engineering_and_Technologies",
+                            str_detect(field, "ArchtBldng") ~ "Architecture_and_Building",
+                            str_detect(field, "Ag_Envir_Rltd_Sts") ~ "Agriculture_Environment",
+                            str_detect(field, "Health") ~ "Health",
+                            str_detect(field, "Educ") ~ "Education",
+                            str_detect(field, "Mgnt_Com") ~ "Management_and_Commerce",
+                            str_detect(field, "Society_Cult") ~ "Society_and_Culture",
+                            str_detect(field, "Creative_Arts") ~ "Creative_Arts",
+                            str_detect(field, "Fd_Hosp_Psnl_Svcs") ~ "Food_Hospitality_and_Personal_Services",str_detect(field, "MixFld_Prgm") ~ "Mixed_Field_Programmes",
+                            str_detect(field, "FldStd_NS") ~ "Not Stated",
+                            TRUE ~ field))  %>%
+  select(-category) %>%
+  rename(count_field = count)
+
+```
+
+```{r}
+edu_fields <- g46a %>%
+  left_join(g47, 
+            by = c("SA4_CODE_2016"="SA4_CODE_2016", 
+                   "sex"="sex",
+                   "age_min"="age_min",
+                   "age_max"="age_max"))
+```
+

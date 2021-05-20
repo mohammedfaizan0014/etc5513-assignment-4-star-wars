@@ -1,0 +1,13 @@
+M_NatPhyl_Scn_15_24  Natural_and_Physical_Sciences
+M_InfoTech_15_24    Information_Technology
+M_Eng_RelTec_15_24  Engineering_and_Technologies
+M_ArchtBldng_15_24  Architecture_and_Building
+M_Ag_Envir_Rltd_Sts_15_24  Agriculture_Environment
+M_Health_15_24      Health
+M_Educ_15_24        Education
+M_Mgnt_Com_15_24    Management_and_Commerce
+M_Society_Cult_15_24  Society_and_Culture
+M_Creative_Arts_15_24 Creative_Arts
+M_Fd_Hosp_Psnl_Svcs_15_24   Food_Hospitality_and_Personal_Services    
+M_MixFld_Prgm_15_24         Mixed_Field_Programmes
+M_FldStd_NS_15_24       Not Stated
