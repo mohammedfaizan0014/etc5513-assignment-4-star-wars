@@ -80,7 +80,7 @@ celldiscriptors <- read_excel(here::here("data/australian_census_data_2016/Metad
 data_path <- here::here("data/australian_census_data_2016/")
 
 census_paths <- glue::glue(data_path, "2016 Census GCP All Geographies for VIC/SA4/VIC/2016Census_G{number}{alpha}_VIC_SA4.csv", 
-                         number = c("46","46"), alpha = c("A","B"))
+                         number = c("46","46","47","47","47","51","51","51","51","57","57"), alpha = c("A","B","A","B","C","A","B","C","D","A","B"))
 ```
 ```{r geopath, include=FALSE}
 geopath <- glue::glue(data_path, "2016_SA4_shape/SA4_2016_AUST.shp")
@@ -101,46 +101,91 @@ ggplot(sa4_geomap) +
   geom_sf()
 ```
 
-```{r g46read, include=FALSE}
-g46b<- read_csv(census_paths[2]) %>%
-  select(P_PGrad_Deg_Total,
-P_GradDip_and_GradCert_Total,
-P_BachDeg_Total,
-P_AdvDip_and_Dip_Total,
-P_Cert_III_IV_Total,
-P_Cert_I_II_Total,
-P_Cert_Levl_nfd_Total,
-P_Lev_Edu_IDes_Total,
-P_Lev_Edu_NS_Total,SA4_CODE_2016) %>%
+
+```{r}
+g51 <- map_dfr(census_paths[6:8], ~{
+  df <- read_csv(.x) %>%
+      select(-starts_with("P"), -contains("Tot")) %>%
             mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
   pivot_longer(cols = -c(SA4_CODE_2016),
                   names_to = "category",
                   values_to = "count") %>%
   unglue_unnest(category, 
-                    c("P_{educationlevel=GradDip_and_GradCert}_Total",
-                      "P_{educationlevel=PGrad}_Deg_Total",
-                      "P_{educationlevel=BachDeg}_Total",
-                      "P_{educationlevel=AdvDip_and_Dip}_Total",
-                      "P_{educationlevel=Cert_III_IV}_Total",
-                      "P_{educationlevel=Cert_I_II}_Total",
-                      "P_{educationlevel=Cert_Levl_nfd}_Total",
-                      "P_{educationlevel=Lev_Edu_IDes}_Total",
-                      "P_{educationlevel=Lev_Edu_NS}_Total"
-                      ),
+                    c("{sex=[MF]}_{industry=(Ag_For_Fshg|Mining|Manufact|El_Gas_Wt_Waste|Constru|WhlesaleTde|RetTde|Accom_food|Trans_post_wrehsg|Info_media_teleco|Fin_Insur|RtnHir_REst|Pro_scien_tec|Admin_supp|Public_admin_sfty|Educ_trng|HlthCare_SocAs|Art_recn|Oth_scs|ID_NS)}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{industry=(Ag_For_Fshg|Mining|Manufact|El_Gas_Wt_Waste|Constru|WhlesaleTde|RetTde|Accom_food|Trans_post_wrehsg|Info_media_teleco|Fin_Insur|RtnHir_REst|Pro_scien_tec|Admin_supp|Public_admin_sfty|Educ_trng|HlthCare_SocAs|Art_recn|Oth_scs|ID_NS)}_{age_min=\\d+}ov"
+                     ),
                 remove = FALSE)
-  
+})
+
+
+```
+```{r}
+g51 <- g51 %>% 
+  mutate(industry =case_when(
+                            str_detect(industry, "Ag_For_Fshg") ~ "Agriculture_forestry_and_fishing",
+                            str_detect(industry, "Manufact") ~ "Manufacturing",
+                            str_detect(industry, "El_Gas_Wt_Waste") ~ "Electricity_gas_water_and_waste_service",
+                            str_detect(industry, "Constru") ~ "Construction",
+                            str_detect(industry, "Ag_Envir_Rltd_Sts") ~ "Agriculture_Environment",
+                            str_detect(industry, "WhlesaleTde") ~ "Wholesale_trade",
+                            str_detect(industry, "RetTde") ~ "Retail_trade",
+                            str_detect(industry, "Accom_food") ~ "Accommodation_and_food_services",
+                            str_detect(industry, "Trans_post_wrehsg") ~ "Transport_postal_and_warehousing",
+                            str_detect(industry, "Info_media_teleco") ~ "Information_media_and_telecommunications",
+                            str_detect(industry, "Fin_Insur") ~ "Financial_and_insurance_services",
+                            str_detect(industry, "RtnHir_REst") ~ "Rental_hiring_and_real_estate_services",
+                            str_detect(industry, "Pro_scien_tec") ~ "Professional_scientific_and_technical_services",
+                            str_detect(industry, "Admin_supp") ~ "Administrative_and_support_services",
+                            str_detect(industry, "Public_admin_sfty") ~ "Public_administration_and_safety",
+                            str_detect(industry, "Educ_trng") ~ "Education_and_training",
+                            str_detect(industry, "HlthCare_SocAs") ~ "Health_care_and_social_assistance",
+                            str_detect(industry, "Art_recn") ~ "Arts_and_recreation_services",
+                            str_detect(industry, "Oth_scs") ~ "Other_services",
+                            str_detect(industry, "ID_NS") ~ "Not Stated",
+                            TRUE ~ industry))  %>%
+  select(-category) %>%
+  rename(count_industry = count)
+```
+```{r}
+g57 <- map_dfr(census_paths[10], ~{
+  df <- read_csv(.x) %>%
+      select(-starts_with("P"), -contains("Tot")) %>%
+            mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
+  pivot_longer(cols = -c(SA4_CODE_2016),
+                  names_to = "category",
+                  values_to = "count") %>%
+  unglue_unnest(category, 
+                    c("{sex=[MF]}{age_min=\\d+}_{age_max=\\d+}_{occupation=(Managers|Professionals|TechnicTrades_Wrs|CommunPersnlSvc_W|ClericalAdminis_W|Sales_W|Mach_oper_drivers|Labourers|Occu_ID_NS|TechnicTrades_W)}",
+                      "{sex=[MF]}{age_min=\\d+}ov_{occupation=(Managers|Professionals|TechnicTrades_Wrs|CommunPersnlSvc_W|ClericalAdminis_W|Sales_W|Mach_oper_drivers|Labourers|Occu_ID_NS|TechnicTrades_W)}",
+                      "{sex=[MF]}{age_min=\\d+}_ov_{occupation=(Managers|Professionals|TechnicTrades_Wrs|CommunPersnlSvc_W|ClericalAdminis_W|Sales_W|Mach_oper_drivers|Labourers|Occu_ID_NS|TechnicTrades_W)}"
+                      ),  
+                remove = FALSE)  
+})
+
+```
+```{r}
+g57 <- g57 %>% 
+  mutate(occupation =case_when(
+                            str_detect(occupation, "TechnicTrades_W") ~ "Technicians_and_trades_workers",
+                            str_detect(occupation, "TechnicTrades_Wrs") ~ "Technicians_and_trades_workers",
+                            str_detect(occupation, "CommunPersnlSvc") ~ "Community_and_personal_service_workers",
+                            str_detect(occupation, "ClericalAdminis_W") ~ "Clerical_and_administrative_workers",
+                            str_detect(occupation, "Sales_W") ~ "Sales_workers",
+                            str_detect(occupation, "Mach_oper_drivers") ~ "Machinery_operators_and_drivers",
+                            str_detect(occupation, "Occu_ID_NS") ~ "Not Stated",
+                            TRUE ~ occupation))  %>%
+  select(-category) %>%
+  rename(count_occupation = count)
 ```
 
 ```{r}
-g46b <- g46b %>% 
-  mutate(afq_level =case_when(str_detect(educationlevel, "GradDip_and_GradCert") ~ "Level 8",
-                            str_detect(educationlevel, "PGrad") ~ "Level 9",
-                            str_detect(educationlevel, "BachDeg") ~ "Level 7",
-                            str_detect(educationlevel, "AdvDip_and_Dip") ~ "Level 5 & 6",
-                            str_detect(educationlevel, "Cert_III_IV") ~ "Level 3 & 4",
-                            str_detect(educationlevel, "Cert_I_II") ~ "Level 1 & 2",
-                            str_detect(educationlevel, "Cert_Levl_nfd") ~ "Level 3 & 4",
-                            str_detect(educationlevel, "Lev_Edu_IDes") ~ "Level Inadequately Described",
-                            str_detect(educationlevel, "Lev_Edu_NS") ~ "Not Stated",
-                            TRUE ~ educationlevel))
+ind_occupations <- g51 %>%
+  left_join(g57, 
+            by = c("SA4_CODE_2016"="SA4_CODE_2016", 
+                   "sex"="sex",
+                   "age_min"="age_min",
+                   "age_max"="age_max"))
 ```
+
+
+
