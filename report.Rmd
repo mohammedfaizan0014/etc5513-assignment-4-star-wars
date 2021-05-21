@@ -1,0 +1,111 @@
+---
+title: "Report: Australian Census Data"
+subtitle: "ETC5513 Assignment 4: Star Wars"
+author:
+- familyname: Faizan
+  othernames: Mohammed
+  address: Monash University
+  email: mfai0014@student.monash.edu
+  correspondingauthor: true
+  qualifications:  MBAt
+- familyname: More
+  othernames: Adarsh
+  address: Monash University
+  email: amor0060@student.monash.edu
+  qualifications: MBAt
+- familyname: LI
+  othernames: Yanhui
+  address: Monash University
+  email: yli807@student.monash.edu
+  correspondingauthor: true
+  qualifications:  MBAt
+department: Our consultancy - Star Wars\newline Mohammed Faizan &\newline Adarsh More&\newline Yanhui LI
+organization: Monash University
+bibliography: 
+- references.bib
+- packages.bib
+biblio-style: authoryear-comp
+linestretch: 1.5
+output:
+  bookdown::pdf_document2:
+    template: monashreport2.tex
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 8
+    includes:
+      in_header: preamble.tex
+    keep_tex: yes
+    number_sections: yes
+    citation_package: biblatex
+    toc: true
+keep_md: true
+---
+
+```{r echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(fig.path = "Figures/", fig.align ="center",
+                      out.width = "50%", echo = FALSE, 
+                      messages = FALSE, 
+                      warning = FALSE)
+# Loading Libraries
+library(tidyverse)
+library(readr)
+library(kableExtra)
+library(tinytex)
+library(bookdown)
+library(naniar)
+library(visdat)
+library(citation)
+library(knitr)
+library(scales)
+library(patchwork)
+library(sf)
+library(glue)
+library(unglue)
+library(sugarbag)
+library(readxl)
+```
+
+
+```{r writing_packages_bibliographies}
+knitr::write_bib(c(.packages()), "packages.bib")
+```
+
+
+```{r}
+celldiscriptors <- read_excel(here::here("data/australian_census_data_2016/Metadata/Metadata_2016_GCP_DataPack.xlsx"), sheet=2, skip=10)
+```
+
+
+```{r}
+data_path <- here::here("data/australian_census_data_2016/")
+```
+
+
+```{r}
+data_path <- here::here("data/australian_census_data_2016/")
+census_paths <- glue::glue(data_path, "/2016 Census GCP All Geographies for VIC/SA4/VIC/2016Census_G{number}{alpha}_VIC_SA4.csv", 
+                         number = c("46","46","47","47","47","51","51","51","51","57","57", "52", "52", "52", "52", "58", "58"), alpha = c("A","B","A","B","C","A","B","C","D","A","B", "A","B","C","D", "A","B"))
+```
+```{r geopath, include=FALSE}
+geopath <- glue::glue(data_path, "2016_SA4_shape/SA4_2016_AUST.shp")
+sa4_codes<- read_csv(census_paths[2]) %>% 
+                mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
+                select(SA4_CODE_2016)
+sa4_geomap <- read_sf(geopath) %>%
+  right_join(sa4_codes, by=c("SA4_CODE16" = "SA4_CODE_2016"))
+```
+
+
+```{r}
+ggplot(sa4_geomap) +
+  geom_sf()
+```
+
+
+
+
+
+
+
+
+
