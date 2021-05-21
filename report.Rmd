@@ -178,17 +178,6 @@ g58 <- g58 %>%
   rename(count_occupation = count)
 ```
 
-```{r}
-ind_occupations <- g51 %>%
-  left_join(g57, 
-            by = c("SA4_CODE_2016"="SA4_CODE_2016", 
-                   "sex"="sex",
-                   "age_min"="age_min",
-                   "age_max"="age_max"))
-```
-
-
-
 
 
 
