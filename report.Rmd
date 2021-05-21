@@ -164,6 +164,7 @@ g57 <- map_dfr(census_paths[10], ~{
 
 ```
 ```{r}
+
 g57 <- g57 %>% 
   mutate(occupation =case_when(
                             str_detect(occupation, "TechnicTrades_W") ~ "Technicians_and_trades_workers",
@@ -177,8 +178,3 @@ g57 <- g57 %>%
   select(-category) %>%
   rename(count_occupation = count)
 ```
-
-
-
-
-
