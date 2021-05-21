@@ -145,6 +145,7 @@ g51 <- g51 %>%
                             TRUE ~ industry))  %>%
   select(-category) %>%
   rename(count_industry = count)
+<<<<<<< HEAD
 ```
 ```{r}
 g57 <- map_dfr(census_paths[10], ~{
@@ -176,16 +177,54 @@ g57 <- g57 %>%
                             TRUE ~ occupation))  %>%
   select(-category) %>%
   rename(count_occupation = count)
+=======
+>>>>>>> no_joincode_mf
 ```
-
 ```{r}
+g57 <- map_dfr(census_paths[10], ~{
+  df <- read_csv(.x) %>%
+      select(-starts_with("P"), -contains("Tot")) %>%
+            mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
+  pivot_longer(cols = -c(SA4_CODE_2016),
+                  names_to = "category",
+                  values_to = "count") %>%
+  unglue_unnest(category, 
+                    c("{sex=[MF]}{age_min=\\d+}_{age_max=\\d+}_{occupation=(Managers|Professionals|TechnicTrades_Wrs|CommunPersnlSvc_W|ClericalAdminis_W|Sales_W|Mach_oper_drivers|Labourers|Occu_ID_NS|TechnicTrades_W)}",
+                      "{sex=[MF]}{age_min=\\d+}ov_{occupation=(Managers|Professionals|TechnicTrades_Wrs|CommunPersnlSvc_W|ClericalAdminis_W|Sales_W|Mach_oper_drivers|Labourers|Occu_ID_NS|TechnicTrades_W)}",
+                      "{sex=[MF]}{age_min=\\d+}_ov_{occupation=(Managers|Professionals|TechnicTrades_Wrs|CommunPersnlSvc_W|ClericalAdminis_W|Sales_W|Mach_oper_drivers|Labourers|Occu_ID_NS|TechnicTrades_W)}"
+                      ),  
+                remove = FALSE)  
+})
+
+```
+```{r}
+<<<<<<< HEAD
 ind_occupations <- g51 %>%
   left_join(g57, 
             by = c("SA4_CODE_2016"="SA4_CODE_2016", 
                    "sex"="sex",
                    "age_min"="age_min",
                    "age_max"="age_max"))
+=======
+g57 <- g57 %>% 
+  mutate(occupation =case_when(
+                            str_detect(occupation, "TechnicTrades_W") ~ "Technicians_and_trades_workers",
+                            str_detect(occupation, "TechnicTrades_Wrs") ~ "Technicians_and_trades_workers",
+                            str_detect(occupation, "CommunPersnlSvc") ~ "Community_and_personal_service_workers",
+                            str_detect(occupation, "ClericalAdminis_W") ~ "Clerical_and_administrative_workers",
+                            str_detect(occupation, "Sales_W") ~ "Sales_workers",
+                            str_detect(occupation, "Mach_oper_drivers") ~ "Machinery_operators_and_drivers",
+                            str_detect(occupation, "Occu_ID_NS") ~ "Not Stated",
+                            TRUE ~ occupation))  %>%
+  select(-category) %>%
+  rename(count_occupation = count)
+>>>>>>> no_joincode_mf
 ```
 
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> no_joincode_mf
