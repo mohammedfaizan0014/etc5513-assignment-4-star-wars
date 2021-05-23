@@ -27,7 +27,7 @@ bibliography:
 biblio-style: authoryear-comp
 linestretch: 1.5
 output:
-  bookdown::pdf_document2:
+  bookdown::html_document2:
     template: monashreport2.tex
     fig_caption: yes
     fig_height: 5
@@ -64,6 +64,11 @@ library(glue)
 library(unglue)
 library(sugarbag)
 library(readxl)
+library(tidytext)
+library(rpart)
+library(rpart.plot)
+library(broomstick)
+library(plotly)
 ```
 
 
@@ -146,6 +151,7 @@ g51 <- g51 %>%
   select(-category) %>%
   rename(count_industry = count)
 
+
 ```
 ```{r}
 g57 <- map_dfr(census_paths[10], ~{
@@ -177,7 +183,121 @@ g57 <- g57 %>%
                             TRUE ~ occupation))  %>%
   select(-category) %>%
   rename(count_occupation = count)
+
+```
+
+```{r cases-distribution, message=FALSE,warning=FALSE}
+g51 %>% 
+  group_by(industry) %>% 
+  ggplot() +
+  geom_histogram(mapping = aes(x = count_industry)) +
+  labs(title = "Population Distribution by Industry of Employment", x = "Number of Industries", y = "Count")
+
+#4000 records with near to 500 count_industry values.
 ```
 
 
+
+```{r , fig.cap=""}
+g51 %>%
+  ggplot(mapping = aes(x = fct_reorder(industry,count_industry), y = count_industry, fill = sex)) +
+  geom_col(mapping = aes(x = reorder(industry,count_industry), y = count_industry, fill = sex)) +
+  labs(title = "Population Share of Industries", y = "Number of Employees") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip() 
+
+g51 %>%
+  ggplot(mapping = aes(x = fct_reorder(industry,count_industry), y = count_industry, fill = sex)) +
+  geom_col(mapping = aes(x = reorder_within(industry,count_industry, sex), y = count_industry, fill = sex)) +
+  labs(title = "Population Share of Industries", y = "Number of Employees") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip() 
+
+```
+```{r}
+vicpopulation <- g51 %>%
+  group_by(SA4_CODE_2016) %>%
+  summarise(population = sum(count_industry))
+
+vicpopulation <- g51 %>%
+  group_by(SA4_CODE_2016, sex) %>%
+  summarise(population = sum(count_industry)) %>%
+  ungroup(sex) %>%
+  pivot_wider(names_from = sex,
+              values_from = population) %>%
+  rename(malepopulation = M,
+         femalepopulation = `F`) %>%
+  full_join(vicpopulation)
+
+```
+```{r}
+vicpopulation %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=population)) +
+  geom_sf_text(aes(geometry= geometry,label=SA4_CODE_2016, colour="white"), 
+               check_overlap=TRUE)+
+  theme_void() 
+```
+```{r}
+g51 %>%
+  pivot_wider(names_from = sex,
+              values_from = count_industry) %>%
+  ggplot(mapping = aes(x = M, y = `F`, colour = industry)) +
+  geom_point() +
+  labs(title = "Population: Male vs Female", 
+       x = "Male Population",
+       y= "Female Population") +
+  scale_y_continuous(label=label_number()) +
+  scale_x_continuous(label=label_number()) +
+  theme(legend.position = "bottom")
+```
+```{r}
+g51indmfnest <- g51 %>%
+  pivot_wider(names_from = sex,
+              values_from = count_industry) %>%
+  select(industry, `F`, M ) %>%
+  group_by(industry) %>%
+  nest() %>%
+  mutate(model = map(data, lm)) %>%
+  mutate(aug = map(model, broomstick::augment)) %>%
+  unnest(aug)
+
+mvf <- ggplot(g51indmfnest,
+       aes(x = M)) +
+# index represent splitting value,
+#geom_point(aes(y = `F`, colour = industry, aplha=0)) +
+geom_line(aes(y = .fitted, colour = industry)) +
+  theme(legend.position = "bottom")  +
+  labs(title = "Population: Male vs Female", 
+       x = "Male Population",
+       y= "Female Population")
+  # geom_text(aes(y = .fitted,label=industry, colour="white"), 
+  #              check_overlap=TRUE)
+
+ggplotly(mvf) %>%
+  hide_legend()
+```
+
+```{r}
+g51redundantage <-  g51[rep(rownames(g51), g51$count_industry), ]
+
+
+ageindcount <- g51redundantage %>%
+  ggplot(mapping = aes(x = age_min, y = industry)) +
+  geom_count() +
+  labs(title = "Population: Industries and Age", x = "Age") +
+  theme(axis.title.y = element_blank())
+
+ggplotly(ageindcount)
+```
+```{r agedistribution}
+g51redundantage %>%
+  ggplot()+
+  geom_density(mapping = aes( x = as.numeric(age_min),
+                              colour = sex, 
+                              alpha = 0.5)) +
+  scale_x_continuous()
+```
 
