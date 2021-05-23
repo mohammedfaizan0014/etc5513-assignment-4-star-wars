@@ -69,6 +69,8 @@ library(rpart)
 library(rpart.plot)
 library(broomstick)
 library(plotly)
+library(igraph)
+library(ggraph)
 ```
 
 
@@ -299,5 +301,110 @@ g51redundantage %>%
                               colour = sex, 
                               alpha = 0.5)) +
   scale_x_continuous()
+```
+
+```{r}
+popindage <- g51 %>%
+  group_by(industry, age_min) %>%
+  summarise(count_indage = sum(count_industry)) %>%
+  ungroup()
+
+nodes <- data.frame(node = unique(popindage$industry),
+                    category = "industry") %>%
+  full_join(data.frame(node = unique(popindage$age_min),
+                    category = "age"))
+
+popindage <- popindage[,c(1,2,3,1)]
+
+
+networkindage <-   graph_from_data_frame(d=popindage,directed = TRUE, vertices = nodes)
+
+
+a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
+set.seed(122)
+networkindage %>%
+  ggraph(layout = "stress") +
+  geom_edge_link2(aes(edge_alpha = count_indage,edge_width = count_indage,edge_color = industry),arrow = a) +
+  geom_node_point(aes(size = 2, colour =category) )+
+  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+theme_void() +
+  theme(legend.position = "none")
+
+```
+
+
+```{r }
+popindarea <- g51 %>%
+  group_by(SA4_CODE_2016, industry) %>%
+  summarise(count_indarea = sum(count_industry)) %>%
+  ungroup()
+
+nodesarea <- data.frame(node = unique(popindarea$SA4_CODE_2016),
+                    category = "area") %>%
+  full_join(data.frame(node = unique(popindarea$industry),
+                    category = "industry"))
+
+popindarea <- popindarea[,c(1,2,3,2)]
+
+
+networkindarea <-   graph_from_data_frame(d=popindarea,directed = TRUE, vertices = nodesarea)
+
+
+a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
+networkindarea %>%
+  ggraph(layout = "stress") +
+  geom_edge_link2(aes(edge_alpha = count_indarea,edge_width = count_indarea,edge_color = industry),arrow = a) +
+  geom_node_point(aes(size = 2, colour =category) )+
+  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+theme_void() +
+  theme(legend.position = "none")
+
+```
+
+```{r popindarea, fig.cap="Spatial Industry Distribution"}
+
+popindareamax <- popindarea %>% 
+  select(1:3) %>%
+  group_by(SA4_CODE_2016) %>%
+  slice_max(count_indarea)
+
+popindareamax %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=industry)) +
+ # geom_sf_text(aes(geometry= geometry,label=industry, colour="white"), check_overlap=TRUE)+
+  theme_void() +
+  theme(legend.position = "bottom")
+
+#major industry in cbd is helthcare
+#major industry in country side is agriculture
+```
+
+```{r popareaind, fig.cap=""}
+
+popareaindmax <- popindarea %>% 
+  select(1:3) %>%
+  group_by(industry) %>%
+  slice_max(count_indarea) %>%
+  arrange(SA4_CODE_2016)
+
+popareaindmax %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=industry)) +
+  geom_sf_text(aes(geometry= geometry,label=industry, colour="white"), check_overlap=TRUE)+
+  theme_void() +
+  theme(legend.position = "none")
+
+popareaindmax %>%
+  ggplot(mapping = aes(x = fct_reorder(industry,count_industry), y = count_industry, fill = sex)) +
+  geom_col(mapping = aes(x = reorder_within(industry,count_indarea, SA4_CODE_2016), y = count_indarea, fill = industry)) +
+  labs(title = "Region and Best Industry", y = "Number of Employees") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip()  +
+  theme(legend.position = "none")
+
 ```
 
