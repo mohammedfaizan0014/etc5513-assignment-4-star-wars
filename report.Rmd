@@ -27,7 +27,7 @@ bibliography:
 biblio-style: authoryear-comp
 linestretch: 1.5
 output:
-  bookdown::pdf_document2:
+  bookdown::html_document2:
     template: monashreport2.tex
     fig_caption: yes
     fig_height: 5
@@ -63,6 +63,8 @@ library(glue)
 library(unglue)
 library(sugarbag)
 library(readxl)
+library(plotly)
+library(tidytext)
 ```
 
 
@@ -87,7 +89,7 @@ census_paths <- glue::glue(data_path, "/2016 Census GCP All Geographies for VIC/
                          number = c("46","46","47","47","47","51","51","51","51","57","57", "52", "52", "52", "52", "58", "58"), alpha = c("A","B","A","B","C","A","B","C","D","A","B", "A","B","C","D", "A","B"))
 ```
 ```{r geopath, include=FALSE}
-geopath <- glue::glue(data_path, "2016_SA4_shape/SA4_2016_AUST.shp")
+geopath <- glue::glue(data_path, "/2016_SA4_shape/SA4_2016_AUST.shp")
 sa4_codes<- read_csv(census_paths[2]) %>% 
                 mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
                 select(SA4_CODE_2016)
@@ -177,6 +179,141 @@ g58 <- g58 %>%
   select(-category) %>%
   rename(count_occupation = count)
 ```
+
+
+```{r hr_plots, fig.show='hold', out.width="50%"}
+p1 <- g52 %>% 
+  mutate(hr_min = as.numeric(hr_min)) %>% 
+  summarise(hr_min = sum(hr_min, na.rm = TRUE))
+  ggplot(g52, 
+           mapping = aes(x = hr_min,
+                         y = count_industry,
+                         fill = sex)) +
+           geom_bar(stat = "identity",
+                            position = "dodge") +
+           theme_bw() +
+           xlab("Minimum Hours") +
+           ylab("Count") +
+           ggtitle("Min hours worked for Industries")
+p1
+
+p2 <- g52 %>% 
+  mutate(hr_max = as.numeric(hr_max)) %>% 
+  summarise(hr_max = sum(hr_max, na.rm = TRUE))
+  ggplot(g52, 
+           mapping = aes(x = hr_max,
+                         y = count_industry,
+                         fill = sex)) +
+           geom_bar(stat = "identity",
+                            position = "dodge") +
+           theme_bw() +
+            xlab("Maximum Hours") +
+            ylab("Count") +
+           ggtitle("Max hours worked for Industries")
+p2
+```
+
+It can be observed from fig \@ref(fig:hr_plots) that overall females worked more than men. However, as the number of work-hours increased men have worked more than women.
+
+
+```{r ind_hrs}
+g52redundanthrs <-  g52[rep(rownames(g52), g52$count_industry), ]
+
+
+hrindcount <- g52redundanthrs %>%
+  ggplot(mapping = aes(x = hr_min, y = industry)) +
+  geom_count() +
+  labs(title = "Population: Industries and hours", x = "Hours") +
+  theme(axis.title.y = element_blank())
+
+ggplotly(hrindcount)
+```
+
+It can be observed from fig \@ref(fig:ind_hrs) that industries like health care, education and training, construction and Professional and technical services have more working population as the working hours increased. Mining, electricity, gas, water and agriculture forestry and fishing showed low working population irrespective of work hours.
+
+
+```{r hrs_plots, fig.show='hold', out.width="50%"}
+p3 <- g58 %>% 
+  mutate(hrs_min = as.numeric(hrs_min)) %>% 
+  summarise(hrs_min = sum(hrs_min, na.rm = TRUE))
+  ggplot(g58, 
+           mapping = aes(x = hrs_min,
+                         y = count_occupation,
+                         fill = sex)) +
+           geom_bar(stat = "identity",
+                            position = "dodge") +
+           theme_bw() +
+           xlab("Minimum Hours") +
+           ylab("Count") +
+           ggtitle("Min hours worked at Occupation")
+          
+p3
+
+p4 <- g58 %>% 
+  mutate(hrs_max = as.numeric(hrs_max)) %>% 
+  summarise(hrs_max = sum(hrs_max, na.rm = TRUE))
+  ggplot(g58, 
+           mapping = aes(x = hrs_max,
+                         y = count_occupation,
+                         fill = sex)) +
+           geom_bar(stat = "identity",
+                            position = "dodge") +
+           theme_bw() +
+           xlab("Maximum Hours") +
+           ylab("Count") +
+           ggtitle("Max hours worked at Occupation")
+p4
+```
+
+It can be observed from fig \@ref(fig:hrs_plots) that overall females worked more than men at all occupations. Although, for maximum hours worked, as number of working-hours increased, the number of men and women remained the same.
+
+```{r popareaoccupation, fig.cap=""}
+
+popareaoccupation <- g58 %>%
+  group_by(SA4_CODE_2016, occupation) %>%
+  summarise(count_occupationarea = sum(count_occupation)) %>%
+  ungroup()
+
+popareaoccupationmax <- popareaoccupation %>% 
+  select(1:3) %>%
+  group_by(SA4_CODE_2016) %>%
+  slice_max(count_occupationarea) %>%
+  arrange(SA4_CODE_2016)
+popareaoccupationmax %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=occupation)) +
+  geom_sf_text(aes(geometry= geometry,label=occupation, colour="white"), check_overlap=TRUE)+
+  theme_void() +
+  theme(legend.position = "bottom")
+bestfield <- popareaoccupation %>% 
+  select(1:3) %>%
+  group_by(occupation) %>%
+  slice_max(count_occupationarea) %>%
+  arrange(SA4_CODE_2016)
+	
+bestfield %>%
+  ggplot() +
+  geom_col(mapping = aes(x = reorder_within(occupation,count_occupationarea, SA4_CODE_2016), y = count_occupationarea, fill = occupation)) +
+  labs(title = "Region and Best Occupation", y = "Number of Employees") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip()  +
+  theme(legend.position = "none")
+```
+
+
+It can be observed from fig \@ref(fig:popareaoccupation) tha the most number of employees in the SA4 regions are employed in the occupations of Professionals, Managers and Technicians and trade workers. Professionals accounted for highest number of employees for region 206, while machinery operators and drivers accounted for the least number of employees for region 213 respectively.
+
+
+
+
+
+
+
+
+
+
 
 
 
