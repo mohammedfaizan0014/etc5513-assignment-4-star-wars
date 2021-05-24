@@ -37,3 +37,16 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+<<<<<<< HEAD
+
+~$Metadata_2016_GCP_DataPack.xlsx
+=======
+*.DS_Store
+.DS_Store
+*.tex
+*.out
+*.log
+*.bcf
+*.aux
+*.zip
+>>>>>>> yanhui_li
