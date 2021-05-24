@@ -103,6 +103,172 @@ ggplot(sa4_geomap) +
   geom_sf()
 ```
 
+```{r g46read, include=FALSE}
+g46a<- read_csv(census_paths[1]) %>%
+  select(-starts_with("P"), -contains("Tot"), -contains("nfd"), -contains("IDes")) %>%
+            mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
+  pivot_longer(cols = -c(SA4_CODE_2016),
+                  names_to = "category",
+                  values_to = "count") %>%
+  unglue_unnest(category, 
+                    c("{sex=[MF]}_{educationlevel=GradDip_and_GradCert}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{educationlevel=PGrad_Deg}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{educationlevel=BachDeg}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{educationlevel=AdvDip_and_Dip}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{educationlevel=Cert_III_IV}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{educationlevel=Cert_I_II}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{educationlevel=Lev_Edu_NS}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{educationlevel=Lev_Edu_NS|GradDip_and_GradCert|PGrad_Deg|BachDeg|AdvDip_and_Dip|Cert_III_IV|Cert_I_II}_{age_min=\\d+}ov"
+                      
+                      ),
+                remove = FALSE) %>% 
+  select(-category)
+  
+```
+
+```{r}
+g46a <- g46a %>% 
+  mutate(afq_level =case_when(str_detect(educationlevel, "GradDip_and_GradCert") ~ "Level 8",
+                            str_detect(educationlevel, "PGrad") ~ "Level 9",
+                            str_detect(educationlevel, "BachDeg") ~ "Level 7",
+                            str_detect(educationlevel, "AdvDip_and_Dip") ~ "Level 5 & 6",
+                            str_detect(educationlevel, "Cert_III_IV") ~ "Level 3 & 4",
+                            str_detect(educationlevel, "Cert_I_II") ~ "Level 1 & 2",
+                            str_detect(educationlevel, "Cert_Levl_nfd") ~ "Level 3 & 4",
+                            str_detect(educationlevel, "Lev_Edu_IDes") ~ "Level Inadequately Described",
+                            str_detect(educationlevel, "Lev_Edu_NS") ~ "Not Stated",
+                            TRUE ~ educationlevel)) %>% 
+  rename(count_edu_lvl = count)
+```
+
+
+```{r edu_gender, fig.cap = "Education level count by gender", include = FALSE}}
+ggplot(g46a, aes(x = reorder(afq_level,count_edu_lvl),
+                      y = count_edu_lvl,
+                      fill = sex)) +
+         geom_col() +
+         labs(x = "AQF levels",
+              y = "number of observations",
+              title = "Education level by gender") +
+         scale_y_continuous(label=label_number())+
+         coord_flip()
+```
+
+The figure \@ref{fig:edu_gender} indicates the Australian Qualifications Framework(AQF) levels of SA4 residents at Census night.
+
+- Most of the residents achieved the level 7, which refers to the bachelor degree, and there are almost twice as many female as male.
+
+- Most of the Male achieved at the level 3 & 4, and both theoretical and practical knowledge and skills for work and/or further learning will have when graduate at this level. Compare to level 3, level 4 will more concentrate on specialised and/or skilled work.
+
+- Level 1 & 2 has the lowest count in SA4 which is good as in this level, graduates only have the foundation knowledge for daily life and work.
+
+
+```{r}
+g47 <- map_dfr(census_paths[3:4], ~{
+  df <- read_csv(.x) %>%
+      select(-starts_with("P"), -contains("Tot"), -contains("InadDes")) %>%
+            mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
+  pivot_longer(cols = -c(SA4_CODE_2016),
+                  names_to = "category",
+                  values_to = "count") %>%
+  unglue_unnest(category, 
+                    c("{sex=[MF]}_{field=(Mgnt_Com|Society_Cult|Fd_Hosp_Psnl_Svcs|MixFld_Prgm|FldStd_NS|NatPhyl_Scn|InfoTech|Eng_RelTec|ArchtBldng|Ag_Envir_Rltd_Sts|Health|Educ|Creative_Arts)}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{field=(Mgnt_Com|Society_Cult|Fd_Hosp_Psnl_Svcs|MixFld_Prgm|FldStd_NS|NatPhyl_Scn|InfoTech|Eng_RelTec|ArchtBldng|Ag_Envir_Rltd_Sts|Health|Educ|Creative_Arts)}_{age_min=\\d+}ov",
+                      "{sex=[MF]}_{field=(Mgnt_Com|Society_Cult|Fd_Hosp_Psnl_Svcs|MixFld_Prgm|FldStd_NS|N{atPhyl_Scn|InfoTech|Eng_RelTec|ArchtBldng|Ag_Envir_Rltd_Sts|Health|Educ|Creative_Arts)}_{age_min=\\d+}_years_and_over"
+                      
+                      ),
+                remove = FALSE)
+})
+
+```
+
+```{r}
+g47 <- g47 %>% 
+  mutate(field =case_when(
+    str_detect(field, "NatPhyl_Scn") ~ "Natural_and_Physical_Sciences",
+                            str_detect(field, "InfoTech") ~ "Information_Technology",
+                            str_detect(field, "Eng_RelTec") ~ "Engineering_and_Technologies",
+                            str_detect(field, "ArchtBldng") ~ "Architecture_and_Building",
+                            str_detect(field, "Ag_Envir_Rltd_Sts") ~ "Agriculture_Environment",
+                            str_detect(field, "Health") ~ "Health",
+                            str_detect(field, "Educ") ~ "Education",
+                            str_detect(field, "Mgnt_Com") ~ "Management_and_Commerce",
+                            str_detect(field, "Society_Cult") ~ "Society_and_Culture",
+                            str_detect(field, "Creative_Arts") ~ "Creative_Arts",
+                            str_detect(field, "Fd_Hosp_Psnl_Svcs") ~ "Food_Hospitality_and_Personal_Services",str_detect(field, "MixFld_Prgm") ~ "Mixed_Field_Programmes",
+                            str_detect(field, "FldStd_NS") ~ "Not Stated",
+                            TRUE ~ field))  %>%
+  select(-category) %>%
+  rename(count_field = count)
+
+```
+
+
+```{r}
+ggplot(g47, aes(x = reorder(field,count_field),
+                      y = count_field,
+                      fill = sex)) +
+         geom_col() +
+         labs(x = "Field",
+              y = "number of observations",
+              title = "Field by gender") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip()
+```
+
+
+```{r popareafield, fig.cap="Population distribution of field", include = FALSE}
+popareafield <- g47 %>%
+  group_by(SA4_CODE_2016, field) %>%
+  summarise(count_fieldarea = sum(count_field)) %>%
+  ungroup()
+
+popareafieldmax <- popareafield %>% 
+  select(1:3) %>%
+  group_by(SA4_CODE_2016) %>%
+  slice_max(count_fieldarea) %>%
+  arrange(SA4_CODE_2016)
+
+popareafieldmax %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=field)) +
+  geom_sf_text(aes(geometry= geometry,label=field, colour="white"), check_overlap=TRUE)+
+  theme_void() +
+  theme(legend.position = "none")
+```
+The figure \@ref{fig:popareafield} indicates the population distribution about the field of SA4 residents at Census night.
+
+- Not stated seems to dominate the map, however, population is concentrated in the green region.
+
+- Therefore management & commerce is the field that the most population have studied. 
+
+
+```{r bestfield, fig.cap="Best field of each region", include = False}
+bestfield <- popareafield %>% 
+  select(1:3) %>%
+  group_by(field) %>%
+  slice_max(count_fieldarea) %>%
+  arrange(SA4_CODE_2016)
+
+bestfield %>%
+  ggplot() +
+  geom_col(mapping = aes(x = reorder_within(field,count_fieldarea, SA4_CODE_2016), y = count_fieldarea, fill = field)) +
+  labs(title = "Region and Best Field", 
+       x = "Fields with region code",
+       y = "Number of Students") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip()  +
+  theme(legend.position = "none")
+```
+
+The figure \@ref{fig:bestfield} indicates the most popular field of SA4 residents in each region at Census night.
+
+- Management & commerce is the first place not only in region 206 but also the whole SA4, while the second place is engineering and technologies.
+
+- Mixed field programmes seems to be the least popular field in SA4.
+
 
 ```{r}
 g52 <- map_dfr(census_paths[12:14], ~{
@@ -304,6 +470,7 @@ bestfield %>%
 
 
 It can be observed from fig \@ref(fig:popareaoccupation) tha the most number of employees in the SA4 regions are employed in the occupations of Professionals, Managers and Technicians and trade workers. Professionals accounted for highest number of employees for region 206, while machinery operators and drivers accounted for the least number of employees for region 213 respectively.
+
 
 
 
