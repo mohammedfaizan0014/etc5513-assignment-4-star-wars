@@ -772,6 +772,436 @@ popareaoccmax %>%
 
 
 ```{r}
+g51 <- map_dfr(census_paths[6:8], ~{
+  df <- read_csv(.x) %>%
+      select(-starts_with("P"), -contains("Tot")) %>%
+            mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
+  pivot_longer(cols = -c(SA4_CODE_2016),
+                  names_to = "category",
+                  values_to = "count") %>%
+  unglue_unnest(category, 
+                    c("{sex=[MF]}_{industry=(Ag_For_Fshg|Mining|Manufact|El_Gas_Wt_Waste|Constru|WhlesaleTde|RetTde|Accom_food|Trans_post_wrehsg|Info_media_teleco|Fin_Insur|RtnHir_REst|Pro_scien_tec|Admin_supp|Public_admin_sfty|Educ_trng|HlthCare_SocAs|Art_recn|Oth_scs|ID_NS)}_{age_min=\\d+}_{age_max=\\d+}",
+                      "{sex=[MF]}_{industry=(Ag_For_Fshg|Mining|Manufact|El_Gas_Wt_Waste|Constru|WhlesaleTde|RetTde|Accom_food|Trans_post_wrehsg|Info_media_teleco|Fin_Insur|RtnHir_REst|Pro_scien_tec|Admin_supp|Public_admin_sfty|Educ_trng|HlthCare_SocAs|Art_recn|Oth_scs|ID_NS)}_{age_min=\\d+}ov"
+                     ),
+                remove = FALSE)
+})
+```
+```{r}
+g51 <- g51 %>% 
+  mutate(industry =case_when(
+                            str_detect(industry, "Ag_For_Fshg") ~ "Agriculture_forestry_and_fishing",
+                            str_detect(industry, "Manufact") ~ "Manufacturing",
+                            str_detect(industry, "El_Gas_Wt_Waste") ~ "Electricity_gas_water_and_waste_service",
+                            str_detect(industry, "Constru") ~ "Construction",
+                            str_detect(industry, "Ag_Envir_Rltd_Sts") ~ "Agriculture_Environment",
+                            str_detect(industry, "WhlesaleTde") ~ "Wholesale_trade",
+                            str_detect(industry, "RetTde") ~ "Retail_trade",
+                            str_detect(industry, "Accom_food") ~ "Accommodation_and_food_services",
+                            str_detect(industry, "Trans_post_wrehsg") ~ "Transport_postal_and_warehousing",
+                            str_detect(industry, "Info_media_teleco") ~ "Information_media_and_telecommunications",
+                            str_detect(industry, "Fin_Insur") ~ "Financial_and_insurance_services",
+                            str_detect(industry, "RtnHir_REst") ~ "Rental_hiring_and_real_estate_services",
+                            str_detect(industry, "Pro_scien_tec") ~ "Professional_scientific_and_technical_services",
+                            str_detect(industry, "Admin_supp") ~ "Administrative_and_support_services",
+                            str_detect(industry, "Public_admin_sfty") ~ "Public_administration_and_safety",
+                            str_detect(industry, "Educ_trng") ~ "Education_and_training",
+                            str_detect(industry, "HlthCare_SocAs") ~ "Health_care_and_social_assistance",
+                            str_detect(industry, "Art_recn") ~ "Arts_and_recreation_services",
+                            str_detect(industry, "Oth_scs") ~ "Other_services",
+                            str_detect(industry, "ID_NS") ~ "Not Stated",
+                            TRUE ~ industry))  %>%
+  select(-category) %>%
+  rename(count_industry = count)
+```
+```{r}
+g57 <- map_dfr(census_paths[10], ~{
+  df <- read_csv(.x) %>%
+      select(-starts_with("P"), -contains("Tot")) %>%
+            mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
+  pivot_longer(cols = -c(SA4_CODE_2016),
+                  names_to = "category",
+                  values_to = "count") %>%
+  unglue_unnest(category, 
+                    c("{sex=[MF]}{age_min=\\d+}_{age_max=\\d+}_{occupation=(Managers|Professionals|TechnicTrades_Wrs|CommunPersnlSvc_W|ClericalAdminis_W|Sales_W|Mach_oper_drivers|Labourers|Occu_ID_NS|TechnicTrades_W)}",
+                      "{sex=[MF]}{age_min=\\d+}ov_{occupation=(Managers|Professionals|TechnicTrades_Wrs|CommunPersnlSvc_W|ClericalAdminis_W|Sales_W|Mach_oper_drivers|Labourers|Occu_ID_NS|TechnicTrades_W)}",
+                      "{sex=[MF]}{age_min=\\d+}_ov_{occupation=(Managers|Professionals|TechnicTrades_Wrs|CommunPersnlSvc_W|ClericalAdminis_W|Sales_W|Mach_oper_drivers|Labourers|Occu_ID_NS|TechnicTrades_W)}"
+                      ),  
+                remove = FALSE)  
+})
+```
+```{r}
+g57 <- g57 %>% 
+  mutate(occupation =case_when(
+                            str_detect(occupation, "TechnicTrades_W") ~ "Technicians_and_trades_workers",
+                            str_detect(occupation, "TechnicTrades_Wrs") ~ "Technicians_and_trades_workers",
+                            str_detect(occupation, "CommunPersnlSvc") ~ "Community_and_personal_service_workers",
+                            str_detect(occupation, "ClericalAdminis_W") ~ "Clerical_and_administrative_workers",
+                            str_detect(occupation, "Sales_W") ~ "Sales_workers",
+                            str_detect(occupation, "Mach_oper_drivers") ~ "Machinery_operators_and_drivers",
+                            str_detect(occupation, "Occu_ID_NS") ~ "Not Stated",
+                            TRUE ~ occupation))  %>%
+  select(-category) %>%
+  rename(count_occupation = count)
+```
+
+```{r cases-distribution, message=FALSE,warning=FALSE}
+g51 %>% 
+  group_by(industry) %>% 
+  ggplot() +
+  geom_histogram(mapping = aes(x = count_industry)) +
+  labs(title = "Population Distribution by Industry of Employment", x = "Number of Industries", y = "Count")
+#4000 records with near to 500 count_industry values.
+```
+
+
+
+```{r , fig.cap=""}
+g51 %>%
+  ggplot(mapping = aes(x = fct_reorder(industry,count_industry), y = count_industry, fill = sex)) +
+  geom_col(mapping = aes(x = reorder(industry,count_industry), y = count_industry, fill = sex)) +
+  labs(title = "Population Share of Industries", y = "Number of Employees") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip() 
+g51 %>%
+  ggplot(mapping = aes(x = fct_reorder(industry,count_industry), y = count_industry, fill = sex)) +
+  geom_col(mapping = aes(x = reorder_within(industry,count_industry, sex), y = count_industry, fill = sex)) +
+  labs(title = "Population Share of Industries", y = "Number of Employees") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip() 
+```
+```{r}
+vicpopulation <- g51 %>%
+  group_by(SA4_CODE_2016) %>%
+  summarise(population = sum(count_industry)) %>%
+  ungroup()
+population <- vicpopulation %>%
+  summarise(population=sum(population))
+vicpopulation <- g51 %>%
+  group_by(SA4_CODE_2016, sex) %>%
+  summarise(population = sum(count_industry)) %>%
+  ungroup(sex) %>%
+  pivot_wider(names_from = sex,
+              values_from = population) %>%
+  rename(malepopulation = M,
+         femalepopulation = `F`) %>%
+  full_join(vicpopulation)
+```
+```{r}
+vicpopulation %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=population)) +
+  geom_sf_text(aes(geometry= geometry,label=SA4_CODE_2016, colour="white"), 
+               check_overlap=TRUE)+
+  theme_void() 
+```
+```{r}
+g51 %>%
+  pivot_wider(names_from = sex,
+              values_from = count_industry) %>%
+  ggplot(mapping = aes(x = M, y = `F`, colour = industry)) +
+  geom_point() +
+  labs(title = "Population: Male vs Female", 
+       x = "Male Population",
+       y= "Female Population") +
+  scale_y_continuous(label=label_number()) +
+  scale_x_continuous(label=label_number()) +
+  theme(legend.position = "bottom")
+```
+```{r}
+g51indmfnest <- g51 %>%
+  pivot_wider(names_from = sex,
+              values_from = count_industry) %>%
+  select(industry, `F`, M ) %>%
+  group_by(industry) %>%
+  nest() %>%
+  mutate(model = map(data, lm)) %>%
+  mutate(aug = map(model, broomstick::augment)) %>%
+  unnest(aug)
+mvf <- ggplot(g51indmfnest,
+       aes(x = M)) +
+# index represent splitting value,
+#geom_point(aes(y = `F`, colour = industry, aplha=0)) +
+geom_line(aes(y = .fitted, colour = industry)) +
+  theme(legend.position = "bottom")  +
+  labs(title = "Population: Male vs Female", 
+       x = "Male Population",
+       y= "Female Population")
+  # geom_text(aes(y = .fitted,label=industry, colour="white"), 
+  #              check_overlap=TRUE)
+ggplotly(mvf) %>%
+  hide_legend()
+```
+
+```{r}
+g51redundantage <-  g51[rep(rownames(g51), g51$count_industry), ]
+ageindcount <- g51redundantage %>%
+  ggplot(mapping = aes(x = age_min, y = industry)) +
+  geom_count() +
+  labs(title = "Population: Industries and Age", x = "Age") +
+  theme(axis.title.y = element_blank())
+ggplotly(ageindcount)
+```
+```{r agedistribution}
+g51redundantage %>%
+  ggplot()+
+  geom_density(mapping = aes( x = as.numeric(age_min),
+                              colour = sex, 
+                              alpha = 0.5)) +
+  scale_x_continuous()
+```
+
+```{r}
+popindage <- g51 %>%
+  group_by(industry, age_min) %>%
+  summarise(count_indage = sum(count_industry)) %>%
+  ungroup()
+nodes <- data.frame(node = unique(popindage$industry),
+                    category = "industry") %>%
+  full_join(data.frame(node = unique(popindage$age_min),
+                    category = "age"))
+popindage <- popindage[,c(1,2,3,1)]
+networkindage <-   graph_from_data_frame(d=popindage,directed = TRUE, vertices = nodes)
+a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
+set.seed(122)
+networkindage %>%
+  ggraph(layout = "stress") +
+  geom_edge_link2(aes(edge_alpha = count_indage,edge_width = count_indage,edge_color = industry),arrow = a) +
+  geom_node_point(aes(size = 2, colour =category) )+
+  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+theme_void() +
+  theme(legend.position = "none")
+```
+
+
+```{r }
+popindarea <- g51 %>%
+  group_by(SA4_CODE_2016, industry) %>%
+  summarise(count_indarea = sum(count_industry)) %>%
+  ungroup()
+nodesarea <- data.frame(node = unique(popindarea$SA4_CODE_2016),
+                    category = "area") %>%
+  full_join(data.frame(node = unique(popindarea$industry),
+                    category = "industry"))
+popindarea <- popindarea[,c(1,2,3,2)]
+networkindarea <-   graph_from_data_frame(d=popindarea,directed = TRUE, vertices = nodesarea)
+a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
+networkindarea %>%
+  ggraph(layout = "stress") +
+  geom_edge_link2(aes(edge_alpha = count_indarea,edge_width = count_indarea,edge_color = industry),arrow = a) +
+  geom_node_point(aes(size = 2, colour =category) )+
+  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+theme_void() +
+  theme(legend.position = "none")
+```
+
+```{r popindarea, fig.cap="Spatial Industry Distribution"}
+popindareamax <- popindarea %>% 
+  select(1:3) %>%
+  group_by(SA4_CODE_2016) %>%
+  slice_max(count_indarea)
+popindareamax %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=industry)) +
+ # geom_sf_text(aes(geometry= geometry,label=industry, colour="white"), check_overlap=TRUE)+
+  theme_void() +
+  theme(legend.position = "bottom")
+#major industry in cbd is helthcare
+#major industry in country side is agriculture
+```
+
+```{r popareaind, fig.cap=""}
+popindarea <- g51 %>%
+  group_by(SA4_CODE_2016, industry) %>%
+  summarise(count_indarea = sum(count_industry)) %>%
+  ungroup()
+popareaindmax <- popindarea %>% 
+  select(1:3) %>%
+  group_by(industry) %>%
+  slice_max(count_indarea) %>%
+  arrange(SA4_CODE_2016)
+popareaindmax %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=industry)) +
+  geom_sf_text(aes(geometry= geometry,label=industry, colour="white"), check_overlap=TRUE)+
+  theme_void() +
+  theme(legend.position = "none")
+popareaindmax %>%
+  ggplot(mapping = aes(x = fct_reorder(industry,count_industry), y = count_industry, fill = sex)) +
+  geom_col(mapping = aes(x = reorder_within(industry,count_indarea, SA4_CODE_2016), y = count_indarea, fill = industry)) +
+  labs(title = "Region and Best Industry", y = "Number of Employees") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip()  +
+  theme(legend.position = "none")
+```
+
+```{r , fig.cap=""}
+g57 %>%
+  ggplot(mapping = aes(x = fct_reorder(occupation,count_occupation), y = count_occupation, fill = sex)) +
+  geom_col(mapping = aes(x = reorder(occupation, count_occupation), y = count_occupation, fill = sex)) +
+  labs(title = "Population Share of Occupation", y = "Number of Employees") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip() 
+g57 %>%
+  ggplot(mapping = aes(x = fct_reorder(occupation,count_occupation), y = count_occupation, fill = sex)) +
+  geom_col(mapping = aes(x = reorder_within(occupation,count_occupation, sex), y = count_occupation, fill = sex)) +
+  labs(title = "Population Share of Occupation", y = "Number of Employees") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip() 
+```
+
+```{r}
+g57 %>%
+  pivot_wider(names_from = sex,
+              values_from = count_occupation) %>%
+  ggplot(mapping = aes(x = M, y = `F`, colour = occupation)) +
+  geom_point() +
+  labs(title = "Population: Male vs Female", 
+       x = "Male Population",
+       y= "Female Population") +
+  scale_y_continuous(label=label_number()) +
+  scale_x_continuous(label=label_number()) +
+  theme(legend.position = "bottom")
+```
+```{r}
+g57occmfnest <- g57 %>%
+  pivot_wider(names_from = sex,
+              values_from = count_occupation) %>%
+  select(occupation, `F`, M ) %>%
+  group_by(occupation) %>%
+  nest() %>%
+  mutate(model = map(data, lm)) %>%
+  mutate(aug = map(model, broomstick::augment)) %>%
+  unnest(aug)
+mvfocc <- ggplot(g57occmfnest,
+       aes(x = M)) +
+# index represent splitting value,
+#geom_point(aes(y = `F`, colour = industry, aplha=0)) +
+geom_line(aes(y = .fitted, colour = occupation)) +
+  theme(legend.position = "bottom")  +
+  labs(title = "Population: Male vs Female", 
+       x = "Male Population",
+       y= "Female Population")
+  # geom_text(aes(y = .fitted,label=industry, colour="white"), 
+  #              check_overlap=TRUE)
+ggplotly(mvfocc) %>%
+  hide_legend()
+```
+
+```{r}
+g57redundantage <-  g57[rep(rownames(g57), g57$count_occupation), ]
+ageocccount <- g57redundantage %>%
+  ggplot(mapping = aes(x = age_min, y = occupation)) +
+  geom_count() +
+  labs(title = "Population: Occupation and Age", x = "Age") +
+  theme(axis.title.y = element_blank())
+ggplotly(ageocccount)
+```
+```{r agedistributiong57}
+g57redundantage %>%
+  ggplot()+
+  geom_density(mapping = aes( x = as.numeric(age_min),
+                              colour = sex, 
+                              alpha = 0.5)) +
+  scale_x_continuous()
+```
+
+```{r}
+popoccage <- g57 %>%
+  group_by(occupation, age_min) %>%
+  summarise(count_occage = sum(count_occupation)) %>%
+  ungroup()
+nodesocc <- data.frame(node = unique(popoccage$occupation),
+                    category = "occupation") %>%
+  full_join(data.frame(node = unique(popindage$age_min),
+                    category = "age"))
+popoccage <- popoccage[,c(1,2,3,1)]
+networkoccage <-   graph_from_data_frame(d=popoccage,directed = TRUE, vertices = nodesocc)
+a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
+set.seed(122)
+networkoccage %>%
+  ggraph(layout = "stress") +
+  geom_edge_link2(aes(edge_alpha = count_occage,edge_width = count_occage,edge_color = occupation),arrow = a) +
+  geom_node_point(aes(size = 2, colour =category) )+
+  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+theme_void() +
+  theme(legend.position = "none")
+```
+
+
+```{r }
+popareaocc <- g57 %>%
+  group_by(SA4_CODE_2016, occupation) %>%
+  summarise(count_occarea = sum(count_occupation)) %>%
+  ungroup()
+nodesareaocc <- data.frame(node = unique(popareaocc$SA4_CODE_2016),
+                    category = "area") %>%
+  full_join(data.frame(node = unique(popareaocc$occupation),
+                    category = "occupation"))
+popareaocc <- popareaocc[,c(1,2,3,2)]
+networkoccarea <-   graph_from_data_frame(d=popareaocc,directed = TRUE, vertices = nodesareaocc)
+a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
+networkoccarea %>%
+  ggraph(layout = "stress") +
+  geom_edge_link2(aes(edge_alpha = count_occarea,edge_width = count_occarea,edge_color = occupation),arrow = a) +
+  geom_node_point(aes(size = 2, colour =category) )+
+  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+theme_void() +
+  theme(legend.position = "none")
+```
+
+```{r popoccarea, fig.cap="Spatial Industry Distribution"}
+popoccareamax <- popareaocc %>% 
+  select(1:3) %>%
+  group_by(SA4_CODE_2016) %>%
+  slice_max(count_occarea)
+popoccareamax %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=occupation)) +
+ # geom_sf_text(aes(geometry= geometry,label=industry, colour="white"), check_overlap=TRUE)+
+  theme_void() +
+  theme(legend.position = "bottom")
+#major industry in cbd is helthcare
+#major industry in country side is agriculture
+```
+
+```{r popareaocc, fig.cap=""}
+popoccarea <- g57 %>%
+  group_by(SA4_CODE_2016, occupation) %>%
+  summarise(count_occarea = sum(count_occupation)) %>%
+  ungroup()
+popareaoccmax <- popoccarea %>% 
+  select(1:3) %>%
+  group_by(occupation) %>%
+  slice_max(count_occarea) %>%
+  arrange(SA4_CODE_2016)
+popareaoccmax %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=occupation)) +
+  geom_sf_text(aes(geometry= geometry,label=occupation, colour="white"), check_overlap=TRUE)+
+  theme_void() +
+  theme(legend.position = "none")
+popareaoccmax %>%
+  ggplot(mapping = aes(x = fct_reorder(occupation,count_occarea), y = count_occarea, fill = sex)) +
+  geom_col(mapping = aes(x = reorder_within(occupation,count_occarea, SA4_CODE_2016), y = count_occarea, fill = occupation)) +
+  labs(title = "Region and Best Occupation", y = "Number of Employees") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip()  +
+  theme(legend.position = "none")
+```
+
+
+
+```{r}
 g52 <- map_dfr(census_paths[12:14], ~{
   df <- read_csv(.x) %>%
       select(-starts_with("P"), -contains("Tot")) %>%

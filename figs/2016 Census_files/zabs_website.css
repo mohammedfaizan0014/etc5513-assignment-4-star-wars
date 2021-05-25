@@ -1,0 +1,3824 @@
+/* Does the same thing as <meta name="viewport" content="width=device-width">,
+ * but in the future W3C standard way. -ms- prefix is required for IE10+ to
+ * render responsive styling in Windows 8 "snapped" views; IE10+ does not honor
+ * the meta tag. See http://core.trac.wordpress.org/ticket/25888.
+ */
+@-ms-viewport {
+	width: device-width;
+}
+@viewport {
+	width: device-width;
+}
+
+BODY {
+	BACKGROUND: #fff; 
+	MARGIN: 0px; 
+	FONT-FAMILY: verdana, sans-serif
+}
+/* ***** img ***************************************************************************** */ 
+IMG {
+	BORDER-RIGHT: 0px; 
+	BORDER-TOP: 0px; 
+	MARGIN: 2px; 
+	BORDER-LEFT: 0px; 
+	BORDER-BOTTOM: 0px
+}
+/* ***** button ***************************************************************************** */  
+BUTTON {
+	COLOR: #033; 
+	POSITION: relative; 
+	TOP: 2px
+}
+
+
+/* Statbox ************************************************************************** */
+div.statbox2 {
+	position: relative;
+	top: 8px;
+	border-style: solid;
+	border-color: #999999;
+	border-width: 1pt;
+	text-align: left;
+	width: 600px;
+	height: 40px;
+	padding-top: 3px;
+	padding-bottom: 0px;
+	padding-left: 40px;
+	padding-right: 40px;
+	font-size: 10pt;
+	}
+div.statbox1
+	{
+	position: relative;
+	top: 8px;
+	border-style: solid;
+	border-color: #999999;
+	border-width: 1pt;
+	text-align: left;
+	width: 600px;
+	height: 40px;
+	padding-top: 11px;
+	padding-bottom: 0px;
+	padding-left: 40px;
+	padding-right: 40px;
+	font-size: 10pt;
+	}
+div.statbox4 {
+	position: relative;
+	top: 8px;
+	border-style: solid;
+	border-color: #999999;
+	border-width: 1pt;
+	text-align: left;
+	width: 530px;
+	height: 40px;
+	padding-top: 3px;
+	padding-bottom: 0px;
+	padding-left: 40px;
+	padding-right: 40px;
+	font-size: 10pt;
+	}
+div.statbox3 {
+	position: relative;
+	top: 8px;
+	border-style: solid;
+	border-color: #999999;
+	border-width: 1pt;
+	text-align: left;
+	width: 530px;
+	height: 30px;
+	padding-top: 13px;
+	padding-bottom: 0px;
+	padding-left: 40px;
+	padding-right: 40px;
+	font-size: 10pt;
+	}
+#statcontent {
+	background: #fff;
+	FONT-SIZE: 0.75em;
+	padding-top: 0px;
+	padding-left: 5px;
+	font-family: verdana, Arial, Helvetica, sans-serif;
+	height: 40px; 
+	border-bottom: 1px solid #bbb; 
+}
+#statcontent button { vertical-align: 1px; }
+#statbox {OVERFLOW: visible; COLOR: blue; display:inline; margin-left: 0px; font-family: Arial, Helvetica, sans-serif; }
+#statbox A {TEXT-DECORATION: none; color: #00f;font-weight:normal; }
+#statbox A:visited {TEXT-DECORATION: none; }
+#statbox A:hover {TEXT-DECORATION: underline; color: #00f; }
+.style1 img { vertical-align: -4px; cursor: pointer; margin: 0; }
+.style1 a {font-size: 1em; font-weight:bold; text-decoration: none; }
+.style2 {color: #FFFFFF}
+#leftText {width: 40%; float: left;}
+#leftGraph {float: left;}
+#rightGraph{width: 60%; display:inline;}
+div#feature {
+	display: block;
+	line-height: 1.2;
+	padding: 0 10px;
+	font-size: 80%;
+}
+div#feature img {
+	float:left;
+	display:inline-block;
+	margin-bottom: 10px;
+	margin-right: 5px;
+	border: 1px solid #999; 
+}
+div#feature h3 {
+	margin-bottom:0px;
+	margin-top: 8px;
+}
+div#feature h4 {
+	color: #333333;
+}
+
+div#feature a {text-decoration:none;}
+div#feature a:hover {text-decoration:underline;}
+
+#alert {
+	background: #fff;
+	padding-top: 5px;
+	padding-left: 12px;
+	padding-bottom: 5px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 80%;
+	height: 22px; 
+	border-bottom: 1px solid #bbb; 
+}
+
+#spotlight { border-bottom: 1px solid #bbb; padding-bottom: 20px;}
+#spotlight h4 {color:#3A3A3A;}
+#spotlight td {padding-bottom: 10px}
+
+div#releases { display: block; line-height: 1.2; border-bottom: 1px solid #bbb;}
+div#releases h3{float: left;}
+
+.pubheading {FONT-SIZE: 75%; TEXT-ALIGN: right;}
+html>/**/body td[width="35%"] .pubs { clear: left; }
+.pubheading a {text-decoration:none;}
+.pubheading a:hover {text-decoration:underline;}
+
+#censusclock a{
+text-decoration:none;
+}
+#censusclock {
+cursor: pointer; 
+  BACKGROUND-IMAGE: url(/ausstats/wmdata.nsf/activeimages/census_datarelease/$File/census_datarelease.jpg);
+ MARGIN: 0px; WIDTH: 165px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 130px;
+ font-family:Arial, Helvetica, sans-serif;
+FONT-WEIGHT: bold; 
+text-align:center;
+}
+
+#censusclock .tot{
+padding-top:75px;
+font-size:12pt;
+color:#ffffff;
+}
+
+#censusclock .poptit{
+padding-top:10px;
+font-size:11pt;
+color:#000000;
+}
+
+#censusclock .linkText{
+font-weight:bold;
+padding-top:4px;
+font-size:9pt;
+COLOR: #0000FF;
+text-decoration:underline;
+}
+
+#ozclock a{
+text-decoration:none;
+}
+#ozclock {
+cursor: pointer; 
+		BACKGROUND-IMAGE: url(/ausstats/wmdata.nsf/activeimages/australiamap_blank/$file/australiamap_blank.jpg);
+	MARGIN: 0px; WIDTH: 165px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 130px;
+	font-family:Arial, Helvetica, sans-serif;
+FONT-WEIGHT: bold; 
+text-align:center;
+}
+#ozclock .poptit{
+padding-top:10px;
+font-size:11pt;
+color:#000000;
+}
+#ozclock .tot{
+font-size:22pt;
+color:#333333;
+}
+#ozclock .pers{
+padding-top:4px;
+font-family:Verdana;
+font-size:7.5pt;
+color:#333333;
+}
+#ozclock .linkText{
+font-weight:bold;
+padding-top:4px;
+font-size:9pt;
+COLOR: #0000FF;
+text-decoration:underline;
+}
+.oz {
+	DISPLAY: block; BACKGROUND-IMAGE: url(/ausstats/wmdata.nsf/activeimages/oz_map1a/$file/oz_map1a.gif); MARGIN: 0px; WIDTH: 178px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 157px
+}
+.oz IMG {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN: 0px; BORDER-LEFT: 0px; WIDTH: 100%; BORDER-BOTTOM: 0px; HEIGHT: 100%
+}
+.oz A {
+	DISPLAY: block
+}
+.oz A:hover IMG {
+	VISIBILITY: hidden
+}
+H1#ABShead {
+	FONT-SIZE: 180%; MARGIN: 20px 0px 0px; COLOR: #fff; TEXT-ALIGN: left
+}
+H2#tag {
+	FONT-SIZE: 10%; MARGIN: 5px 0px 4px; COLOR: #fff; TEXT-ALIGN: left
+}
+H2#publish {
+	PADDING-RIGHT: 2px; 
+	PADDING-LEFT: 2px; 
+	FONT-WEIGHT: bold; 
+	FONT-SIZE: 100%; 
+	BACKGROUND: url(/AUSSTATS/wmdata.nsf/activeimages/stripe/$File/stripe.GIF); 
+	PADDING-BOTTOM: 2px; 
+	MARGIN: 0px 0px -15px; 
+	COLOR: #000; 
+	LINE-HEIGHT: 150%; 
+	PADDING-TOP: 2px; 
+	TEXT-ALIGN: left; font-family:Arial, Helvetica, sans-serif;
+}
+H2.publish {
+	PADDING-RIGHT: 2px; 
+	PADDING-LEFT: 2px; 
+	FONT-WEIGHT: bold; 
+	FONT-SIZE: 100%; 
+	BACKGROUND: url(/AUSSTATS/wmdata.nsf/activeimages/stripe/$File/stripe.GIF); 
+	PADDING-BOTTOM: 2px; 
+	MARGIN: 0px 0px -15px; 
+	COLOR: #000; 
+	LINE-HEIGHT: 150%; 
+	PADDING-TOP: 2px; 
+	TEXT-ALIGN: left; font-family:Arial, Helvetica, sans-serif;
+}
+H5.publish {clear:both;}
+
+H5#publish2 {
+	MARGIN: 20px 0px 15px
+}
+H5.publish2 {
+	MARGIN: 20px 0px 15px
+}
+.pubspace TD {
+	PADDING-LEFT: 8px; PADDING-BOTTOM: 20px
+}
+.pubs {	clear: right; font-size: 75%; padding-bottom: 5px; line-height: 140%; text-align: left; }
+
+.pubs a {text-decoration:none;}
+.pubs a:hover {text-decoration:underline;}
+.mei {
+	FONT-SIZE: 75%; COLOR: #000; LINE-HEIGHT: 150%; PADDING-TOP: 2px
+}
+#more {
+	FONT-SIZE: 75%; TEXT-ALIGN: center
+}
+#more a {text-decoration:none;}
+#more a:hover {text-decoration:underline;}
+#more img
+{vertical-align:middle;}
+.icon {
+	BORDER-RIGHT: #808080 1px solid; BORDER-TOP: #808080 1px solid; FLOAT: left; BORDER-LEFT: #808080 1px solid; MARGIN-RIGHT: 8px; BORDER-BOTTOM: #808080 1px solid
+}
+.new {
+	BORDER-RIGHT: #000 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #000 1px solid; DISPLAY: inline; PADDING-LEFT: 3px; FONT-WEIGHT: bold; FONT-SIZE: 65%; PADDING-BOTTOM: 0px; MARGIN: 0px 2px; BORDER-LEFT: #000 1px solid; WIDTH: 30px; COLOR: #fff; LINE-HEIGHT: 125%; PADDING-TOP: 2px; BORDER-BOTTOM: #000 1px solid; HEIGHT: 5px; BACKGROUND-COLOR: #363
+}
+/*
+xMargin is not a valid property
+HR {
+	xMARGIN: -5px
+}*/
+P#crumb {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 10px; FONT-SIZE: 75%; BACKGROUND: #ccc; PADDING-BOTTOM: 2px; MARGIN: 1px 0px 0px; VERTICAL-ALIGN: middle; PADDING-TOP: 6px; BORDER-BOTTOM: #666 1px solid; HEIGHT: 25px
+}
+#header {
+	CLEAR: both; RIGHT: 0px; BACKGROUND: url(#) no-repeat right top; LEFT: 0px; VERTICAL-ALIGN: bottom; WIDTH: 100%; POSITION: relative; TOP: 0px; TEXT-ALIGN: right
+}
+#header IMG {
+	FLOAT: left; MARGIN: 10px
+}
+#yellowbar {
+	CLEAR: both; FONT-SIZE: 2px; BACKGROUND: #ff0; LEFT: 0px; POSITION: relative; TOP: 0px; HEIGHT: 5px
+}
+#yellow {
+	BORDER-TOP: #ff0 3px solid
+}
+
+#headline {
+	background: #363 url(/AusStats/wmdata.nsf/activeimages/bg2/$File/bg2.gif);
+	BORDER-RIGHT: #000 1px solid; 
+	BORDER-TOP: #000 1px solid; 
+	FONT-SIZE: 77%; 
+	VERTICAL-ALIGN: top; 
+	BORDER-LEFT: #000 1px solid; 
+	COLOR: #fff; 
+	border-bottom: 1px solid #555;
+	TEXT-ALIGN: left;
+	margin-top: 0;
+    }   
+    
+.headlineCensus {
+	background: #363 url(/AusStats/wmdata.nsf/activeimages/bg2Census/$File/bg2Census.gif);
+	BORDER-RIGHT: #000 1px solid; 
+	BORDER-TOP: #000 1px solid; 
+	FONT-SIZE: 77%; 
+	VERTICAL-ALIGN: top; 
+	BORDER-LEFT: #000 1px solid; 
+	COLOR: #fff; 
+	border-bottom: 1px solid #555;
+	TEXT-ALIGN: left;
+	margin-top: 0;
+}
+  
+
+
+.headline {
+	background: #363 url(/AusStats/wmdata.nsf/activeimages/bg2/$File/bg2.gif);
+	BORDER-RIGHT: #000 1px solid; 
+	BORDER-TOP: #000 1px solid; 
+	FONT-SIZE: 77%; 
+	VERTICAL-ALIGN: top; 
+	BORDER-LEFT: #000 1px solid; 
+	COLOR: #fff; 
+	border-bottom: 1px solid #555;
+	TEXT-ALIGN: left;
+	margin-top: 0;
+}
+
+/*
+invalid height
+#headlineTd {
+	height="85";
+}
+*/
+
+.headline H1 {
+	FONT-SIZE: 200%; MARGIN: 20px 0px 0px 30px; COLOR: #fff; TEXT-ALIGN: left; font-family:Arial, Helvetica, sans-serif;
+}
+.headline H2 {
+	FONT-SIZE: 90%; MARGIN: 5px 0px 4px; COLOR: #fff; TEXT-ALIGN: left
+}
+
+.headline TD {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+
+.headline IMG {FLOAT: left; MARGIN: 0px 5px 3px 5px; }
+
+.headlineLinks UL {
+	background: #005f00 url(/AusStats/wmdata.nsf/activeimages/bg_biznav/$File/bg_biznav.gif) repeat-x center;
+	position: absolute;
+	top: 1px;
+	right: 5px;
+	padding: 1px 2px 1px 0;
+	border-top: 3px solid #254B26;
+	border-bottom: 2px solid #254B26;
+}
+
+.headlineLinksCensus UL {
+	background: #005f00 url(/AusStats/wmdata.nsf/activeimages/bg_biznav_census/$File/bg_biznav_census.gif) repeat-x center;
+	position: absolute;
+	top: 1px;
+	right: 5px;
+	padding: 1px 2px 1px 0;
+	border-top: 3px solid #00086a;
+	border-bottom: 2px solid #00086a;
+}
+
+
+
+.headlineLinks LI, .headlineLinksCensus LI  { display: inline; margin: 0; border-left: 1px solid #060; font-size: .9em; line-height: 1.4; }
+
+.headlineLinks A, .headlineLinksCensus A  { padding: 4px 4px; text-decoration:none; color: #fff; }
+.headlineLinks A:hover, .headlineLinksCensus A:hover { background-color: #fff; color: #00f; }
+/* unknown pseudo class
+.headlineLinks A:unknown, .headlineLinksCensus A:unknown { background-color: #fff; color: #00f; }*/
+.headlineLinks A:active, .headlineLinksCensus A:active { background-color: #fff; color: #00f; padding: 4px 4px;}
+
+.surveyButton {float:right; padding-top:35px; padding-bottom:7px;}
+
+
+#navbar {
+	background: #777 url(/AusStats/wmdata.nsf/activeimages/gradient_dn/$File/gradient_dn.jpg) repeat;
+	padding: 4px 0px;
+	padding-right: 4px;
+	border-top: 1px solid #999; 
+	border-bottom: 1px solid #ccc; 
+	text-align: center;
+	 }
+
+.navbar {
+	background: #777 url(/AusStats/wmdata.nsf/activeimages/gradient_dn/$File/gradient_dn.jpg) repeat;
+	padding: 4px 0px;
+	border-top: 1px solid #999; 
+	border-bottom: 1px solid #ccc;
+	text-align: center;
+	 }
+
+
+#navbar UL { margin: 0; padding: 0; font-size: 0.8em; COLOR: #ccc}
+.navbar UL { margin: 0; padding: 0; font-size: 0.8em; COLOR: #ccc}
+#navbar UL LI { display: inline; margin: 0; padding: 0 0 0 3px; }
+.navbar UL LI { display: inline; margin: 0; padding: 0 0 0 3px; border-right: 1px solid #666; }
+#navbar UL LI A { padding: 2px; border: none; color: #fff; text-decoration:none; }
+.navbar UL LI A { padding: 2px; border: none; color: #fff; text-decoration:none;}
+#navbar UL LI A:hover { background: #fff; color: #00f; display: inline; }
+.navbar UL LI A:hover { background: #fff; color: #00f; }
+
+
+.returnTop {
+	background: #777 url(/AusStats/wmdata.nsf/activeimages/gradient_dn/$File/gradient_dn.jpg) repeat;
+	padding: 4px 0px;
+	border-top: 2px solid #FFFF33;
+	border-top: 1px solid #999; 
+	border-bottom: 1px solid #ccc; 
+	text-align: center;
+	
+}
+
+.returnTop UL { margin: 0; padding: 0; }
+.returnTop UL LI { display: inline; margin: 0; font-size: 0.8em; }
+.returnTop UL LI A { padding: 2px 5px 2px 8px; border: none; color: #fff; text-decoration:none;}
+.returnTop UL LI A:hover { background: #fff; color: #00f; }
+/* Unknown pseudo class
+.returnTop UL LI A:unknown { background: #fff; color: #00f; } */
+
+
+#crumb {
+   font-size: 75%;  
+   background: #CCC; 
+   vertical-align: middle; 
+   font-weight: bold;
+   line-height: 1.5em;
+   padding: 0px 5px 0px 7px; 
+  }
+
+  #crumb td {
+     border-top: 1px solid #666; 
+  border-bottom: solid 1px #000;
+  }
+
+#breadcrumb {
+font-weight: normal;
+color:#000;
+background:none;
+padding-left:16px;
+}
+
+#searchtext { VERTICAL-ALIGN: 3px; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; font-weight:bold;
+}
+tr#crumb td {background: #ccc; padding: 2px 3px 2px 3px; border-bottom: 1px solid #888; }
+form#search { vertical-align: middle; margin: 0; text-align: right; }
+form#search input { background: #efefef; }
+form#search input:hover { background: #fff; }
+form#search input:focus { background: #fff; }
+span#google a img { vertical-align: 0px; }
+form#search button { padding: 0 0 0 1px; font: normal 0.75em/1.4; }
+a#hoverbutton { background: #363 url(/AusStats/wmdata.nsf/activeimages/button_adv_sch_20/$File/button_adv_sch_20.png) no-repeat top left; width: 20px; line-height: 1.25; vertical-align: 2px; text-decoration: none; }
+a#hoverbutton:hover { background-color: #696; background-position: 0px -20px;  }
+#searchtext A:visited {
+	COLOR: #0000ff
+}
+#titlebar {
+	BORDER-TOP: #000 1px solid; BACKGROUND: url(/AUSSTATS/wmdata.nsf/activeimages/stripe/$File/stripe.GIF)
+}
+#titlebar H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 125%; PADDING-BOTTOM: 5px; MARGIN: 0px; VERTICAL-ALIGN: bottom; COLOR: #000; PADDING-TOP: 7px
+}
+#titlebar H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 125%; PADDING-BOTTOM: 5px; MARGIN: 10px; VERTICAL-ALIGN: bottom; COLOR: #000; PADDING-TOP: 7px
+}
+#titlebargraphic {
+	TEXT-ALIGN: right
+}
+#tabsJ {
+width:100%;
+font-size:90%;
+line-height:normal;
+
+}
+#tabsJ ul {
+margin:0;
+padding:10px 10px 0 18px;
+list-style:none; width: 80em;
+}
+#tabsJ li {
+display:inline;
+margin:0;
+padding:0;
+}
+#tabsJ a {
+float:left;
+background: #777 url("/AUSSTATS/wmdata.nsf/activeimages/tableftJ1/$File/tableftJ1.gif") no-repeat left top;
+margin:0;
+padding:0 0 0 5px;
+text-decoration:none;
+}
+#tabsJ a span {
+float:left;
+display:block;
+background:url("/AUSSTATS/wmdata.nsf/activeimages/tabrightJ1/$File/tabrightJ1.gif") no-repeat right top;
+padding:5px 15px 4px 6px;
+color:#fff;
+}
+    /* Commented Backslash Hack hides rule from IE5-Mac \*/
+#tabsJ a span {float:none;}
+    /* End IE5-Mac hack */
+#tabsJ a:hover span {
+color:#FFF;
+}
+#tabsJ a:hover {
+background-position:0% -42px;
+}
+#tabsJ a:hover span {
+background-position:100% -42px;
+}
+
+#tabsJ #current a{
+background-color: #326297; 
+background-position:0% -42px;
+}
+#tabsJ #current a span {
+background-position:100% -42px;
+color:#FFF;
+}
+
+#tabsJ #passivetab A {
+	BACKGROUND-POSITION: 0% 0px;
+	BACKGROUND-COLOR: #777
+}
+#tabsJ #passivetab A SPAN {
+	BACKGROUND-POSITION: 100% 0px;
+	COLOR: #B6B6B6
+}
+
+#middle {border-top: 1px solid #777;width:100%;}
+
+.selectedNav {font-weight: bold; padding-bottom: 5px; padding-top: 5px; padding-left:15px;}
+
+#mininav, #mininavexp { background: #bbb url(/AUSSTATS/wmdata.nsf/activeimages/stripe/$File/stripe.GIF) repeat;}
+#mininav ul { list-style-type: none; padding: 0; margin: 0; font: 0.70em/1.4 verdana, sans-serif; background: #eee; border: 1px solid #999; }
+#mininavexp ul  { list-style-type: none; padding: 0; margin: 0; font: 0.70em/1.4 verdana, sans-serif; background: #eee;}
+#mininav ul li, #mininavexp ul li { border-top: 1px solid #eee; border-bottom: 1px solid #666; }
+#mininav ul li a, #mininavexp ul li a { display: inline-block; padding: 0 5px; line-height: 2.1; text-decoration: none; color: #000;  border-top: #ccc; border-bottom: #666; }
+#mininav ul li a:hover { background-color: #fff; border: none; color: #00f; padding: 0 5px; } 
+#mininavexp ul li a:hover div {cursor:pointer; background-color: #fff; border: none; color: #00f; width: 100%; }
+#mininavexp ul li a div {padding: 0 10px;}
+.section { display: none; padding: 0 3px; color: #fff; }
+#mininav ul li h2, #mininavexp ul li h2 { background: #777 url(/AusStats/wmdata.nsf/activeimages/gradient_up/$File/gradient_up.jpg) repeat; display: block; margin: 0; padding: 0 3px; border: 1px solid #999; border-left: 1px solid #777; font: bold 1.2em/2 arial, helvetica, sans-serif; color: #333;}
+
+#mininav h5, #mininavexp h5 { font: bold 0.8em/2.2 verdana, sans-serif; margin-bottom: 0; margin-top:0; padding-left: 5px; color: #333;}
+
+#mininav UL UL, #mininavexp UL UL {FONT-SIZE: 100%;}
+#mininav UL UL LI A { PADDING-LEFT: 20px;
+	              BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/navbullet2/$FILE/navbullet2.gif) no-repeat left top; } 
+#mininav ul ul li a:hover { PADDING-LEFT: 20px;}
+
+/* To fix nav in quirks mode: */
+#mininavexp A DIV {width: 100%;}
+
+/* To fix nav in standards mode: */
+#mininavexp>UL>LI, #mininavexp>UL>LI>UL>LI {padding: 0 5px;}
+#mininavexp>UL>LI[onclick] {padding: 0;}
+#mininavexp>UL>LI>A, #mininavexp>UL>LI>UL>LI>A {padding: 0; width: 100%;}
+#mininavexp>UL>LI>A>DIV, #mininavexp>UL>LI>A>DIV:hover, #mininavexp>UL>LI>UL>LI>A>DIV, #mininavexp>UL>LI>UL>LI>A>DIV:hover {width: auto;}
+
+#news {
+	FONT-SIZE: 80%; LIST-STYLE-TYPE: none
+}
+#news A {
+	TEXT-DECORATION: none
+}
+#news A:hover {
+	TEXT-DECORATION: underline
+}
+#quicklink {
+	PADDING-RIGHT: 1px; BORDER-TOP: #999 1px solid; DISPLAY: block; PADDING-LEFT: 1px; FONT-SIZE: 75%; PADDING-BOTTOM: 1px; MARGIN: 5px; PADDING-TOP: 1px; TEXT-ALIGN: center
+}
+.content {
+	PADDING: 10px 10px; FONT-FAMILY: Arial, Helvetica, sans-serif; 
+}
+
+#rightnav { PADDING-LEFT: 2px; FONT-SIZE: 75%; PADDING-BOTTOM: 2px; MARGIN: 3px; PADDING-TOP: 2px; }
+.rightnav { PADDING-LEFT: 2px; FONT-SIZE: 75%; PADDING-BOTTOM: 2px; MARGIN: 3px; PADDING-TOP: 2px; }
+
+#rightnav H2 {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; FONT-WEIGHT: bold; FONT-SIZE: 140%; BACKGROUND: #666; PADDING-BOTTOM: 2px; MARGIN: 0px; COLOR: #fff; PADDING-TOP: 2px
+}
+.rightnav H2 {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; FONT-WEIGHT: bold; FONT-SIZE: 140%; BACKGROUND: #666; PADDING-BOTTOM: 2px; MARGIN: 0px; COLOR: #fff; PADDING-TOP: 2px
+}
+#rightnavnoborder {
+	FONT-SIZE: 70%; MARGIN: 3px
+}
+.rightnavnoborder {
+	FONT-SIZE: 70%; MARGIN: 3px
+}
+#rightnavnoborder H2 { background: #777 url(/AusStats/wmdata.nsf/activeimages/gradient_up/$File/gradient_up.jpg) repeat; display:  inline-block; margin: 0; padding: 0 3px; border: 1px solid #999; border-left: 2px solid #777; font: bold 1.2em/2 arial, helvetica, sans-serif; color: #333;}
+.rightnavnoborder H2 { background: #777 url(/AusStats/wmdata.nsf/activeimages/gradient_up/$File/gradient_up.jpg) repeat; display:  inline-block; margin: 0; padding: 0 3px; border: 1px solid #999; border-left: 2px solid #777; font: bold 1.2em/2 arial, helvetica, sans-serif; color: #333;}
+#rightNavTable {
+	BACKGROUND: url(/AUSSTATS/wmdata.nsf/activeimages/stripe/$File/stripe.GIF); border-left: 1px solid #ddd; TEXT-ALIGN: center
+}
+#top {
+	BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; BORDER-LEFT: 0px; WIDTH: 100%; PADDING-TOP: 0px; BORDER-BOTTOM: 0px; BORDER-COLLAPSE: collapse
+}
+.tophead {
+	BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; BORDER-LEFT: 0px; WIDTH: 100%; PADDING-TOP: 0px; BORDER-BOTTOM: 0px; BORDER-COLLAPSE: collapse
+}
+
+#bottom {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; WIDTH: 100%; PADDING-TOP: 0px; BORDER-COLLAPSE: collapse
+}
+#copyright {
+	FONT-SIZE: 75%; MARGIN: 15px 0px 5px; TEXT-ALIGN: center
+}
+#footer {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; FONT-WEIGHT: bold; PADDING-BOTTOM: 3px; MARGIN: 0px; PADDING-TOP: 3px; TEXT-ALIGN: center
+}
+#footer UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 100%; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+#footer UL LI {
+	DISPLAY: inline
+}
+#footer UL LI A:link {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; FONT-SIZE: 80%; PADDING-BOTTOM: 3px; COLOR: #fff; PADDING-TOP: 3px
+}
+#footer UL LI A:hover {
+	FONT-SIZE: 80%; COLOR: #00f; BACKGROUND-COLOR: #fff
+}
+#footer UL LI A:visited {
+	COLOR: #fff
+}
+.centerlink {
+	MARGIN: 0% 20%
+}
+#legal {
+	PADDING-RIGHT: 0.2em; PADDING-LEFT: 0.2em; FONT-SIZE: 110%; PADDING-BOTTOM: 0.2em; MARGIN: 0px 2px 2px; LINE-HEIGHT: 1.5em; PADDING-TOP: 0.2em; FONT-FAMILY: verdana, sans-serif
+}
+#legal A {
+	PADDING-RIGHT: 0.2em; PADDING-LEFT: 0.2em; PADDING-BOTTOM: 0.2em; COLOR: #000000; PADDING-TOP: 0.2em
+}
+#legal A:hover {
+	COLOR: #00f
+}
+#legal UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 75%; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+#legal UL LI {
+	DISPLAY: inline
+}
+#printcc {
+	DISPLAY: none
+}
+SELECT {
+	MARGIN: 2px
+}
+#releases {
+	MARGIN-TOP: 10px; FONT-WEIGHT: bold; FONT-SIZE: 75%; TEXT-ALIGN: center
+}
+#navlist UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 75%; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+#navlist UL LI {
+	DISPLAY: inline
+}
+.nrplabelcell {
+	WIDTH: 40%
+}
+.nrpuqcell {
+	WIDTH: 5%
+}
+.nrpdatacell {
+	PADDING-LEFT: 1em; WIDTH: 11%
+}
+.nrpheadercell {
+	VERTICAL-ALIGN: middle; HEIGHT: 30px
+}
+.nrptitlecell {
+	VERTICAL-ALIGN: bottom; HEIGHT: 46px
+}
+.printclass {
+	DISPLAY: none
+}
+.buttonClass {
+	DISPLAY: none
+}
+.plink {
+	DISPLAY: none
+}
+#printlegal {
+	DISPLAY: none
+}
+.linkButton {
+	FONT-SIZE: 75%; TEXT-ALIGN: right
+}
+.img-print {
+	MARGIN: 1px 2px 1px -1px; VERTICAL-ALIGN: middle
+}
+.tabspace {
+	BACKGROUND: url(/AUSSTATS/wmdata.nsf/activeimages/stripe/$File/stripe.GIF); WIDTH: 16px
+}
+#tabs {
+	FONT-SIZE: 100%; BACKGROUND: url(/AUSSTATS/wmdata.nsf/activeimages/stripe/$File/stripe.GIF)
+}
+#tabs TR {
+	LINE-HEIGHT: 1.5
+}
+#tabs TD {
+	VERTICAL-ALIGN: top
+}
+#tabs TD.activetab {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/corner_green_off/$FILE/corner_green_off.GIF) #2b8120 no-repeat left top; PADDING-BOTTOM: 3px; WIDTH: 19%; COLOR: #fff; PADDING-TOP: 3px
+}
+#tabs TD#activetab {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/corner_green_off/$FILE/corner_green_off.GIF) #2b8120 no-repeat left top; PADDING-BOTTOM: 3px; WIDTH: 19%; COLOR: #fff; PADDING-TOP: 3px
+}
+#tabs TD.passivetab {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/corner_grey_off/$FILE/corner_grey_off.gif) #686868 no-repeat left top; PADDING-BOTTOM: 3px; WIDTH: 19%; COLOR: #aaaaaa; PADDING-TOP: 3px; BORDER-BOTTOM: #ccc 1px solid
+}
+TD.tabv {
+	BORDER-RIGHT: #ccc 1px solid; BACKGROUND: #fff; WIDTH: 19%; COLOR: #bbb; BORDER-BOTTOM: #ccc 1px solid
+}
+TD.tabv A {
+	PADDING-RIGHT: 10px; DISPLAY: block; PADDING-LEFT: 10px; BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/corner_grey_off/$FILE/corner_grey_off.gif) #686868 no-repeat left top; PADDING-BOTTOM: 3px; MARGIN: 0px; WIDTH: 100%; COLOR: #fff; PADDING-TOP: 3px; TEXT-DECORATION: none
+}
+TD.tabv A:hover {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; DISPLAY: block; BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/corner_grey_on/$FILE/corner_grey_on.gif) #fff no-repeat left top; BORDER-LEFT: medium none; WIDTH: 100%; COLOR: #00f; BORDER-BOTTOM: medium none
+}
+#subtabnav {
+	PADDING-LEFT: 2%; FONT-SIZE: 70%; BACKGROUND: #326297; COLOR: #fff
+}
+#alpha {
+	FONT-WEIGHT: bold; FONT-SIZE: 110%; PADDING-BOTTOM: 16px; BORDER-BOTTOM: #ccc 2px solid
+}
+#listtopnav {
+	FONT-WEIGHT: bold; FONT-SIZE: 85%; COLOR: #0000ff; BORDER-BOTTOM: #ccc 2px solid
+}
+#listtopnav UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN-LEFT: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+#listtopnav LI {
+	PADDING-RIGHT: 4px; PADDING-BOTTOM: 4px
+}
+#listtopnav A:visited {
+	COLOR: #0000ff
+}
+#listtitle {
+	FONT: 85% normal; MARGIN-LEFT: 0.5em
+}
+#listcategory {
+	FONT-WEIGHT: normal; FONT-SIZE: 85%; COLOR: #000
+}
+.listcategory {
+	FONT-WEIGHT: normal; FONT-SIZE: 85%; COLOR: #000
+}
+#cat-list {
+	FONT: 85%/1.6 verdana
+}
+#cat-list H3 {
+	MARGIN-LEFT: 0.5em
+}
+#listitem {
+	FONT-WEIGHT: normal; FONT-SIZE: 75%; COLOR: #000; LINE-HEIGHT: 1.5
+}
+.listitem {
+	FONT-WEIGHT: normal; FONT-SIZE: 75%; COLOR: #000; LINE-HEIGHT: 1.5
+}
+#listitem A {
+	COLOR: #0000ff
+}
+.listitem A {
+	COLOR: #0000ff
+}
+#listitem A:visited {
+	COLOR: #0000ff
+}
+.listitem A:visited {
+	COLOR: #0000ff
+}
+.listindent {
+	PADDING-LEFT: 20px; TEXT-INDENT: -20px
+}
+#chapcategory {
+	FONT-WEIGHT: bold; FONT-SIZE: 70%; COLOR: #000; FONT-FAMILY: verdana
+}
+#chapitem {
+	FONT-SIZE: 75%; COLOR: #0000ff; FONT-FAMILY: verdana
+}
+.top {
+	FONT-WEIGHT: normal; FONT-SIZE: 75%; MARGIN-LEFT: 4px
+}
+.top A:visited {
+	COLOR: #0000ff
+}
+#chapbreadcrumb {
+	FONT-WEIGHT: normal; FONT-SIZE: 75%; BACKGROUND: none transparent scroll repeat 0% 0%; COLOR: #000
+}
+#titlemain {
+	font-family: Arial, Helvetica, sans-serif; FONT-WEIGHT: bold; FONT-SIZE: 120%; MARGIN: 10px 5px 5px 20px; COLOR: #000
+}
+
+#titlemain span a { font-size: 85%; text-decoration: none; font-family: verdana; }
+
+#titlemain span a img { vertical-align: middle; margin: 0 5px; }
+
+#titlesub {
+	font-family: Arial, Helvetica, sans-serif; FONT-WEIGHT: bold; FONT-SIZE: 100%; MARGIN: 4px; COLOR: #000
+}
+#Release {
+	font-family: verdana, Helvetica, sans-serif; FONT-SIZE: 75%; MARGIN: 5px 5px 10px 16px
+}
+#Release .status {
+	FONT-WEIGHT: bold; FONT-SIZE: 105%; TEXT-TRANSFORM: uppercase
+}
+#Release .red {
+	FONT-WEIGHT: bold; COLOR: red
+}
+#email {
+	PADDING-RIGHT: 10px; FLOAT: right; TEXT-ALIGN: right
+}
+#vcart {
+	FONT-SIZE: 75%; FLOAT: right; MARGIN: 10px 5px; PADDING-BOTTOM: 10px; TEXT-ALIGN: right; vertical-align: bottom;
+}
+#heading {
+	BORDER-RIGHT: #999 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #999 1px solid; DISPLAY: block; PADDING-LEFT: 2px; FONT-WEIGHT: bold; FONT-SIZE: 100%; BACKGROUND: #666; PADDING-BOTTOM: 2px; MARGIN: 4px; BORDER-LEFT: #999 1px solid; WIDTH: auto; COLOR: #fff; PADDING-TOP: 2px; BORDER-BOTTOM: #999 1px solid
+}
+.stripe {
+	BACKGROUND: url(/AUSSTATS/wmdata.nsf/activeimages/stripe/$File/stripe.GIF) left bottom
+
+
+}
+#leftbody {
+	PADDING-RIGHT: 4px; MARGIN-TOP: 4px; PADDING-LEFT: 4px; BACKGROUND: #fff; PADDING-BOTTOM: 4px; OVERFLOW: hidden; WIDTH: 18%; PADDING-TOP: 4px
+}
+#leftbody UL {
+	BORDER-RIGHT: #999 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #999 1px solid; PADDING-LEFT: 0px; FONT-SIZE: 75%; LIST-STYLE-IMAGE: none; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: #999 1px solid; LINE-HEIGHT: 1.6; PADDING-TOP: 0px; BORDER-BOTTOM: #999 1px solid; LIST-STYLE-TYPE: none
+}
+#leftbody LI {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 10px; BACKGROUND: #fff; PADDING-BOTTOM: 4px; PADDING-TOP: 4px
+}
+#leftbody LI A {
+	PADDING-RIGHT: 0px; DISPLAY: block; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 100%; PADDING-TOP: 0px; BACKGROUND-COLOR: #fff; TEXT-DECORATION: none
+}
+#leftbody LI A:hover {
+	COLOR: #00f; TEXT-DECORATION: underline
+}
+#leftact {
+	DISPLAY: block
+}
+#lhnActive {
+	FONT-WEIGHT: bold;	
+}
+#mainpane {
+	LINE-HEIGHT: 1.3em; PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; PADDING-TOP: 20px; FONT-FAMILY: arial, helvetica, sans-serif;
+}
+.mainpane td a {text-decoration:none;}
+
+#mainpane .list UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 20px; MARGIN: 0px; PADDING-TOP: 8px
+}
+#mainpane .list LI {
+	DISPLAY: block; FONT-SIZE: 75%; PADDING-BOTTOM: 3px; COLOR: #000; LIST-STYLE-TYPE: none; TEXT-DECORATION: none
+}
+#mainpane .list H3 {
+	MARGIN: 0px; TEXT-TRANSFORM: uppercase
+}
+#mainpane .list LI A {
+	COLOR: #0000ff; TEXT-DECORATION: none
+}
+#mainpane .list A:visited {
+	COLOR: #663366; TEXT-DECORATION: none
+}
+#mainpane .list A:hover {
+	COLOR: #0000ff; BORDER-BOTTOM: #fff 1px solid; TEXT-DECORATION: underline
+}
+
+#details .img-tag {
+	MARGIN: 0px; VERTICAL-ALIGN: middle;
+}
+#details .listcat {
+ BACKGROUND: #eeeeee; COLOR: #000;
+}
+#details .listcat H4 {
+	DISPLAY: inline; FONT: bold 120% arial;  BACKGROUND: #eeeeee; COLOR: #000; LINE-HEIGHT: 2
+}
+#details .listcat TD {
+	PADDING: 5px;
+}
+#details .listentry {
+	FONT-WEIGHT: normal; FONT-SIZE: 75%; COLOR: #000
+}
+#details .listentry TD {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; PADDING-TOP: 5px; text-decoration:none;
+}
+
+#details .listentry TD a {text-decoration:none;}
+
+#details .listentry TD a:hover {text-decoration: underline;}
+#details .release { font-weight: normal; font-size: 90%;text-align:left;}
+#details .helptext {
+	FONT-SIZE: 75%;
+}
+#details .helptext a img { margin: 0px 3px 0px 5px; vertical-align:middle;}
+#details .infotext {
+	FONT-SIZE: 75%; TEXT-ALIGN: right
+}
+#details .button {
+	BORDER-RIGHT: #000 1px solid; BORDER-TOP: #000 1px solid; BACKGROUND: #ccc; BORDER-LEFT: #000 1px solid; WIDTH: 10px; BORDER-BOTTOM: #000 1px solid
+}
+.info IMG {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; FLOAT: right; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none
+}
+.img-tag {
+	MARGIN: 0px; VERTICAL-ALIGN: bottom
+}
+.col-header {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; BACKGROUND: #eee; PADDING-BOTTOM: 5px; WIDTH: 7%; PADDING-TOP: 5px; TEXT-ALIGN: right
+}
+.col-header-wide {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; WIDTH: 10%; PADDING-TOP: 5px
+}
+#right {
+	MARGIN-TOP: 4px; background:white; WIDTH: 18%
+}
+#srchtitle {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 110%; PADDING-BOTTOM: 5px; COLOR: #000; PADDING-TOP: 10px; FONT-FAMILY: verdana; BACKGROUND-COLOR: #cccccc; TEXT-ALIGN: center
+}
+#srchtitle .srchitem {
+	FONT-SIZE: 75%
+}
+#prenavtabs {
+	FONT-WEIGHT: bold; FONT-SIZE: 10pt; BACKGROUND: #ccc
+}
+#topicprenavtabs {
+	FONT-WEIGHT: bold; FONT-SIZE: 10pt; BACKGROUND: #ccc
+}
+.prenavtabspace {
+	BACKGROUND: #ffffff; WIDTH: 0.5%
+}
+.prenavfirsttabspace {
+	BACKGROUND: #ffffff; WIDTH: 10px
+}
+.posttabspace {
+	BACKGROUND: #ffffff
+}
+TABLE#prenavtabs {
+	WIDTH: 800px
+}
+TABLE#topicprenavtabs {
+	WIDTH: 400px
+}
+#prenavtabs TD A {
+	DISPLAY: block; MARGIN: 0px; VERTICAL-ALIGN: middle; WIDTH: 100%; COLOR: #fff; LINE-HEIGHT: 24px; HEIGHT: 100%; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+#topicprenavtabs TD A {
+	DISPLAY: block; MARGIN: 0px; VERTICAL-ALIGN: middle; WIDTH: 100%; COLOR: #fff; LINE-HEIGHT: 24px; HEIGHT: 100%; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+#prenavtabs TD A:hover {
+	DISPLAY: block; BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/rounded_hover_tab/$File/rounded_hover_tab.JPG) #dfdede no-repeat left top; COLOR: #00f; LINE-HEIGHT: 24px; HEIGHT: 100%; TEXT-ALIGN: center
+}
+#topicprenavtabs TD A:hover {
+	DISPLAY: block; BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/rounded_hover_tab/$File/rounded_hover_tab.JPG) #dfdede no-repeat left top; COLOR: #00f; LINE-HEIGHT: 24px; HEIGHT: 100%; TEXT-ALIGN: center
+}
+#prenavtabs TD.activetab {
+	BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/rounded_tab/$File/rounded_tab.JPG) #654b6d no-repeat left top; VERTICAL-ALIGN: middle; WIDTH: 149px; COLOR: #fff; HEIGHT: 24px; TEXT-ALIGN: center
+}
+#topicprenavtabs TD.activetab {
+	BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/rounded_tab/$File/rounded_tab.JPG) #654b6d no-repeat left top; VERTICAL-ALIGN: middle; WIDTH: 149px; COLOR: #fff; HEIGHT: 24px; TEXT-ALIGN: center
+}
+#prenavtabs TD.prenavtabv {
+	BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/rounded_passive_tab/$File/rounded_passive_tab.JPG) #999999 no-repeat left top; VERTICAL-ALIGN: middle; WIDTH: 149px; HEIGHT: 24px; TEXT-ALIGN: center
+}
+#topicprenavtabs TD.prenavtabv {
+	BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/rounded_passive_tab/$File/rounded_passive_tab.JPG) #999999 no-repeat left top; VERTICAL-ALIGN: middle; WIDTH: 149px; HEIGHT: 24px; TEXT-ALIGN: center
+}
+TD#prenavtext {
+	PADDING-LEFT: 12px; FONT-WEIGHT: bold; FONT-SIZE: 90%; COLOR: #654b6d
+}
+P#postnavtext {
+	FONT-SIZE: 90%
+}
+TD#selectiontext {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 0px; FONT-SIZE: 90%; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#prenavtabline {
+	FONT-SIZE: 0.25em; BACKGROUND: #654b6d; COLOR: #fff
+}
+#censustabs {
+	FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 100%; BACKGROUND: url(/AUSSTATS/wmdata.nsf/activeimages/stripe/$File/stripe.GIF)
+}
+#censustabs TR {
+	LINE-HEIGHT: 1.5
+}
+#censustabs TD {
+	VERTICAL-ALIGN: top
+}
+#censustabs TD A {
+	PADDING-RIGHT: 10px; DISPLAY: block; PADDING-LEFT: 10px; PADDING-BOTTOM: 3px; MARGIN: 0px; COLOR: #fff; PADDING-TOP: 3px; HEIGHT: 100%; TEXT-DECORATION: none
+}
+#censustabs TD A:hover {
+	BORDER-RIGHT: medium none; DISPLAY: block; BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/corner_grey_on/$FILE/corner_grey_on.gif) #fff no-repeat left top; COLOR: #00f; HEIGHT: 100%
+}
+#censustabs TD.activetab {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/corner_green_off/$FILE/corner_green_off.GIF) #2b8120 no-repeat left top; PADDING-BOTTOM: 3px; BORDER-LEFT: #ccc 1px solid; WIDTH: 19%; COLOR: #fff; PADDING-TOP: 3px
+}
+#censustabs TD#activetab {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/corner_green_off/$FILE/corner_green_off.GIF) #2b8120 no-repeat left top; PADDING-BOTTOM: 3px; BORDER-LEFT: #ccc 1px solid; WIDTH: 19%; COLOR: #fff; PADDING-TOP: 3px
+}
+#censustabs TD.passivetab {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/corner_grey_off/$FILE/corner_grey_off.gif) #686868 no-repeat left top; PADDING-BOTTOM: 3px; BORDER-LEFT: #ccc 1px solid; WIDTH: 19%; COLOR: #aaaaaa; PADDING-TOP: 3px; BORDER-BOTTOM: #ccc 1px solid
+}
+.censustabv {
+	BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/corner_grey_off/$FILE/corner_grey_off.gif) #686868 no-repeat left top; BORDER-LEFT: #ccc 1px solid; WIDTH: 19%; COLOR: #bbb; BORDER-BOTTOM: #ccc 1px solid
+}
+#censusoutput {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 80%; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#censusoutputnonjs {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 80%; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#censusoutput  A {
+	TEXT-DECORATION: underline
+}
+#censusoutputnonjs  A {
+	TEXT-DECORATION: underline
+}
+#censusoutput  A {
+	TEXT-DECORATION: underline
+}
+#censusoutputnonjs  A {
+	TEXT-DECORATION: underline
+}
+IMG.centerText {
+	VERTICAL-ALIGN: top
+}
+.img-census-help {
+	VERTICAL-ALIGN: middle
+}
+#censusoutput UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 20px; MARGIN: 0px; PADDING-TOP: 8px
+}
+#censusoutputnonjs UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 20px; MARGIN: 0px; PADDING-TOP: 8px
+}
+#censusoutput LI {
+	DISPLAY: block; FONT-SIZE: 75%; PADDING-BOTTOM: 3px; COLOR: #000; LIST-STYLE-TYPE: none; TEXT-DECORATION: none
+}
+#censusoutputnonjs LI {
+	DISPLAY: block; FONT-SIZE: 75%; PADDING-BOTTOM: 3px; COLOR: #000; LIST-STYLE-TYPE: none; TEXT-DECORATION: none
+}
+#censusoutput H3 {
+	MARGIN: 0px; TEXT-TRANSFORM: uppercase
+}
+#censusoutputnonjs H3 {
+	MARGIN: 0px; TEXT-TRANSFORM: uppercase
+}
+#censusoutput A {
+	COLOR: #0000ff; TEXT-DECORATION: underline
+}
+#censusoutputnonjs A {
+	COLOR: #0000ff; TEXT-DECORATION: underline
+}
+#censusoutput A:visited {
+	COLOR: #800080; TEXT-DECORATION: underline
+}
+#censusoutputnonjs A:visited {
+	COLOR: #800080; TEXT-DECORATION: underline
+}
+#censusoutput A:hover {
+	COLOR: #0000ff; BORDER-BOTTOM: #fff 1px solid; TEXT-DECORATION: underline
+}
+#censusoutputnonjs A:hover {
+	COLOR: #0000ff; BORDER-BOTTOM: #fff 1px solid; TEXT-DECORATION: underline
+}
+#censusoutput INPUT {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; VERTICAL-ALIGN: -1px; PADDING-TOP: 0px; HEIGHT: 20px
+}
+#censusoutputnonjs INPUT {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; VERTICAL-ALIGN: -1px; PADDING-TOP: 0px; HEIGHT: 20px
+}
+#censusoutput TABLE {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-TOP-STYLE: none; PADDING-TOP: 0px; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-COLLAPSE: collapse; BORDER-BOTTOM-STYLE: none
+}
+#censusoutputnonjs TABLE {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-TOP-STYLE: none; PADDING-TOP: 0px; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; BORDER-COLLAPSE: collapse; BORDER-BOTTOM-STYLE: none
+}
+#topic_topLeft {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#topic_topLeft A {
+	TEXT-DECORATION: underline
+}
+#topic_middleLeft {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 5px
+}
+#topic_bottomLeft {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 5px
+}
+#locationsearch_topContentDiv {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 18px; PADDING-BOTTOM: 0px; PADDING-TOP: 5px
+}
+#addresssearch_topContentDiv {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 19px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#areasearch_middle {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 15px
+}
+#areasearch_topLeft {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#areasearch_topLeft A {
+	TEXT-DECORATION: underline
+}
+#areasearch_left {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 30px; PADDING-BOTTOM: 0px; PADDING-TOP: 5px
+}
+#areasearch_right {
+	
+}
+#locationlist_topLeft {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#locationlist_topLeft A {
+	TEXT-DECORATION: underline
+}
+#locationlist_left {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 18px; PADDING-BOTTOM: 0px; PADDING-TOP: 10px
+}
+#locationmap_top {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 18px; PADDING-BOTTOM: 0px; PADDING-TOP: 10px
+}
+#popularAreas_topLeft {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 5px
+}
+#popularAreas_topLeft A {
+	TEXT-DECORATION: underline
+}
+#popularAreas_secondTopLeft {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; PADDING-BOTTOM: 10px; PADDING-TOP: 15px
+}
+#popularAreas_secondTopLeft A {
+	TEXT-DECORATION: underline
+}
+#popularAreas_left {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 34px; PADDING-BOTTOM: 0px; PADDING-TOP: 10px
+}
+#popularAreas_right {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 10px
+}
+#productSelect_topleft {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; FONT-WEIGHT: bold; FONT-SIZE: 110%; FLOAT: left; PADDING-BOTTOM: 0px; VERTICAL-ALIGN: middle; COLOR: #654b6d; PADDING-TOP: 0px
+}
+#productSelect_topmiddle {
+	
+}
+#productSelect_topright {
+	FONT-SIZE: 110%
+}
+#productSelect_middle {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#subLocationSelect_middle {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 7px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#locationOrTopicSelect_topleft {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; FONT-WEIGHT: bold; FONT-SIZE: 110%; PADDING-BOTTOM: 0px; COLOR: #654b6d; PADDING-TOP: 0px
+}
+#locationOrTopicSelect_middle {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#locationOrTopicSelect_topright {
+	FONT-SIZE: 110%
+}
+#leftContent {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 14px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.leftIndent {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 18px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#censusoutputnavmaplabel {
+	
+}
+.censusoutputerror {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; COLOR: #ff0009; PADDING-TOP: 0px
+}
+.invisible {
+	DISPLAY: none
+}
+.revealed {
+	DISPLAY: block
+}
+#CensusRelease {
+	FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 85%; MARGIN: 5px 5px 10px 16px
+}
+#CensusRelease .status {
+	FONT-WEIGHT: bold; FONT-SIZE: 120%; TEXT-TRANSFORM: uppercase
+}
+#CensusRelease .red {
+	FONT-WEIGHT: bold; COLOR: red
+}
+#CensusRelease .locationcode {
+	FONT-WEIGHT: bold; TEXT-TRANSFORM: uppercase
+}
+#CensusRelease .state {
+	FONT-WEIGHT: bold; TEXT-TRANSFORM: uppercase
+}
+#prenavcontent {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 1px; PADDING-BOTTOM: 6px; PADDING-TOP: 6px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+#CensusHelpLink {
+	PADDING-RIGHT: 0.2em; PADDING-LEFT: 0.2em; FONT-SIZE: 110%; PADDING-BOTTOM: 0.2em; MARGIN: 0px 2px 2px; LINE-HEIGHT: 1.5em; PADDING-TOP: 0.2em; FONT-FAMILY: verdana, sans-serif
+}
+#CensusHelpLink A {
+	PADDING-RIGHT: 0.2em; PADDING-LEFT: 0.2em; PADDING-BOTTOM: 0.2em; COLOR: #0000ff; PADDING-TOP: 0.2em
+}
+#CensusHelpLink UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 75%; LIST-STYLE-IMAGE: none; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; FONT-FAMILY: verdana, sans-serif; LIST-STYLE-TYPE: none
+}
+#CensusHelpLink UL LI {
+	DISPLAY: inline
+}
+#CensusHelpLink A:visited {
+	COLOR: #800080
+}
+#CensusHelpLink A:hover {
+	COLOR: #0000ff
+}
+#censusmininav {
+	BACKGROUND: url(/AUSSTATS/wmdata.nsf/activeimages/stripe/$File/stripe.GIF); TEXT-ALIGN: left; FONT-FAMILY: Arial, Helvetica, sans-serif; 
+}
+#mininavcntr {
+	BACKGROUND: url(/AUSSTATS/wmdata.nsf/activeimages/stripe/$File/stripe.GIF)
+}
+#censusmininav H2 {
+	BORDER-RIGHT: #000 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #000 1px solid; PADDING-LEFT: 2px; FONT-WEIGHT: bold; FONT-SIZE: 140%; PADDING-BOTTOM: 2px; MARGIN: 0px; BORDER-LEFT: #000 1px solid; WIDTH: 97%; COLOR: #fff; PADDING-TOP: 2px; BORDER-BOTTOM: #000 1px solid; BACKGROUND-COLOR: #666
+}
+#censusmininav H2 A {
+	COLOR: #fff
+}
+#censusmininav H3 {
+	BORDER-RIGHT: #000 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #000 1px solid; PADDING-LEFT: 2px; FONT-WEIGHT: bold; FONT-SIZE: 120%; PADDING-BOTTOM: 2px; MARGIN: 0px; BORDER-LEFT: #000 1px solid; WIDTH: 97%; COLOR: #fff; PADDING-TOP: 2px; BORDER-BOTTOM: #000 1px solid; BACKGROUND-COLOR: #666
+}
+#censusmininav P {
+	FONT-SIZE: 70%; MARGIN: 0px 0px 2px 7px
+}
+#censusmininav UL {
+	BORDER-RIGHT: #999 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #999 1px solid; PADDING-LEFT: 0px; FONT-SIZE: 70%; LIST-STYLE-IMAGE: none; PADDING-BOTTOM: 0px; MARGIN: 1px 0px; BORDER-LEFT: #999 1px solid; PADDING-TOP: 0px; BORDER-BOTTOM: #999 1px solid; LIST-STYLE-TYPE: none; BACKGROUND-COLOR: #ccc
+}
+#censusmininav LI {
+	MARGIN: 1px; VERTICAL-ALIGN: bottom
+}
+#censusmininav LI A {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #fff 1px solid; DISPLAY: block; PADDING-LEFT: 10px; FONT-WEIGHT: bold; BACKGROUND: url(/ausstats/wmdata.nsf/activeimages/navbullet/$FILE/NAVBULLET.GIF) no-repeat left top; PADDING-BOTTOM: 2px; MARGIN: 0px; BORDER-LEFT: #fff 1px solid; WIDTH: 94%; COLOR: #000; PADDING-TOP: 2px; BORDER-BOTTOM: #fff 1px solid; TEXT-DECORATION: none
+}
+#censusmininav LI A:hover {
+	BORDER-RIGHT: #666 1px solid; BORDER-TOP: #666 1px solid; FONT-WEIGHT: bold; BORDER-LEFT: #666 1px solid; COLOR: #00f; BORDER-BOTTOM: #666 1px solid; BACKGROUND-COLOR: #fff; TEXT-DECORATION: underline
+}
+#censusmininav P.pom {
+	FONT-WEIGHT: bold; FONT-SIZE: 85%; MARGIN: 0px; COLOR: #000; TEXT-ALIGN: center
+}
+#censusmininav HR {
+	DISPLAY: none
+}
+#censusmininav A {
+	FONT-WEIGHT: bold; COLOR: #000
+}
+#censusmininav A:hover {
+	FONT-WEIGHT: bold; BACKGROUND: #fff; COLOR: #00f
+}
+#censusmininav P.pwithbdr {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #fff 1px solid; MARGIN-TOP: 20px; PADDING-LEFT: 2px; FONT-SIZE: 110%; PADDING-BOTTOM: 2px; MARGIN-LEFT: 2px; BORDER-LEFT: #fff 1px solid; COLOR: #000; MARGIN-RIGHT: 2px; PADDING-TOP: 2px; BORDER-BOTTOM: #fff 1px solid; TEXT-ALIGN: left
+}
+#censusmininav HR {
+	DISPLAY: none
+}
+#censusmininav UL UL {
+	BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 0px; FONT-SIZE: 100%; LIST-STYLE-IMAGE: none; PADDING-BOTTOM: 0px; MARGIN: 1px 0px; BORDER-LEFT: 0px; PADDING-TOP: 0px; BORDER-BOTTOM: 0px; LIST-STYLE-TYPE: none; BACKGROUND-COLOR: #ccc
+}
+#censusmininav UL UL LI {
+	MARGIN: 1px; VERTICAL-ALIGN: bottom
+}
+#censusmininav UL UL LI A {
+	BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #fff 1px solid; DISPLAY: block; PADDING-LEFT: 20px; FONT-WEIGHT: bold; BACKGROUND: url(../../../../../DOCUME%7E1/robehm/themepages/images/navbullet2.gif) no-repeat left top; PADDING-BOTTOM: 2px; MARGIN: 0px; BORDER-LEFT: #fff 1px solid; WIDTH: 100%; COLOR: #000; PADDING-TOP: 2px; BORDER-BOTTOM: #fff 1px solid; TEXT-DECORATION: none
+}
+.comininav {
+	WIDTH: 97%
+}
+#QuickStats {
+	FONT-SIZE: 75%; FONT-FAMILY: Arial, Helvetica, sans-serif; 
+}
+#QuickStats TD {
+	PADDING-RIGHT: 0.15cm; PADDING-LEFT: 0.15cm; FONT-SIZE: 100%
+}
+#QuickStats UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+#QuickStats UL LI {
+	DISPLAY: inline
+}
+#QuickStats HR {
+	MARGIN: -5px; COLOR: #959595; HEIGHT: 1px
+}
+#QuickStats A:link {
+	TEXT-DECORATION: none
+}
+#QuickStats A {
+	COLOR: #0000ff; TEXT-DECORATION: none
+}
+#QuickStats A:hover {
+	TEXT-DECORATION: underline
+}
+.quickMapTitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 130%
+}
+.copyright {
+	FONT-SIZE: 120%
+}
+
+/*********** filter navigation bar ****************************************/
+span.label
+{
+MARGIN-TOP: 0px; FONT: bold 11% Arial; WIDTH: 20px; COLOR: black; HEIGHT: 12px; TEXT-ALIGN: center;
+}
+
+
+td.c1,td.c2,td.c3,td.selectedItem,td.today
+{
+border-right: 1px solid #A2ADBC;
+ border-bottom: 1px solid #A2ADBC;
+ background-color: #fff;
+ width: 20px;
+ height: 20px;
+ text-align: center;
+}
+
+td.c1hover,td.selectedItemhover,td.todayhover
+{
+border-right: 1px solid #A2ADBC;
+ border-bottom: 1px solid #A2ADBC;
+ width: 20px;
+ height: 20px;
+ text-align: center;
+background-color: #8888ff;
+cursor: default;
+}
+
+label.c1 
+{
+MARGIN-TOP: 0px; FONT: bold 11px Arial; WIDTH: 20px; CURSOR: pointer; COLOR: black; HEIGHT: 12px; TEXT-ALIGN: center;
+}
+
+
+label.c2 
+{
+MARGIN-TOP: 0px; FONT: bold 11px Arial; WIDTH: 20px; COLOR: red; HEIGHT: 12px; TEXT-ALIGN: center;
+}
+
+
+label.c3
+{
+MARGIN-TOP: 0px; FONT: bold 11px Arial; WIDTH: 20px; COLOR: #b0b0b0; HEIGHT: 12px; TEXT-ALIGN: center;
+}
+
+label.today
+{
+MARGIN-TOP: 0px; FONT: bold 11px Arial; WIDTH: 20px; CURSOR: pointer; COLOR: #408040; HEIGHT: 12px; TEXT-ALIGN: center;
+}
+
+label.selectedItem
+{
+MARGIN-TOP: 0px; FONT: bold 11px Arial; WIDTH: 20px; CURSOR: pointer; COLOR: blue; HEIGHT: 12px; TEXT-ALIGN: center;
+}
+
+label.year
+{
+FONT: bold 13px Arial; COLOR: black;
+}
+
+input.yearButton
+{
+FONT: bold 15px Arial;
+CURSOR: pointer; COLOR: black;
+/*text-highlight-color:black; */
+}
+
+table.mainCalendar
+{
+padding: 0;
+ margin: 0;
+ border-left: none;
+ font: normal 12px/20px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+ color: #616B76;
+ text-align: center;
+ background-color: #fff;
+}
+
+table.calendarGrid td
+{
+
+}
+
+span.filterError, .errorMsg
+{
+font:bold 12px Arial;
+color:red;
+}
+
+span.filterSpan
+{
+margin-left:1%;
+margin-right:1%;
+}
+
+input.openCalendar
+{
+}
+
+input.selectedTitleButtonOver
+{
+FONT-WEIGHT: 800; FONT-SIZE: 13px; CURSOR: pointer; COLOR: black; 
+background:#FFBD91; border:1px solid #FF6600; min-width:0; padding:0;
+}
+
+input.titleButtonOver
+{
+FONT-WEIGHT: 800; FONT-SIZE: 13px; CURSOR: pointer; COLOR: black;
+border:1px solid #FF6600; background:none; min-width:0; padding:0;
+}
+
+input.selectedTitleButton
+{
+FONT-WEIGHT: 800; FONT-SIZE: 13px; CURSOR: pointer; COLOR: black; 
+background:#FFBD91; border:1px solid #FF6600; min-width:0; padding:0;
+}
+
+input.titleButton
+{
+FONT-WEIGHT: 800; FONT-SIZE: 13px; CURSOR: pointer; COLOR: black;
+background:none; border:1px solid #FFFFFF; min-width:0;padding:0px;
+}
+
+span.titleLabelSpacing
+{
+}
+
+span.topmessage
+{
+	font-family: Arial; font-size: 75%; color: #333333;
+	MARGIN-LEFT: 2px; 
+}
+
+/***** do not change these values (position:absolute; z-index:100; visibility:hidden;) in the css below for class 'tip'****/
+/***** changing these will cause the tooltips for IE 6 to not work****/
+.tip
+{
+font:12px/12px Arial,Helvetica,sans-serif; border:solid 1px #666666; 
+	padding:3px;
+	position:absolute; 
+	z-index:100;
+	visibility:hidden; 
+	color:#333333; 
+	top:20px;
+         left:90px;
+	background-color:#FFFF99;
+  /*layer-background-color:#ffffcc;*/
+	line-height: 1.5;
+}
+
+.allInputs
+{
+width:98%;
+font-size:100%;
+}
+.allInput
+{
+font-size:100%;
+}
+
+table.filterTable
+{
+	font-family: Arial; 
+	font-size:75%;
+	width:100%;
+	font-weight:bold;
+}
+table.filterTable2
+{
+	font-family: Arial; 
+	font-size:100%;
+	width:100%;
+	font-weight:bold;
+}
+
+
+td.bottomButtonsContainer
+{
+text-align:center;
+font-size:100%;
+}
+
+td.wholeNavTable
+{
+width:18%;
+border:1px solid #999999
+
+
+}
+
+span.goMessage
+{
+font-weight:normal;
+}
+
+.ResSummary
+{
+	font-size: 90%;
+}
+
+.filterNavBorder 
+{
+	margin: 3px 3px 3px 3px;
+	font-size: 100%;
+	font-family: Arial;
+}
+
+.filterNavBorder h2 
+{
+	color: #FFF;
+	background: #777;  
+	font-size: 100%;
+	font-weight: bold;
+	margin:0px;
+	padding: 2px 5px;
+	border: 3px double #999;
+}
+
+.resultsTable
+{
+	font-size: 85%;
+	font-family: Arial; 
+}
+
+.resultsTableHeader
+{
+	color: #FFF;
+	background: #636563;  
+	text-align: left;
+}
+
+.resultsTableHeader a
+{
+	color: white;
+	text-decoration:none;
+}
+
+.resultsTableHeaderFirstCol
+{
+	background-color: #636563;
+	text-align: left;
+	width: 100px;
+	padding: 2px 4px 2px 4px;
+}
+.resultsTableHeaderLastCol
+{
+	background-color: #636563;
+	text-align: left;
+	width: 150px;
+	padding: 2px 4px 2px 4px;
+}
+.resultsTableHeaderMiddleCol
+{
+	background-color: #636563;
+	text-align: left;
+	width: 150px;
+	padding: 2px 4px 2px 4px;
+}
+
+.resultsTableBody
+{
+	font-size:100%;
+	LINE-HEIGHT: 1.35; 
+	font-family: Arial;
+}
+.resultsTableBody a
+{
+	color: #0000FF;;
+	text-decoration:none;
+}
+.resultsTableBody a:visited 
+{
+	color: #663366;
+	text-decoration:none;
+}
+.resultsTableBody a:hover 
+{
+	color: #0000FF;
+	border-bottom: 1px solid #fff;
+	text-decoration:underline;
+}
+
+.resultsTableFooter
+{
+}
+
+p.error
+{
+	font:bold 100% Arial;
+	color:red;
+}
+.preBodyContent
+{
+	font-size:90%;
+	font-family: Arial;
+	width:100%;
+}
+.warningTable
+{
+	font-size: 100%;
+	font-family: Arial;
+	width: 100%;
+}
+.helpLink {font-size: 10pt}
+.helpImg {vertical-align:-3px}
+.hide{display: none;}
+.MoreExpand{font: 75% Arial;}
+#rowCollapse{display: none;}
+#top2{display: none;}
+#top3{display: none;}
+#up{vertical-align:-3px}
+#down{vertical-align:-5px}
+
+/****************end filter navigation bar**************************************************/
+span#options { background: none; margin: 2px 0 1px -15px; }
+span#options a {
+	padding: 0px 5px;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+span#options a:hover { text-decoration: underline; color: #fff; } 
+span#options img { vertical-align: middle; }
+
+
+
+
+
+/**** start print ****/
+#printspace{display: none;}
+/**** end print ****/
+
+/**** start NRP details page *********/
+.listcat {Font-size: 75%; Font-weight: bold; Color: #000; Background: #eeeeee;}
+.listcat h4 {Font-size: 130%; display: inline; line-height: 2; Font-weight: bold; Color: #000; Background: #eeeeee;}
+.listcat td {padding:5px;}
+.listentry {Font-size: 75%; Font-weight: normal; color:#000; }
+.listentry td {padding:5px;}
+.helptext {Font-size: 75%;}
+/**** end NRP details page *********/
+/****************error text for Help Form**************************************************/
+.errorText 
+{
+ color:#df1800;
+ font-weight: bold;   
+}
+
+/*---- Census navigator codes & overrides---- */
+#hlink , .hide, .showm {display: none;}
+.show, .showp {display: inline;}
+.productImages {margin-top:0 !important;}
+.productImages li {margin-left:0 !important;}
+
+
+/**************************************************************************************
+NEW home page styles
+**************************************************************************************/
+
+
+body {
+	margin: 0px; padding: 0px; border: 0px; font-family: "Arial","Open Sans","DejaVu Sans",sans-serif;font-size:16px;color:#333;
+	
+}
+
+div {
+	margin: 0px; padding: 0px; border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; vertical-align: baseline;
+}
+
+div:focus {outline: -webkit-focus-ring-color none 0;}
+
+span {
+	margin: 0px; padding: 0px; border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; vertical-align: baseline;
+}
+
+p {
+	margin: 0px; padding: 0px; border: 0px; font-family: inherit; font-weight: inherit; vertical-align: baseline; color:#333; line-height: 1.5; font-size: 16px; margin-bottom: 1em;
+}
+
+img {
+	margin: 0px; padding: 0px; border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; vertical-align: baseline;
+}
+
+ul {
+	margin: 0px; padding: 0px; border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; vertical-align: baseline;
+}
+li {
+	margin: 0px; padding: 0px; border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; vertical-align: baseline;
+}
+
+a {
+	color: #3F67AB; text-decoration: none;
+	border-bottom:1px solid #ccc;
+}
+a:visited {
+	color: #934E9C;
+	border-bottom:1px solid #ccc;
+}
+
+
+a:hover, a:focus, a:active {
+	color: #000;outline: 0px;border-bottom:1px solid #000;
+}
+
+
+a:focus {
+	background-color:#e6e6e6;
+}
+
+a img {
+	border: currentColor;
+}
+
+h1, h2, h3, h4, h5, h6 {color:#000;}
+
+/*This is the recommended way to hide content but still maintain screen reader visibility */
+.hidden, .hiddenDtp {
+position:absolute;
+ left:-10000px;
+ top:auto;
+ width:1px;
+ height:1px;
+ overflow:hidden;}
+
+.hidden:focus, .hiddenDtp:focus {
+	left:auto;
+	right:10px;
+	width:auto;
+	height:auto;
+	font-size:16px;
+	
+}
+
+.sitewrapper {
+	margin: 0px auto; width: 100%;	
+}
+.last {
+	margin-right: 0px;
+}
+div.last {
+	margin-right: 0px;
+}
+
+/*--- old pub work arounds ---*/
+
+.sitewrapper #mainContent ul {
+margin-top:20px;}
+
+/* fix for release advice */
+table.releaseadvice {width:100%; padding:0px; border:0px; }
+td.ratitle ul {margin-top:0px !important;} 
+td.racatnum ul {margin-top:0px !important;}
+td.raabstract ul {margin-top:0px !important;}
+td.releaseadvice img {margin-top:20px !important;}
+td.ratitle ul {margin-bottom:20px !important;} 
+td.ramonth {padding-bottom: 20px; !important;} 
+
+/* fix for microdata page */
+table.microdata td  {padding-top: 5px; padding-bottom: 5px; !important;} 
+
+.sitewrapper #mainContent li {
+margin-left:30px;}
+
+#Topics #element3 li, #Topics #element4 li {margin-left:0 !important;}
+
+.sitewrapper #mainContent #mininav li {
+margin-left:0;}
+
+#latestReleases li {margin-left:-20px !important;}
+#bottomLR li {margin:0 0 -30px !important;}
+#bottomLR {margin:0 -40px 0 -30px !important;}
+
+#mininav {background:#fff;}
+
+/*---end work arounds --*/
+
+#headerNew {
+	background-image: url("/ausstats/wmdata.nsf/activeimages/triangle_pattern/$File/triangle_pattern.png");
+	background-repeat:repeat-x;
+	background-position: left bottom;
+	height: 134px; width:100%; margin: 0; 
+	}
+	
+#headerCovid {
+	background-image: url("/ausstats/wmdata.nsf/activeimages/triangle_pattern-covid/$File/triangle_pattern-covid.png");
+	background-repeat:repeat-x;
+	background-position: left bottom;
+	height: 134px; width:100%; margin: 0; 
+	}
+
+#headerWrapper {
+	width:990px;
+	margin: 0 auto;
+}
+.menu-closed#header {
+	border-bottom-color: currentColor; border-bottom-width: 0px; border-bottom-style: none; background-color: white;
+}
+
+#headerTopBanner {
+	background:grey;
+	color:white;
+	display: block;
+	font-size:16px;
+	padding:9px 9px 9px 9px;
+	text-align:center;
+}
+
+#headerTopBanner a {
+	color:white;
+}
+
+#betaBanner > .betaLink {
+	background-color:#FFD630;
+	text-align:center;width:100%; 
+	height: 35px;
+	display: block;
+	left: 0;
+	right: 0;
+}
+
+#betaBanner:target > .betaLink {
+	display: none;
+}
+
+.betaText {
+font-size:12px;
+padding-top:5px;
+}
+
+.betaText a {color:#000;}
+
+.betaText:first-child a:focus {
+	border:2px solid rgba(34, 95, 215, 0.6);
+}
+
+.betaText a:visited {color:black;}
+	
+.closeBeta {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    display: inline-block;
+    font-size: 16px;
+    height: 12px;
+    margin: 5px 0 0 50px;
+    overflow: hidden;
+    text-indent: -9999px;
+    width: 13px;
+}
+
+
+.closeBeta:before {
+    background: none repeat scroll 0 0 #B29212;
+    color: #FFFFFF;
+    content: "X";
+    display: inline-block;
+    font-size: 8px;
+    font-weight: bold;
+    margin: 0 0 0 4px;
+    padding: 0 6px 3px 0;
+    text-indent: 9999px;
+}
+.closeBeta:focus {
+border:2px solid rgba(34, 95, 215, 0.6);}
+	
+.betaHeading {
+	float:right;
+}
+
+.skipLink {font-size:10px; font-family:arial, san-serif;
+position:absolute;
+ left:-10000px;
+ top:auto;
+ width:1px;
+ height:1px;
+ overflow:hidden;}
+
+.skipLink:focus {
+	left:10px;
+	right:auto;
+	width:107px;
+	height:23px;
+	background:white;
+	display:block;
+	padding:5px 0 0 10px;
+	-webkit-border-radius: 0 0 10px 10px;
+	-moz-border-radius: 0 0 10px 10px;
+	border-radius: 0 0 10px 10px;
+	-webkit-box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.35);
+	-moz-box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.35);
+	box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.35);
+}
+
+#ABSlogo {
+	height:120px;
+	float: left; 
+	display: inline;
+	margin: 0px 10px 10px 2px;
+}
+
+.logo {
+	width: 125px; height:110px; 
+	float:left; display:inline;
+	margin: 15px 10px 10px 2px; 
+  border-bottom:none;}
+.logo:hover {border-bottom:none;}
+
+#ieLogo > #ABSlogo > .logo {
+	width: 125px; height:110px; 
+	float:left; display:inline;
+	margin: 15px 10px 10px 2px; 
+	}
+
+.logo:focus {border:2px solid rgba(34, 95, 215, 0.6);}
+
+.betaHeading {font-size:20px;width:320px;border-bottom:1px solid #000;margin-top:-45px;color:#333;}
+.betaHeading a:visited, .betaHeading a {color:#000;}
+.betaHeading:first-of-type {font-weight:bold;}
+.betaHeadingLink {margin-left:30px; font-size:10px;color:#000;font-weight:normal;} 
+.betaHeadingLink:visited, .betaHiddenLink:visited {color:#000;} 
+.betaHiddenLink:hover, a.betaHiddenLink:focus, a.betaHiddenLink:active {color:#000;cursor:default;}
+.betaHiddenLink {border-bottom:none;}
+.searchBar {
+	float:right;
+	margin-top:80px;
+	right:10px;
+	height:50px;
+	display:inline;
+	width:320px;
+	
+	
+}
+
+.searchForm {
+	border:1px solid #000;
+	-webkit-border-radius: 10px;
+    	-moz-border-radius: 10px;
+    	border-radius: 10px;
+	background-color:white;
+	
+}
+
+.searchForm input[type="text"] {
+    font: normal 12pt Arial,Helvetica,Sans-serif;
+    color:#666;
+    width:210px;
+    height:35px;
+    margin-left:10px;
+    border:none;
+    display:inline;
+ }
+
+ .searchForm input[type="submit"] {
+ 	background-color:white;
+ 	background-image: url("/ausstats/wmdata.nsf/activeotherresource/search/$File/search.svg");
+ 	background-repeat: no-repeat;
+ 	
+ display:inline;
+ float:right;
+ cursor:pointer;
+    width: 87px;
+    height: 32px;
+    border: none;
+    margin:3px;	
+    padding-left:30px;
+    color: #146132;
+    font-weight:bold;
+    font-size:15px;
+
+}
+
+.searchForm input[type="submit"]:hover, .searchForm input[type="submit"]:active, .searchForm input[type="submit"]:focus {	background-position: 0 -41px; 	color: #146132; }	
+
+.searchLabel {
+position: absolute;
+width: 1px;
+height: 1px;
+margin: -1px;
+padding: 0;
+overflow: hidden;
+clip: rect(0,0,0,0);
+border: 0;
+}
+
+ul.nav {
+	list-style-type: none;
+}
+
+ul.nav li a {
+	text-decoration: none;
+}
+
+.hide {
+	display: none;
+}
+
+.screen-reader-only {
+	left: -9999px; position: absolute;
+}
+
+/*--- Navigator ---*/
+
+.header .nav-head-container {
+  width:100%;
+  border-bottom:1px solid #e1e1e1;
+  border-top:1px solid #e1e1e1;
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.35);
+  display:block;
+  font-family:arial;
+  }
+  
+.header .mobile-nav {
+    display: none; }
+
+.header .nav-head-container .top-nav {
+      overflow: hidden;
+      width: auto; }
+      
+.header .nav-head-container .top-nav .block-menu-block .menu {
+          list-style-type: none;
+          width:990px;
+          margin:0 auto;
+          padding:0;
+         }
+.header .nav-head-container .top-nav .block-menu-block .menu li {
+            display: inline-block;
+            border-right:1px solid #e1e1e1;
+            height:45px;
+            width:247px;
+            text-align:center;
+            color:#454545 !important;
+            margin-left:-6px;
+            }
+            
+.header .nav-head-container .top-nav .block-menu-block .menu li:first-of-type {
+	border-left: 1px solid #e1e1e1;
+	margin-left:0;
+}
+
+.header .nav-head-container .top-nav .block-menu-block .menu li:hover {
+	background:#e6e6e6;
+	text-decoration:underline;
+}
+
+.header .nav-head-container .top-nav .block-menu-block .menu li a {
+              text-decoration: none;
+              color: #000;
+              font-size: 16px;
+              font-weight:bold;
+              line-height:47px;
+              display: inline-block;
+            }
+            
+.header .nav-head-container .top-nav .block-menu-block .menu li a:focus {
+	width:247px; text-decoration:underline;
+}           
+
+.header .nav-head-container .top-nav .block-menu-block .menu li:hover a {
+              text-decoration:underline;}
+     
+@media (max-width: 1024px) {
+	.header .nav-head-container .top-nav .block-menu-block .menu li {
+		width:156px;
+	}
+	.header .nav-head-container .top-nav .block-menu-block .menu li a {
+		font-size: 12px;
+		}
+		
+		.header .nav-head-container .top-nav .block-menu-block .menu li a:focus {
+		width:156px;}
+	
+	.header .nav-head-container .top-nav .block-menu-block .menu {
+	width:625px;
+}
+	
+}     
+      
+@media (max-width: 640px) {
+/*-------  burger icon ----------*/
+  .header .mobile-nav {
+    display: block;
+    position: relative;
+    right: 0;
+    padding: 36px 14px 0 3%;
+    background-color: #fff;
+    font-size: 12px;
+    z-index: 10001;
+    top: 3px;
+    color: #333;
+    float: right;
+    text-decoration: none;
+    font-family: Arial,Helvetica Neue,Helvetica,sans-serif; 
+    border-bottom:none;
+    height:26px;
+    margin-top:-4px;}
+  .header .mobile-nav:focus {
+      color: #333 !important;
+      border: 1px dotted #676767;
+      background-color: #fff; }
+  .header .mobile-nav .top, .header .mobile-nav .middle, .header .mobile-nav .bottom {
+      background-color: #666;
+      height: 5px;
+      right: 15px;
+      position: absolute;
+      width: 35px; }
+    .header .mobile-nav .top {
+      top: 10px; }
+    .header .mobile-nav .middle {
+      top: 19px; }
+    .header .mobile-nav .bottom {
+      top: 28px; }
+
+.header .nav-head-container {
+	min-height:60px;
+}
+
+.header .nav-head-container .top-nav {
+    transition: 500ms;
+    -webkit-transition: 500ms;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-width: 100%;
+    z-index: 11;
+    margin-top: 0;
+    position: relative;
+    max-height: 0; }
+.header .nav-head-container .top-nav .block-menu-block {
+      float: left;
+      margin-top: 30px;
+      width: 100%; }
+.header .nav-head-container .top-nav .block-menu-block .menu li, .header .nav-head-container .top-nav .block-menu-block .menu li:first-of-type {
+          display: block;
+          text-align:left;
+          margin:0 0 10px 10px;
+          width:290px;
+          border:none;
+          }
+.header .nav-head-container .top-nav .block-menu-block .menu li:hover {
+background:#fff;
+}
+.header .nav-head-container .top-nav .block-menu-block .menu li a {
+            font-size: 19px;
+            width:290px; }
+.header .nav-head-container .top-nav .block-menu-block .menu li:hover a {
+              text-decoration:none;}
+
+.show .header .nav-head-container .top-nav {
+    left: 0;
+    right: 0;
+    top: 0;
+    max-height: 500px; }
+
+  .show .mobile-nav {
+    right: 0;
+    color: #333; }
+    .show .mobile-nav .top {
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+      top: 18px; }
+    .show .mobile-nav .middle {
+      opacity: 0; }
+    .show .mobile-nav .bottom {
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      top: 18px; }
+  .show .menu-open {
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    position: absolute;
+    opacity: 0.8; }
+
+}
+
+
+/* legacy styles */
+span.navPlainText,
+span.navPlainTextMore {
+display:block;	font-size:10px;font-family:"verdana", "arial unicode MS", "Arial"; padding-left:20px;
+}
+.shortDescr {font-size:12px;display:block;margin-left:21px;}
+
+.aboutHeader {display:block !important;margin:0 auto !important;margin-bottom:20px !important;width:575px !important;text-transform:uppercase;} 
+.aboutText {font-weight:normal !important;width:575px !important;display:block !important;margin:10px auto !important;line-height:30px !important;}
+.dbr a {margin-left:13px;}
+.dbrMap {background-image: url("/ausstats/wmdata.nsf/activeimages/dbrMap/$File/dbrMap.png");background-repeat: no-repeat;background-position: left top;height:156px; width:170px;display:block; margin-bottom:20px;display:block;}
+.dbrLink > .dbrMapLong {background-image: url("/ausstats/wmdata.nsf/activeimages/DbR/$File/DbR.jpg");background-repeat:no-repeat;background-position:left top; height:162px; width:215px;display:block; margin-bottom:20px;display:block;padding:0; margin:0; margin-top:10px;}
+.browseStats { background-image: url("/ausstats/wmdata.nsf/activeimages/btn_browse_stats/$File/btn_browse_stats.png");background-repeat:no-repeat;background-position: left top; height:39px; width:204px;display:block;padding:10px 0 0 25px;border-bottom:none;}
+.browseStats:hover {border-bottom:none;text-decoration:underline;}
+.browseStats a, .browseStats a:visited {color:#000;}
+
+/*--- End of Navigator styles ---*/
+
+#crumb {
+	background:none;
+	width:990px;
+	margin:0 auto;
+	margin-top:10px;
+}
+
+#crumb a {border-bottom:1px solid black;}
+#crumb a:visited {color:black;}
+
+#breadcrumb {padding:0;}
+	
+.skinny #mainContent, .skinnyHP #mainContent {
+width: 990px;
+}
+#mainContent {
+	margin:auto;
+}
+
+/*---- Tool tip styles ----*/
+.toolTip {position:absolute;
+ left:-10000px;
+ top:auto;
+ width:1px;
+ height:1px;
+ overflow:hidden;}
+
+.kpi:hover .toolTip, .kpi:focus .toolTip {
+	display:block;
+	left:0;
+	height:auto;
+	position:relative;
+	border:1px solid grey;
+	font-size:12px;
+	width:100%;
+	background:#e6e6e6;
+	padding:10px;
+	-webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  box-shadow:0 5px 5px 0 rgba(0, 0, 0, 0.35);
+}
+
+.kpi:first-of-type .toolTip {
+	margin-top:10px;
+}
+
+
+/*---End tooltip ---*/
+
+.kpi:focus {border:2px solid rgba(34, 95, 215, 0.6);margin:-2px;}
+
+#KeyIndicators {height:145px;}
+
+#KeyIndicators a {float:left; display:inline-block;width:20%;height:60px;padding-top:60px;text-align:center;margin-top:13px;border-bottom:none;
+}
+
+#KeyIndicators a:visited {
+	color:#333;
+}
+
+#KeyIndicators a:focus {height:70px;}
+
+.kpi {
+	color:#333;
+	text-decoration:none;
+	font-size:20px;
+	font-weight:bold;
+	text-align:center;
+}
+
+.kpi:hover {color:#333;}
+
+.kpiDesc {
+	font-size:12px;
+	font-weight:normal;
+	float:left;
+	width:100%;
+	line-height:25px;
+}
+
+#spacing {
+	display:none;
+}
+
+.centerContent > .content {padding: 10px 0 10px 0;}
+
+#CTA a, .CTAcensus {
+	color:#333;
+	text-decoration:none;
+}
+
+#CTA a:visited, .CTAcensus:visited, .CTAbox:visited { color:#333;}
+
+.CTAbox {
+	border:1px solid white;
+	-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+	margin: 40px 27px 25px 0;
+	width:310px;
+	height:228px;
+	display:inline;
+	float:left;
+	font-size:16px;
+	font-weight:bold;
+	color:#333;
+}
+
+
+
+.CTAbox:hover, .CTAbox:active, .CTAbox:focus {
+	border:1px solid #000;
+	color:#333;
+}
+.CTAbox:focus {
+border:1px solid rgba(34, 95, 215, 0.6);}
+
+.CTAbox:hover .CTAtext, .CTAbox:active .CTAtext, .CTAbox:focus .CTAtext {
+	text-decoration:underline;
+	
+}
+
+
+.CTAbox:focus {margin: 40px 27px 25px 0;}
+.CTAlast:focus, .CTAlast:active {margin:40px 0px 25px 0; }
+.CTA3 {
+	margin-right:0;
+	
+}
+
+.CTAtext {
+	background:white;
+	padding: 5px 15px 15px 15px;
+	border:1px solid white;
+	-webkit-border-radius: 10px;
+    	-moz-border-radius: 10px;
+    	border-radius: 10px;
+    	margin: 160px 20px 0 0;
+    	float:right;
+    	width:130px;
+    	height:35px;
+    	text-align:center;
+}
+/*.CTA1 > .CTAtext {margin-top:53px;}*/
+.CTAtextCensus { float:left; margin-left:20px;}
+
+/*-------------
+Census Banner overrides
+----------------------*/
+
+/*-- dual banner --*/
+.CTACen2 {
+	width:649px;
+	float:right;
+	margin-right:0;
+}
+
+.CTACen2:focus {margin-right:0;}
+
+/*-- single banner --*/
+.CTAcensus { 
+	border:1px solid white;
+	-webkit-border-radius: 20px;
+    	-moz-border-radius: 20px;
+    	border-radius: 20px;
+	margin: 20px 9px 45px 0;
+	width:100%;
+	height:229px;
+	display:inline;
+	float:left;
+	font-size:16px;
+	font-weight:bold;
+	color:#000;
+}
+
+.CTAcensus:hover, .CTAcensus:active, .CTAcensus:focus {
+	border:1px solid #000; 
+	color:#333;
+}
+
+.CTAcensus:hover .CTAtext, .CTAcensus:active .CTAtext, .CTAcensus:focus .CTAtext {
+	text-decoration:underline;
+	background:#e6e6e6;
+}
+
+/*-------- Census coutdown desktop -----*/
+
+.clock1 {background:none !important;background:#167764 !important;}
+	
+.number1, .number2 {
+left:45px;
+font-size:190px;  
+color:white;
+position:relative;
+float:left;
+margin-top:-6px;
+}
+
+.clock1 .CTAtext {
+border:1px solid grey;
+position:relative;
+margin-top:-53px;
+float:left;
+margin-left:129px;
+}
+
+
+@media only screen and (max-width: 1024px), only screen and (max-device-width: 1024px) {
+.number1, .number2 {
+left:35px;
+font-size:115px;  
+color:white;
+position:relative;
+float:left;
+margin-top:-10px;
+}
+
+
+.clock1 .CTAtext {
+border:1px solid grey;
+position:relative;
+margin-top:-38px;
+float:left;
+margin-left:70px;
+}
+}
+
+
+
+.alert {
+
+	font-size:14px;
+	width:95%;
+	margin:0 auto 20px auto;
+	padding: 0 0 5px 40px;
+	display:block;
+	background-image: url("/ausstats/wmdata.nsf/activeotherresource/HPalert/$file/HPalert.svg");background-position: 0px 290px; background-repeat: no-repeat;
+}
+
+#latestReleases {
+	border:1px solid white;
+	-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+	padding: 0px 20px 10px 20px;
+	margin: 0;
+	width:268px;
+	height:740px;
+	display:inline-block;
+	float:left;
+	font-size:11px;
+	color:#464646;
+	overflow:hidden;
+	background: rgb(247, 247, 247);	
+	
+}
+#latestReleases h1 {
+	color:#464646;
+	font-size:16px;
+	font-weight:bold;
+}
+#latestReleases > h1 span {
+	display:block;
+	margin:-15px -20px 10px -20px;
+	padding:30px 30px 20px 20px;
+	background: #c5d9c7;
+	width:100%;
+	border-bottom:1px solid #000;
+}
+
+.LRcalendar {background:url("/ausstats/wmdata.nsf/activeimages/calendar-icon/$File/calendar-icon.svg") no-repeat right top; float:right;margin-top:-50px;height:30px;width:75px;}
+.LRcalendar a {height:30px;width:75px;}
+.calendarLink {padding:0px !important; margin:0px !important; width:45px;height:20px;}
+.calText {border-bottom:1px dotted #999;}
+
+.calendarLink:hover .calText {border-bottom:1px solid #000 !important;color:#000;}
+.calendarLink:hover, .calendarLink:visited {color:#000;}
+
+#latestReleases a {
+	color:#464646;
+	line-height:24px;
+	display:block;
+	margin:-10px;
+	padding:10px;
+	text-decoration:none;
+	border-bottom:none;
+}
+#latestReleases a:hover {
+	text-decoration:none;
+	border-bottom:none;
+}
+
+#latestReleases a:hover > .titleLR, #latestReleases a:focus > .titleLR, #latestReleases a:active > .titleLR {text-decoration:none;}
+
+#latestReleases ul {
+	list-style-type: none;
+	margin-top:-10px !important;
+}
+
+#latestReleases li {
+	border-bottom:1px solid #464646;
+	margin: 0px -20px 0 -20px;
+	padding:10px ;
+	height:90px;
+	overflow:hidden;
+}
+
+#latestReleases li:last-of-type {margin-bottom:10px;}
+
+#latestReleases li:hover, #latestReleases li:focus, #latestReleases li:active {
+	background: rgb(230, 230, 230);
+}
+
+.LRmoreRelease {height:20px;float:right;margin-top:-35px;width:70px;padding-top:10px;text-align:left;border-bottom:1px dotted #999;}
+.LRmoreRelease:hover {border-bottom:1px solid #000;}
+
+.dateLR {font-size:14px;}
+.titleLR {
+	font-weight:bold;
+font-size:16px;}
+#LatestReleasesList .titleLR {
+	color:#3F67AB;}
+.titleLR:visited {color:#934E9C;}	
+.dateLR, .titleLR, .prodName {width:100%;clear:right;display:block;}
+
+#bottomLR {
+	background: #c5d9c7;
+	margin:0 -40px 0 -30px;
+	padding: 10px 0 300px 30px;
+	font-weight:bold;
+	font-size:16px;
+}
+#bottomLR li {
+	border:none;
+	margin:0 0 -30px 0;
+	padding:10px 0 0 0;
+	height:50px;
+	width:90%;
+}
+#bottomLR a:hover, #bottomLR a:focus, #bottomLR a:active {
+text-decoration:underline;}
+	
+#bottomLR a:focus, #bottomLR a:active {	
+	background-color: #C8D4C5;
+	border:none;
+}
+
+#bottomLR li:hover, #bottomLR li:focus, #bottomLR li:active {
+background:none;}
+
+#latestReleases li.dateLast {
+	border:none;
+	padding-bottom:20px;
+}
+
+
+.stories {
+	border:1px solid rgb(204, 212, 207);
+	-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+	padding:0px;
+	margin: 0 2px 25px 26px;
+	width:310px;
+	height:400px;
+	overflow:hidden;
+	display:inline-block;
+	float:left;
+	background: #e6e6e6;
+	
+
+}
+
+.stories + .stories {
+	background: #c5d9c7;
+}
+
+#Info2 {
+	border:1px solid rgb(247, 247, 247);
+	background: rgb(247, 247, 247);	
+}
+#Info2:hover {
+	border:1px solid #000;
+}
+#Info2 a {
+	padding-bottom:80px;
+}
+.stories a {
+	color:#464646;
+	text-decoration:none;
+	display:block;
+	padding:40px 20px;
+	border-bottom:none;
+}
+
+.stories a span {display:block;}
+
+.stories:hover, .stories:active, .stories:focus {border:1px solid #000;}
+
+.stories a:focus {
+	text-decoration:underline;
+border-bottom:none;
+	background-color:inherit;
+}
+
+.stories:hover a .storyTitle, .stories:focus a .storyTitle, .stories:active a .storyTitle {text-decoration:none;}
+
+.stories a .storyArea {
+	font-size:12px;
+	line-height:20px;
+	margin-bottom:20px;
+}
+
+.stories a .storyTitle {
+	font-size:19px;
+}
+
+.stories a .storyText {
+font-size:14px;
+	 margin-top:20px;
+	 line-height:28px;}
+
+
+.contextFocus {
+	margin: 0 0 25px 26px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	display:block;
+	height:322px;
+	width:651px;
+	float:left;
+	border:1px solid white;
+	overflow:hidden;
+}
+
+#contextualContent {height:322px;
+	width:651px;
+	display:block;
+}
+	
+.contextFocus p {
+font-weight:bold;
+font-size:18px;
+text-align:left;
+padding:120px 0 0 380px;
+width:250px;
+}
+
+.contextFocus:hover {
+	border:1px solid rgb(120, 120, 120);
+	-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+color:#333;
+}
+
+#copyright {width:100%;clear:both;}
+
+.contextFocus:focus, .contextFocus:active {
+	border:1px solid rgba(34, 95, 215, 0.6);
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+    	display:block;
+	height:322px;
+	width:651px;
+	float:left;
+	margin-bottom:25px;
+	
+    
+}
+#theFooter {
+	width:100%;
+    	height:300px;
+    	background: #e6e6e6;
+    	font-size:16px;
+    	float:left;
+    	box-shadow:0 5px 10px 0 rgba(0, 0, 0, 0.35);
+}
+#footerWrap {width: 990px;margin:20px auto 0 auto; height:300px;}
+.grid_2 {
+   display: inline;
+  float: left;
+  width: 205px;
+  margin-right:52px;
+}
+.grid_2:last-of-type {
+margin-right:0;}
+
+.ftHeader {
+	color:#000;
+	font-size:16px;
+	font-weight:bold;
+	margin-top:5px;
+}
+
+
+#theFooter ul {
+	list-style:none;
+}
+#theFooter ul li {
+	margin:0 0 15px 0px;
+}
+
+
+#theFooter ul li a{
+	text-decoration:none;	
+	color: #333;
+	
+}
+#theFooter ul li a:hover, #theFooter ul li a:focus, #theFooter ul li a:active{text-decoration:none;}
+#theFooter ul li a:focus {background-color:#f7f7f7;border:2px solid rgba(34, 95, 215, 0.6)}
+
+#needHelp { padding:0px;height:110px;margin: 0 0 20px 0; }
+.wantHelp { font-size:15px;font-weight:bold;}
+
+.logoImg {
+    float: left;
+}
+
+.logoReplacement {
+   margin: 0 15px 5px 0;height:34px;width:34px;
+   float:left;
+   display:block;
+   overflow:hidden;
+    text-indent:100%;
+    white-space:nowrap;
+ }
+
+#socialIcons {
+	height:40px;
+	float:left;
+}
+
+#socialIcons a {
+	width:34px;
+	height:34px;
+	display:inline-block;
+	margin-right:3px;
+}
+#socialIcons a:focus {border:2px solid rgba(34, 95, 215, 0.6)}
+	
+
+
+.feedback { background-image: url("/ausstats/wmdata.nsf/activeimages/btn_browse_feedback/$File/btn_browse_feedback.png");background-repeat: no-repeat;background-position: left top; height:39px; width:204px;display:block;padding:11px 0 0 12px;font-weight:bold; font-size:15px;color:#333;border-bottom:none;}
+.feedback:focus {border:2px solid rgba(34, 95, 215, 0.6)}
+.feedback:hover {border-bottom:none;text-decoration:underline;}
+.feedback:visited {color:black;}
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.secondFooter {margin:0 auto; width:990px;height:80px;}
+.secondFooter ul {display:inline;}
+.secondFooter ul li {display:inline-block;width:160px;text-align:center;}
+.secondFooter ul li a.hidden:focus {right:auto;position:relative;background:white;}
+
+/*----------------------
+Browse Statistics page styles
+----------*/
+
+.greyBox {padding:10px 0 25px 5px;border-top:5px solid #e6e6e6;border-bottom:5px solid #e6e6e6; }
+.oneCol { width:33%; float:left;margin-top:-50px;}
+.oneCol .economy, .economyTAG {background: url("/ausstats/wmdata.nsf/activeotherresource/HPeconomy/$File/HPeconomy.svg") no-repeat 0px 0px;}
+.oneCol .environment, .environmentTAG {background: url("/ausstats/wmdata.nsf/activeotherresource/HPenvironment/$File/HPenvironment.svg") no-repeat 0px 0px;}
+.oneCol .health, .healthTAG {background: url("/ausstats/wmdata.nsf/activeotherresource/HPhealth/$File/HPhealth.svg") no-repeat 0px 0px;}
+.oneCol .industry, .industryTAG {background: url("/ausstats/wmdata.nsf/activeotherresource/HPindustry/$File/HPindustry.svg") no-repeat 0px 0px;}
+.oneCol .labour, .labourTAG {background: url("/ausstats/wmdata.nsf/activeotherresource/HPlabour/$File/HPlabour.svg") no-repeat 0px 0px;}
+.oneCol .people, .peopleTAG {background: url("/ausstats/wmdata.nsf/activeotherresource/HPpeople/$File/HPpeople.svg") no-repeat 0px 0px;}
+.oneCol .methods, .oneCol .snapshot, .oneCol .dbr, .classificationTAG, .standardTAG, .methodologyTAG {background: url("/ausstats/wmdata.nsf/activeotherresource/HPother/$File/HPother.svg") no-repeat 0px 0px;}
+	
+#titlemain h1 {margin:40px 0 0 0; font-size:26px;width:60%;font-weight:bold;font-family: Arial, Helvetica, sans-serif;}
+.oneCol ul {list-style:none;}
+.oneCol ul li {margin-bottom:25px; font-size:16px;}
+.oneCol ul li a {display:block; clear:right;border-bottom:none;}
+.oneCol ul li a:hover {border-bottom:none;text-decoration:underline;}
+.oneCol a {height:20px;}
+.descriptor {display:block; font-size:11px;}
+.oneCol h2 {font-size:18px; text-transform:uppercase;margin-top:50px;padding:0 0 5px 35px;}
+.dbrMap {padding-top:160px; margin-bottom:-100px;}
+.catButton, .catButton:visited {background-image: url("/ausstats/wmdata.nsf/activeimages/btn_browse_long/$File/btn_browse_long.png");background-repeat: no-repeat;background-position: left top;width:600px;font-size:13px;border-bottom:none;color:#000;}
+.catButton:hover {border-bottom:none;}
+.colFooter a {font-weight:bold; color:#333; font-size:13px;display:block;}
+.colFooter {padding-top:20px; margin-top:10px;}
+.releaseOverflow > .colFooter {border-top: 5px solid #e6e6e6;}
+
+/*----------------------
+Latest release overflow page styles
+----------*/
+
+.releaseOverflow  h1 {font-size:25px; border-bottom:5px solid #e6e6e6;padding:0 0 55px 20px;margin-top:30px;}
+.releaseOverflow  a {border:none;}
+.releaseOverflow  a:hover {border:none;text-decoration:underline;}
+.releaseOverflow  ul {list-style:none;margin-top:-27px;padding:27px 0 0 5px;}
+.releaseOverflow  li {margin-bottom:25px;line-height:26px;}
+.overflowBtn {background-image: url("/ausstats/wmdata.nsf/activeimages/btn_browse_med/$File/btn_browse_med.png");background-repeat: no-repeat;background-position: left top; width:260px;}
+
+/*----------------------
+Main template page and Topic page styles
+----------*/
+
+#middle {margin-left:10px;}
+#Topics {margin:-26px 0 0 -10px;}
+.leftCols {width:60%; float:left;border-top:5px solid #e6e6e6;border-bottom:5px solid #e6e6e6;padding:10px; margin:0 0 20px 0;}
+.leftColsAbout {width:60%; float:left;border-top:5px solid #e6e6e6;border-bottom:5px solid #e6e6e6;padding:10px; margin:0 0 20px 0;}
+.rightCols {width:312px; float:right;}
+#element1, #element2 {padding:5px 0 0 0;}
+
+#element2 li, #element5 li {line-height:26px;}
+#element3, #element4, .sideBoxes {
+	border:1px solid white;
+	background: #F7F7F7;
+	width:280px; 
+	display:block;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	padding:10px 10px 10px 20px;
+	overflow:hidden;
+	margin-bottom:40px;
+}
+/*--- blue link overrides---*/
+.sideBoxes a, #element6 a, #element4 a, #element3list a, #element2link, #element3link, #crumb a, #nav a {color:#000;}
+#element6 a:visited, #element4 a:visited, .sideBoxes a:visited, #element3list a:visited, #element2link:visited, #element3link:visited, #crumb a:visited, #nav a {color:#000;}
+
+#element6 {margin:20px 0 10px 0;}
+.rightCols h1 {font-size:16px;color:#fff;background:#326297;border-bottom:1px solid grey;display:block; margin:-10px -10px 0 -20px;padding:3px 0 0 20px;height:27px;}
+.leftCols a {font-weight:bold;}
+.mainTemplate li, #Topics li {list-style:none;margin-bottom:20px;}
+#Topics .leftCols {margin:-10px 0 0 0;border-bottom:none;}
+/*#Topics li a {color:#333;}*/
+#Topics > h1 {font-size:26px;padding-left:30px;}
+
+.horLinks {margin:-15px 0 0 30px;padding-bottom:25px;}
+.horLinks ul li {display:inline;margin-left:0px !important;padding-right:5px;border-right:1px solid #999;}
+.horLinks a, .horLinks a:visited {font-size:11px;color:#999;}
+.horBrowse {margin:-40px 0 0 0;}
+.releaseOverflow .horLinks {margin:-105px 0 0 15px;}
+.releaseOverflow .horLinks a {border-bottom:1px solid #ccc;}
+.releaseOverflow .horLinks a:hover {border-bottom:none;}
+.horLatest {margin:40px 0 0 0;}
+#middle {border:none;}
+#contentFooter {margin:-15px 0 20px 0;}
+
+.leftColsAlt {width:100%;}
+#element7 {width:280px;border-top:1px solid black;width:311px;}
+.element7kpi {margin:0 auto; width:150px; display:block;margin-top:-25px;background:#fff;padding:10px;border-bottom:none;}
+.element7kpi:hover {border-bottom:none;}
+.element7Desc {font-size:12px;display:block;}
+.element7kpi:focus {margin:-25px auto 0 auto;}
+.leaders {width:100px;text-align:center;}
+.leaders a {font-size:16px; font-weight:bold;margin:0 auto;text-align:center;}
+.leaders img {display:block;margin:0 auto;}
+.leaderTitle {font-weight:normal}
+.dateTopics {font-size:12px;}
+.ProdNameLRO {font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.leftColFooter {border-top:5px solid #e6e6e6;padding-top:20px;}
+.leftColFooter a {font-size:13px;}
+
+.microNote {background-image: url("/ausstats/wmdata.nsf/activeimages/icon-note/$File/icon-note.gif");background-repeat: no-repeat;background-position: 95% 5%;
+	margin-top:-50px;
+	padding-top:30px;
+	position:relative;
+	height:1px;
+	overflow:hidden;
+	width:20px;
+	float:right;
+	font-size:10px;
+	text-decoration:none;
+}
+
+.microNote:hover, .microNote:focus {
+	height:55px;
+	width:185px;
+	padding: 40px 0 5px 5px;
+	border:1px solid #999;
+	position:absolute;
+	margin:-53px 0 0 97px;
+	background-color:#f7f7f7;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	box-shadow:0 5px 10px 0 rgba(0, 0, 0, 0.35);
+	text-decoration:none;
+}
+
+.noBold {font-weight:normal;}
+
+/*-----------------------------------
+More releases links
+------------------------------------*/
+
+#LatestReleasesSeeMore, #element2seemore, #element3seemore, #element4seemore, #element5seemore {width:100%;display:block; margin:-25px 0 0 0;padding:10px 0 20px 0;}
+#LatestReleasesSeeMoreLink, #element2link, #element3link, #element4link, #element5link {float:right;font-size:12px;font-weight:bold;padding-right:20px;}
+#LatestReleasesSeeMoreLink, #LatestReleasesSeeMoreLink:visited {color:black;}
+#element3seemore, #element4seemore {border:none;padding-top:20px;}
+
+/*-----------------------------------
+About Us, Contact us and Help pages
+------------------------------------*/
+
+.sideBoxList {margin:20px 0 0 0;}
+
+.contactPage h2, #helpPage h2 {font-size:18px;margin-top:50px;}
+.contactPage h2:first-of-type {margin-top:0;}
+
+.contactPage h3, #helpPage h3 {font-size:16px;}
+
+.textUnderline {text-decoration:underline;}
+.textUnderline > a, .textUnderline > a:hover {border:none;}
+
+.sideBoxesText h1 {font-size:16px;}
+.sideBoxes h1 {font-family:"Arial", "Open Sans", sans-serif;}
+
+#hearingHeader {height:53px;}
+
+#helpPage > .leftColsAbout > p > a:focus, #helpPage > .leftColsAbout > p > a:active {
+color: #00f;}
+#helpPage > .leftColsAbout > p > #contactForm {font-weight:bold;text-decoration:none;}
+#helpPage > .leftColsAbout > p > #contactForm:hover, #helpPage > .leftColsAbout > p > #contactForm:focus {text-decoration:none; color:#333;}
+
+.sitewrapper #mainContent #helpPage ol li {font-weight:bold;margin:0 0 10px -40px;}
+
+#mainpane a {color:#187bbb; }
+
+.corpPage ul {list-style-type:none;}
+.corpPage ul li {margin-bottom:10px;}
+.browseCorp {width:100%; display:block;float:left;font-weight:bold;font-size:12px;}
+.browseCorp a, .browseCorp a:visited {color:#000;}
+
+/*-----------------------------
+Other misc styles
+-----------------*/
+
+.indentList {padding-left:10px;}
+
+
+
+/*-------------------------
+Responsive styles
+----------*/
+
+#aaa_1024px {} /*---dummy tag to find responsive section ---*/
+
+@media only screen and (max-width: 1024px), only screen and (max-device-width: 1024px) {
+
+.sitewrapper {
+	margin: 0px auto; width:100%;
+}
+
+#headerNew {
+	width:100%;height:110px;
+}
+
+#headerCovid {
+	width:100%;height:110px;
+}
+
+#headerTopBanner {
+	font-size:12px;
+	padding:7px 7px 7px 7px;
+}
+
+.skinny #mainContent, .skinnyHP #mainContent, #mainContent, #headerWrapper, #footerWrap, #crumb /*, .skinny #mainContent .centerContent*/{
+	width:625px;
+}
+
+#betaBanner > .betaLink {
+	height: 45px;
+}
+
+a.betaHeadingLink {font-size:8px;}
+
+.betaText {
+font-size:11px;
+margin: 0 auto;
+width:625px;
+}
+
+.closeBeta {
+    margin: 5px 0 0 10px;
+height:22px;width:22px;}
+
+ .closeBeta:before {font-size:17px;margin-left:5px;}
+
+#ABSlogo {
+	margin-top:12px;height:85px;
+}
+
+.logo {
+	width: 85px; height:85px; 
+	margin-top:0; 
+}
+
+#ieLogo > #ABSlogo > .logo {
+	width: 85px; height:85px; 
+	margin-top:0; 
+	}
+
+.searchBar {
+	margin:62px 0 -30px 0;
+}
+
+.searchForm {
+	border:1px solid #000;
+	-webkit-border-radius: 8px;
+    	-moz-border-radius: 8px;
+    	border-radius: 8px;
+    	height:30px;
+}
+
+.searchForm input[type="text"] {
+	height: 20px;
+	width:220px;
+	margin: 2px 0 0 10px;
+
+}
+
+.searchForm input[type="submit"] {
+ 	background-image: url("/ausstats/wmdata.nsf/activeotherresource/search-sml/$File/search-sml.svg");background-repeat: no-repeat;
+    	width: 60px;
+    	height: 22px;
+    	margin:5px;
+			font-size:11px;
+			padding-left:20px;
+}
+
+.searchForm input[type="submit"]:hover, .searchForm input[type="submit"]:active, .searchForm input[type="submit"]:focus {
+background-position: 0 -28px; 	}	
+
+.accessible-megamenu .accessible-megamenu-panel {display:none;}
+
+#KeyIndicators {height:240px;}
+
+#KeyIndicators a {margin-top:10px;height:170px;width:125px;}
+
+#KeyIndicators a:focus {height:65px;}
+
+.kpi {
+	line-height:1.6em;
+	font-size:14px;
+	}
+
+.kpiDesc {
+	font-size:12px;
+	line-height:1.1em;
+	height:30px;
+}
+
+.toolTip, .kpi:hover .toolTip, .kpi:focus .toolTip {
+	left:0;
+	display:block;
+ 	position:relative;
+ 	font-size:12px;
+ 	width:100%;
+ 	background:none;
+ 	padding:0;
+ 	padding-top:5px;
+ 	border-radius:0;
+ 	-webkit-border-radius:0;
+ 	-moz-border-radius:0;
+ 	box-shadow:none;
+ 	margin:10px 0 0 0;
+ 	height:100px;
+ 	border:none;
+ 	border-top:1px solid grey;
+ 	color:#666;	
+ 	font-weight:normal;
+ 	background:#fff;}
+
+.alert {background-position: 0px 200px;}
+
+.CTAbox {
+	border:1px solid white;
+	-webkit-border-radius: 20px;
+    	-moz-border-radius: 20px;
+    	border-radius: 20px;
+	margin: 20px 9px 25px 0;
+	width:200px;
+	height:139px;
+	display:inline;
+	float:left;
+	font-size:12px;
+	font-weight:bold;}
+
+/*-------------
+Census Banner overrides
+----------------------*/
+.CTACen2 {
+	width:403px;
+}
+
+.CTAcensus { 
+	border:1px solid white;
+	-webkit-border-radius: 20px;
+    	-moz-border-radius: 20px;
+    	border-radius: 20px;
+	margin: 20px 9px 45px 0;
+	width:100%;
+	height:139px;
+	display:inline;
+	float:left;
+	font-size:12px;
+	font-weight:bold;}
+
+
+
+.CTAbox:focus {margin:20px 9px 25px 0;}
+.CTAlast:focus {margin:20px 0 25px 0}
+
+.CTA2 {	background-position: -200px 0;}
+.CTA3 {	background-position: -400px 0px;margin-right:0;}
+
+.CTAlast {
+-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+	display:inline-block;
+	float:right;}
+.CTAtext {
+	background:white;
+	padding: 5px;
+	border:1px solid white;
+	-webkit-border-radius: 10px;
+    	-moz-border-radius: 10px;
+    	border-radius: 10px;
+    	margin: 85px 20px 0 0;
+    	float:right;
+    	width:100px;
+    	height:35px;
+    	text-align:center;}
+
+.CTAtextCensus { float:left; margin-left:20px;}
+
+.stories {margin: 0 9px 25px 2px; width:298px;height:380px;}
+
+#latestReleases {width:578px;height:720px;margin-bottom:30px;}
+
+#latestReleases ul {
+		margin-top:-14px !important;}
+
+#latestReleases li {height:85px;}
+#latestReleases li:last-of-type {margin-bottom:14px;}
+#latestReleases h1, #latestReleases > h1 span {font-size:21px;}
+
+.ProdNameLRO {white-space:normal;}
+
+#bottomLR li {height:60px !important;padding:0;margin-top:-3px;}
+
+#contextualContent, .contextFocus {
+	display:none !important;
+}
+#theFooter {
+   	width:100%;
+    padding: 10px 0 0 0;
+    margin:0px;}
+
+#theFooter ul li {margin:0 0 10px 0;}
+
+#footerWrap, #theFooter {height:830px;}
+
+.grid_2 {
+	width:100%;
+	margin:0 25px 25px 0;
+}
+
+.grid_2:last-of-type {margin-right:0;}
+
+.ftHeader {font-size:10px;}
+
+.secondFooter {width:625px;}
+.secondFooter ul li {width:100px;}
+#Topics {margin-left:0;}
+#element3, #element4, .sideBoxes {width:auto;}
+.sideBoxes, .sideBoxes > p {width:160px;font-size:12px;}
+.sitewrapper #mainContent .sideBoxList > li {margin-left:0;}
+.rightCols h1 {font-size:14px;}
+#element3 a, #element4 a, #element2link {font-size:14px;}
+#element7 {display:none;}
+
+.rightCols {width:35%;}
+.oneCol {width:32%;margin-right:1%;}
+.oneCol h2 {height:24px;}
+.spaceAbove {margin-top:40px;}
+
+.tabSpacer {margin-top:20px;}
+.moreTabSpacer {margin-top:40px;}
+
+.microNote {display:none;}
+#socialIcons {margin-top:-30px;}
+
+}
+
+#aaa_640px {} /*---dummy tag to find responsive section ---*/
+
+@media only screen and (max-width: 650px), only screen and (max-device-width: 650px) { 
+
+.sitewrapper {
+	margin: -17px auto; width:100%;padding:0;
+}
+
+#headerNew {
+	width:100%;height:110px;margin-top:10px;
+}
+
+#headerCovid {
+	width:100%;height:110px;margin-top:10px;
+}
+
+#headerTopBanner {
+	font-size:12px;
+	padding:7px 7px 7px 7px;
+	margin-bottom:17px;
+}
+
+#headerWrapper, .col_1, .dropdownContainer, .oneCol {
+	width:300px; 
+}
+#crumb {width:288px;margin-top:60px;}
+.skinny #mainContent, .skinnyHP #mainContent, #mainContent, #footerWrap {
+width:100%;}
+.skinny #mainContent, .skinnyHP #mainContent {overflow:hidden;}
+#mainContent {margin:0 0 40px 0;}
+
+.centerContent, .centerContent > .content {margin:0; padding:0;overflow:hidden;width:100%;}
+
+#betaBanner > .betaLink {
+    height: 80px;
+}
+
+.betaText {
+font-size:11px;
+padding-top:5px;
+margin: 0 auto;
+width:300px;
+}
+
+.closeBeta {
+    margin: 5px 0 0 10px;
+}
+
+#ABSlogo {
+	width:80px;height:70px;
+}
+
+
+.logo {
+	width: 70px; height:70px;  
+}
+
+#ieLogo > #ABSlogo > .logo {
+	width: 70px; height:70px; 
+}
+
+.searchBar {
+	float:right;
+	height:70px;
+	display:inline;
+	width: 190px;
+	padding-left:0px;
+	margin-top:60px;
+}
+
+.searchForm {
+	border:1px solid #000;
+	-webkit-border-radius: 5px;
+    	-moz-border-radius: 5px;
+    	border-radius: 5px;
+    	height:30px;
+	
+	
+}
+
+.searchForm input[type="text"] {
+	width:85px;
+    	height:20px;
+    	font-size:16px;
+    	
+}
+
+.searchForm input[type="submit"] {
+margin:5px 5px 0 0;
+padding-left: 21px;
+font-size:11px;
+}
+
+.betaHeading {font-size:11px;width:188px;margin-top:-25px;}
+
+.betaHeadingLink {margin-left:9px; font-size:8px;}
+
+#titlemain {width:100%;}
+
+.alert {
+	font-size:12px;
+	width:75%;
+	margin:0 auto;
+	background-position: 0px 0px;
+}
+
+.CTA1, .CTA2, .CTA3 {
+display:none !important; }
+
+/*-------------
+Census 2011 Banner overrides - No longer required
+----------------------*/
+
+
+.CTACensus1,.CTACensus2,.CTACensus3 {
+display:none !important; }
+/*
+.CensusCTAlast, .CTACensus2 { 
+	display:inline-block !important;
+	float:left;
+	position:absolute;
+	top:83px;
+	height:62px;
+	border-radius:0;
+	border:none;
+	background:none !important;
+	background-color:#167764 !important;
+	width:100%;
+	}
+	
+.CensusCTAlast .CTAtext, .CTACensus2 .CTAtext { 
+	margin:13px 0 0 35px;
+	padding:10px;
+	float:left;
+	border:none;
+	border-radius:10px;
+	width:160px;
+	height:15px;
+	box-shadow: -2px 3px 9px #333;
+	}
+*/
+
+/*------------END---------------*/
+
+#popfig {
+	width:320px !important;
+}
+.stories {display:none;}
+
+#KeyIndicators {margin-bottom:40px;height:510px;padding-left:10px;}
+
+#KeyIndicators a {display:block;padding:0 0 17px 0;width:100%;text-align:left; margin:0 0 10px 0;height:70px;border-bottom:1px solid #999;line-height:16px;}
+#KeyIndicators a:hover .kpiDesc {text-decoration:underline;}
+#KeyIndicators a:first-of-type {height:55px;}
+#KeyIndicators a:first-of-type .kpiDesc {padding-top:5px;margin-bottom:-5px;}
+#KeyIndicators a:first-of-type .toolTip {margin-top:-10px;}
+.kpi {text-align:left;font-size:16px;padding-left:25px;display:inline-block;width:100%; padding-bottom:5px;}
+
+.kpiDesc {float:right; display:inline-block; margin-left:0px;width:70%;height:15px;}
+.kpiDesc + .kpiDesc {margin-bottom:10px;}
+.hiddenDtp {
+	left:0px;
+ 	width:100%;
+ 	height:40px;
+ 	overflow:visible;
+ 	position:static;
+ 	
+ 	}
+	
+.keiHeader {font-size:16px;margin-top:30px;}
+
+.toolTip, .kpi:hover .toolTip, .kpi:focus .toolTip {
+	left:0;
+	display:block;
+ 	position:relative;
+ 	font-size:12px;
+ 	width:100%;
+ 	background:none;
+ 	padding:0;
+ 	border-radius:0;
+ 	-webkit-border-radius:0;
+ 	-moz-border-radius:0;
+ 	box-shadow:none;
+ 	margin:10px 0 0 0;
+ 	height:45px;
+ 	border:none;
+ 	color:#666;
+ 	z-index:-10;
+ 	line-height:16px;
+}
+
+.stories {
+	display:none !important;
+}
+#latestReleases {
+	margin: 30px 0 0 0;
+	font-size:12px;
+	float:left;
+	height:770px;
+	width: 100%;
+	border:none;
+	border-radius:0;
+	padding:0px;
+}
+
+.LRcalendar {margin-right:10px;}
+
+#latestReleases ul {width:100%;margin-left:10px;}
+
+#latestReleases li {width:100%;height:105px;margin:0; padding:0 0 0 20px;}
+
+#latestReleases > h1 span {
+	margin:-15px 0 10px 0;
+	padding:30px 0 20px 10px;
+	}
+#latestReleases li a {margin:0;}
+
+#bottomLR {font-size:21px;padding-bottom:0;}
+
+#bottomLR li { height:75px !important;padding:0;margin-top:-10px;}
+
+.LRmoreRelease {margin-right:10px;width:80px;}
+
+.sitewrapper #mainContent li {
+margin-left:0px;
+margin-right:10px;}
+
+
+/*#theFooter {
+   	width:100%;
+    	min-height:360px;
+    	font-size:10px;
+    	padding: 0;
+    	margin:0;
+	}
+#footerWrap {height:355px;}
+#theFooter ul li {margin: 0 0 15px;}
+*/
+.secondFooter {width:100%;margin-bottom:185px;}
+.secondFooter > ul > li {padding-top:20px;}
+.grid_2 {width:90%;margin-left:10px;}/*
+
+#needHelp {width:245px;height:50px;}
+#needHelp h3 {text-align:center;}
+.feedback {margin: 0 auto;}
+
+
+.grid_2 {width:30%;margin-right:10px;}
+.grid_2:last-of-type {width:100%;}
+.wantHelp {font-size:11px;}
+.feedback {margin:0;}*/
+
+/* second level page styles --*/
+.releaseOverflow {width:90%;}
+#titlemain h1 {width:90%;}
+.leftColsAbout {width:95%;}
+.oneCol {margin-top:0;}
+/*.oneCol ul li {font-size:18px}
+.oneCol h2 {font-size:24px;}*/
+.methods {margin-bottom:40px;}
+.spaceAbove {margin-top:0;}
+.crimeSpace {margin-top:40px;}
+.colFooter a {font-size:14px;display:block;padding:11px 50px 10px 20px;}
+.colFooter {margin-bottom:10px;}
+.dbrMap {display:none;}
+.colFooter .catButton {background-image: url("/ausstats/wmdata.nsf/activeimages/btn_browse_stats/$File/btn_browse_stats.png");background-repeat: no-repeat;background-position: left top;width:120px;height:40px;font-size:12px;padding-top:6px;}
+.tabSpacer {margin-top:0px;}
+.moreTabSpacer {margin-top:0px;}
+#element3, #element4, .sideBoxes {width:auto; margin:40px auto;border-radius:0;}
+#element3, #element4, .sideBoxes:first-of-type {margin-top:10px;}
+
+
+.horBrowse {margin:-20px 0 0 0;}
+.horLinks > ul > li {margin-right:0 !important;}
+
+/*----------------------
+Latest release overflow page responsive 
+----------*/
+
+.releaseOverflow  li {line-height:1.5em;}
+
+/*----------------------
+Topics page responsive 
+----------*/
+
+.content {width:100%;}
+.content ul
+
+.leftCols {width:90%;display:block;} 
+.rightCols {width:100%; display:block;float:left;}
+
+.leftCols, .rightCols, .leftColsAbout {width:280px;clear:both;}
+
+#Topics > h1 {margin-left:10px;}
+#element7 {display:none;}
+
+/*--------------------
+Other
+------------------*/
+.noDisplay {display:none;}
+
+
+} /*---------- end of 640px styles ------------*/
+
+.autoCompleted {border:1px solid red; list-style:none; width: 200px;}
+
+
+/* the hideElement class is applied to some elements on the Topics landing if they contain no documents */
+
+.hideElement {
+	visibility: hidden; /* hides an element, but it will still take up the same space as before */
+/*	visibility: none;    /* hides an element, and it will not take up any space */	
+}
+
+/* jira co-676 and jira co-677 ----start---*/
+.content .censusPage .widgetCol .tertiarynav p a:hover, .content .censusPage .widgetCol.tertiarynav p a:hover, 
+.content .censusPage.tablebuildermanual .widgetCol.tertiarynav p a:hover, .content .censusPage .widgetCol .tertiarynav ul li a:hover, 
+.content .censusPage .widgetCol.tertiarynav ul li a:hover, .content .censusPage.tablebuildermanual .widgetCol.tertiarynav ul li a:hover, 
+.content .censusPage .widgetCol.tertiarynav ol li a:hover{
+    border-bottom:1px solid #223f83;
+}
+
+.content .censusPage .widgetCol .tertiarynav p a, .content .censusPage .widgetCol.tertiarynav p a, 
+.content .censusPage.tablebuildermanual .widgetCol.tertiarynav p a, .content .censusPage .widgetCol .tertiarynav ul li a, 
+.content .censusPage .widgetCol.tertiarynav ul li a, .content .censusPage.tablebuildermanual .widgetCol.tertiarynav ul li a, 
+.content .censusPage .widgetCol.tertiarynav ol li a{
+    border-bottom:none;    
+}
+
+.content .censusPage .widgetCol .tertiarynav p, .content .censusPage .widgetCol.tertiarynav p, 
+.content .censusPage.tablebuildermanual .widgetCol.tertiarynav p{
+	font-size:14px;
+}
+
+.content .censusPage .widgetCol.tertiarynav ul li, .content .censusPage .widgetCol .tertiarynav ul li, 
+.content .censusPage.tablebuildermanual .widgetCol.tertiarynav ul li, .content .censusPage .widgetCol.tertiarynav ol li{
+    text-indent:0px;
+    margin-left:0px;
+}
+
+.content .censusPage .widgetCol.tertiarynav ol li{
+    padding-left:15px;
+}
+
+
+.content .censusPage .widgetCol .tertiarynav ul, .content .censusPage .widgetCol.tertiarynav ul, 
+.content .censusPage.tablebuildermanual .widgetCol.tertiarynav ul, .content .censusPage .widgetCol.tertiarynav ol {
+    margin-top: 0px;
+}
+ 
+/* jira co-676 and jira co-677 ----end---*/
+
+/* jira co-674*/
+.sitewrapper #mainContent .censusLeftNav li {
+    margin-left:0px;}
+
+/*---------- Census search widget ------------*/
+
+/* For visually hiding elements that are only to be "visible" to screen readers */
+.screenreaderonly {
+	position: absolute;
+	left: -9999em;
+	top: auto;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.gwt-DialogBox {
+  //width: 400px;
+  border: 1px solid #bfbfbf;
+  padding: 10px;
+  background-color:white;
+  border-color:dotted red green;
+  font-size: 300%;
+}
+
+.gwt-SuggestBoxPopup /*, .gwt-SuggestBoxPopup .item, .gwt-SuggestBoxPopup .item-selected, .gwt-SuggestBoxPopup .suggestPopupContent*/ {
+  max-width: 200px; /* should match the combined width of the search box and button */
+  z-index: 100;
+}
+
+.gwt-SuggestBoxPopup .item {
+	font-family: Tahoma, Geneva, san-serif;
+	font-size: .75em /*12px*/;
+	white-space: normal !important /*overrides GWT's inline styling which breaks outside of list box*/;
+	border: white 1px dotted;
+  cursor: default;
+}
+
+.gwt-SuggestBoxPopup .item-selected {
+	background: #DFE8F6;
+	border-color: #A3BAE9;
+}
+
+.gwt-SuggestBoxPopup .suggestPopupContent {
+  background: white;
+  border: 1px solid #ccc;
+}
+
+.suggestion-hilite-prefix {
+	color: #187BBB;
+	font-weight: bold;
+}
+
+.suggestion-type {
+	color: #505050;
+	font-size: .917em /*11px*/;
+}
+
+.gwt-SearchWidget-Button {
+  padding-left: 2px;
+  padding-right: 2px;
+  cursor: pointer; /* Might need to add "cursor: hand;" as well... */
+  background: url('/ausstats/wmdata.nsf/activeimages/hborder/$File/hborder.png') repeat-x 0px -27px;
+  border: 1px outset #ccc;
+  top: 0px; /* added */
+}
+
+.gwt-SearchWidget-Button:hover {
+  border-color: #9cf #69e #69e #7af;
+}
+
+.gwt-SearchWidget-Button:active {
+  border: 1px inset #ccc;
+}
+
+.gwt-SearchWidget-Button:focus {
+  border-color: blue;
+}
+
+.gwt-SearchWidget-Label {
+	font-weight: bold;
+	padding-left: 5px;
+	float: left;
+	width: 200px;
+}
+
+.gwt-SearchWidget-SuggestBox {
+	/*margin: 0px;
+	padding-left: 2px;*/
+  width: 194px;
+}
+
+.gwt-SearchWidget-SuggestBox .gwt-SuggestBoxPopup .item {
+  font-size: .8em;
+  padding: 2px;
+  color: #424242;
+  cursor: default;
+}
+
+.gwt-SearchWidget-SuggestBox .gwt-SuggestBoxPopup .item-selected {
+  background: #cdcdcd;
+}
+
+.gwt-SearchWidget-SuggestBox .gwt-SuggestBoxPopup .suggestPopupContent {
+  background: white;
+  width: 30ex;
+  border: 1px solid #ccc;
+}
+
+.gwt-SearchWidget-SuggestBox-Fade {
+	color: #aaa;
+	font-size: 70%;
+	box-sizing: inherit;
+}
+.gwt-SearchWidget-SuggestBox-Full {
+	color: #000;
+	font-size: 90%;
+	box-sizing: inherit;
+}
+
+.gwt-SearchWidget-Button, .gwt-ListBox, /*.gwt-SearchWidget-SuggestBox,*/ gwt-SearchWidget-Container {
+	height: 22px;
+}
+
+.gwt-SearchWidget-Button, .gwt-SearchWidget-Label {
+  font-size: .8em;
+}
+
+.gwt-Label-Header {
+	font-weight: bold;
+}
+
+#goBox { /* Encapsulates the Search and explore geo link */
+  width: 100%;
+  background-color: #E3E3E3;
+}
+
+.gwt-ListBox {
+    text-align: center;
+    padding-top: 2px;
+    margin: 0px;
+}
+
+.dropdown-firstline {
+		
+}
+
+.gwt-PopupPanelGlass{
+	background-color: #888899;
+	opacity:0.4;
+	filter:alpha(opacity=40); /* For IE8 and earlier */
+	}
+	
+.dialogTop{
+	font-family: Tahoma, Geneva, san-serif;
+	font-size: .75em /*12px*/;
+    text-align: center;
+	}
+
+.dialogMiddleCenter{
+	border: 1px solid #bfbfbf;
+	background: white;
+    padding: 10px;
+	}
+
+.gwt-errorLabel{
+    text-align: left;
+    font-family: Arial;
+	font-size: 9px;
+	color: #df1800;
+  	background-color:white;
+	}
+	
+.gwt-closeButton{
+	text-align: center;
+	font-family: Arial;
+	font-size: 8px;
+	color: #505050;
+	width: 30px;
+	height: 18px;
+	float: right;
+	cursor: pointer;
+	}
+	
+.gwt-PushButton-up{
+	background-image: url('/ausstats/wmdata.nsf/activeimages/Button-normal/$File/Button-normal.jpg')
+	}
+.gwt-PushButton-up-hovering{
+	background-image: url('/ausstats/wmdata.nsf/activeimages/Button-hover/$File/Button-hover.jpg')
+	}
+.html-face{
+	padding-top: 4px;
+	}
+	
+
+/*******************************************************************************
+styles for the NGD Issue form in the Web Survey WWW db
+*******************************************************************************/
+	.NGDheading {font-family: arial; font-size: 24pt; color:#2A88Ad; line-height: 60px}
+	.NGDsubheading {font-family: arial; font-weight: bold; color:#2A88Ad}
+	.NGDlineheight {line-height: 26px}
+	.NGDtablewidth {width: 100%}
+	.NGDpagemargin {width: 20%}
+	.NGDcell1of2 {width: 50%}
+	.NGDcell2of2 {width: 50%}
+	.NGDcell1of3 {width: 30%}
+	.NGDcell2of3 {width: 20%}
+	.NGDcell3of3 {width: 50%}
+	.NGDsmallfield {width: 60%}
+	.NGDmediumfield {width: 95%}
+	.NGDlargefield {width: 98%; height: 100px}
+	.NGDerror {color: red;}
+	
+	
+	/*******************************************************************************
+styles for the PES form in the Web Survey WWW db
+*******************************************************************************/
+	.PEStablewidth {width: 100%}
+	.PESpagemarginleft {width: 23%}
+	.PESpagemarginright {width: 10%}
+	.PESheading {font-family: arial; font-size: 24pt; color:black; line-height: 60px}
+	.PESsubheading {font-family: arial; color:black; line-height: 20px; font-weight: bold}
+	.PESdata {font-family: arial; color:black; line-height: 20px}
+	.PESerror {color: red;}
+	.PESsmalltextbox {width: 294px; height: 24px; padding: 1px}
+	.PESmediumtextbox {width: 600px; height: 24px; padding: 1px}
+	.PESlargetextbox {width: 600px; height: 96px; padding: 1px; font-family: Arial; }
+	.PEScell1of2 {width: 50%}
+	.PEScell2of2 {width: 50%}
