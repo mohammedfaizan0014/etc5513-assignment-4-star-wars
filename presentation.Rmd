@@ -4,6 +4,10 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
+    navbar:
+      - { title: "About", href: "https://github.com/mohammedfaizan0014/etc5513-assignment-4-star-wars/blob/main/README.md", align: left }
+    social: [ "twitter", "facebook", "menu" ]
+    source_code: embed
 ---
 
 ```{r echo=FALSE, include=FALSE}
