@@ -730,8 +730,7 @@ popoccareamax %>%
  # geom_sf_text(aes(geometry= geometry,label=industry, colour="white"), check_overlap=TRUE)+
   theme_void() +
   theme(legend.position = "bottom")
-#major industry in cbd is helthcare
-#major industry in country side is agriculture
+
 ```
 
 ```{r popareaocc, fig.cap=""}
