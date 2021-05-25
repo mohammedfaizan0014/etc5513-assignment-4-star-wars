@@ -38,9 +38,13 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 ~$Metadata_2016_GCP_DataPack.xlsx
 =======
+=======
+
+>>>>>>> mohammed_faizan
 *.DS_Store
 .DS_Store
 *.tex
@@ -49,4 +53,7 @@ vignettes/*.pdf
 *.bcf
 *.aux
 *.zip
+<<<<<<< HEAD
 >>>>>>> yanhui_li
+=======
+>>>>>>> mohammed_faizan

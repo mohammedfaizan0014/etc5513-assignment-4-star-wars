@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # METADATA FOR DIGITAL BOUNDARY FILES
 
 Australian Statistical Geography Standard (ASGS) Volume 1 - Main Structure and Greater Capital City Statistical Areas (cat no. 1270.0.55.001)
@@ -180,6 +181,8 @@ All levels of the Main Structure and GCCSAs within the 2016 ASGS are represented
 *CONTACT INFORMATION*
 **Contact Organisation**: Australian Bureau of Statistics
 =======
+=======
+>>>>>>> mohammed_faizan
 # METADATA FOR DIGITAL BOUNDARY FILES
 
 Australian Statistical Geography Standard (ASGS) Volume 1 - Main Structure and Greater Capital City Statistical Areas (cat no. 1270.0.55.001)
@@ -360,5 +363,8 @@ All levels of the Main Structure and GCCSAs within the 2016 ASGS are represented
 
 *CONTACT INFORMATION*
 **Contact Organisation**: Australian Bureau of Statistics
+<<<<<<< HEAD
 >>>>>>> yanhui_li
+=======
+>>>>>>> mohammed_faizan
 For further information email <client.services@abs.gov.au> or contact the National Information and Referral Service (NIRS) on `1300 135 070`.
