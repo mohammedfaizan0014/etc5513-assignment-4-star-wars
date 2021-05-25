@@ -260,6 +260,7 @@ Industry of Employment and Occupation by Hours of Work
 - G58: Occupation by Hours Worked by Sex
 ]]]
 
+
 Lets see the insights from these tables on
 .tiny[<a href="///Users/mohammedfaizan/git/etc5513/etc5513-assignment-4-star-wars/presentation.html">Flexdashboard</a>]
 
