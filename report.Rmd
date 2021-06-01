@@ -39,6 +39,7 @@ output:
     citation_package: biblatex
     toc: true
 keep_md: true
+always_allow_html: true
 ---
 
 ```{r echo=FALSE, include=FALSE}
@@ -65,13 +66,14 @@ library(sugarbag)
 library(readxl)
 library(plotly)
 library(tidytext)
+library(ggplot2)
+library(igraph)
+library(ggraph)
 ```
-
 
 ```{r writing_packages_bibliographies}
 knitr::write_bib(c(.packages()), "packages.bib")
 ```
-
 
 ```{r}
 celldiscriptors <- read_excel(here::here("data/australian_census_data_2016/Metadata/Metadata_2016_GCP_DataPack.xlsx"), sheet=2, skip=10)
@@ -88,7 +90,7 @@ data_path <- here::here("data/australian_census_data_2016/")
 census_paths <- glue::glue(data_path, "/2016 Census GCP All Geographies for VIC/SA4/VIC/2016Census_G{number}{alpha}_VIC_SA4.csv", 
                          number = c("46","46","47","47","47","51","51","51","51","57","57", "52", "52", "52", "52", "58", "58"), alpha = c("A","B","A","B","C","A","B","C","D","A","B", "A","B","C","D", "A","B"))
 ```
-```{r geopath, include=FALSE}
+```{r geopath}
 geopath <- glue::glue(data_path, "/2016_SA4_shape/SA4_2016_AUST.shp")
 sa4_codes<- read_csv(census_paths[2]) %>% 
                 mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
@@ -96,14 +98,7 @@ sa4_codes<- read_csv(census_paths[2]) %>%
 sa4_geomap <- read_sf(geopath) %>%
   right_join(sa4_codes, by=c("SA4_CODE16" = "SA4_CODE_2016"))
 ```
-
-
-```{r}
-ggplot(sa4_geomap) +
-  geom_sf()
-```
-
-```{r g46read, include=FALSE}
+```{r g46read}
 g46a<- read_csv(census_paths[1]) %>%
   select(-starts_with("P"), -contains("Tot"), -contains("nfd"), -contains("IDes")) %>%
             mutate(SA4_CODE_2016 = as.character(SA4_CODE_2016)) %>% 
@@ -126,6 +121,7 @@ g46a<- read_csv(census_paths[1]) %>%
   
 ```
 
+
 ```{r}
 g46a <- g46a %>% 
   mutate(afq_level =case_when(str_detect(educationlevel, "GradDip_and_GradCert") ~ "Level 8",
@@ -140,29 +136,6 @@ g46a <- g46a %>%
                             TRUE ~ educationlevel)) %>% 
   rename(count_edu_lvl = count)
 ```
-
-
-```{r edu_gender, fig.cap = "Education level count by gender", include = FALSE}}
-ggplot(g46a, aes(x = reorder(afq_level,count_edu_lvl),
-                      y = count_edu_lvl,
-                      fill = sex)) +
-         geom_col() +
-         labs(x = "AQF levels",
-              y = "number of observations",
-              title = "Education level by gender") +
-         scale_y_continuous(label=label_number())+
-         coord_flip()
-```
-
-The figure \@ref{fig:edu_gender} indicates the Australian Qualifications Framework(AQF) levels of SA4 residents at Census night.
-
-- Most of the residents achieved the level 7, which refers to the bachelor degree, and there are almost twice as many female as male.
-
-- Most of the Male achieved at the level 3 & 4, and both theoretical and practical knowledge and skills for work and/or further learning will have when graduate at this level. Compare to level 3, level 4 will more concentrate on specialised and/or skilled work.
-
-- Level 1 & 2 has the lowest count in SA4 which is good as in this level, graduates only have the foundation knowledge for daily life and work.
-
-
 ```{r}
 g47 <- map_dfr(census_paths[3:4], ~{
   df <- read_csv(.x) %>%
@@ -179,8 +152,8 @@ g47 <- map_dfr(census_paths[3:4], ~{
                       ),
                 remove = FALSE)
 })
-
 ```
+
 
 ```{r}
 g47 <- g47 %>% 
@@ -200,76 +173,7 @@ g47 <- g47 %>%
                             TRUE ~ field))  %>%
   select(-category) %>%
   rename(count_field = count)
-
 ```
-
-
-```{r}
-ggplot(g47, aes(x = reorder(field,count_field),
-                      y = count_field,
-                      fill = sex)) +
-         geom_col() +
-         labs(x = "Field",
-              y = "number of observations",
-              title = "Field by gender") +
-  scale_y_continuous(label=label_number()) +
-  coord_flip()
-```
-
-
-```{r popareafield, fig.cap="Population distribution of field", include = FALSE}
-popareafield <- g47 %>%
-  group_by(SA4_CODE_2016, field) %>%
-  summarise(count_fieldarea = sum(count_field)) %>%
-  ungroup()
-
-popareafieldmax <- popareafield %>% 
-  select(1:3) %>%
-  group_by(SA4_CODE_2016) %>%
-  slice_max(count_fieldarea) %>%
-  arrange(SA4_CODE_2016)
-
-popareafieldmax %>% 
-  full_join(sa4_geomap, 
-            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
-  ggplot() +
-  geom_sf(mapping = aes(geometry= geometry, fill=field)) +
-  geom_sf_text(aes(geometry= geometry,label=field, colour="white"), check_overlap=TRUE)+
-  theme_void() +
-  theme(legend.position = "none")
-```
-The figure \@ref{fig:popareafield} indicates the population distribution about the field of SA4 residents at Census night.
-
-- Not stated seems to dominate the map, however, population is concentrated in the green region.
-
-- Therefore management & commerce is the field that the most population have studied. 
-
-
-```{r bestfield, fig.cap="Best field of each region", include = False}
-bestfield <- popareafield %>% 
-  select(1:3) %>%
-  group_by(field) %>%
-  slice_max(count_fieldarea) %>%
-  arrange(SA4_CODE_2016)
-
-bestfield %>%
-  ggplot() +
-  geom_col(mapping = aes(x = reorder_within(field,count_fieldarea, SA4_CODE_2016), y = count_fieldarea, fill = field)) +
-  labs(title = "Region and Best Field", 
-       x = "Fields with region code",
-       y = "Number of Students") +
-  scale_y_continuous(label=label_number()) +
-  coord_flip()  +
-  theme(legend.position = "none")
-```
-
-The figure \@ref{fig:bestfield} indicates the most popular field of SA4 residents in each region at Census night.
-
-- Management & commerce is the first place not only in region 206 but also the whole SA4, while the second place is engineering and technologies.
-
-- Mixed field programmes seems to be the least popular field in SA4.
-
-
 ```{r}
 g51 <- map_dfr(census_paths[6:8], ~{
   df <- read_csv(.x) %>%
@@ -342,363 +246,6 @@ g57 <- g57 %>%
   select(-category) %>%
   rename(count_occupation = count)
 ```
-
-```{r cases-distribution, message=FALSE,warning=FALSE}
-g51 %>% 
-  group_by(industry) %>% 
-  ggplot() +
-  geom_histogram(mapping = aes(x = count_industry)) +
-  labs(title = "Population Distribution by Industry of Employment", x = "Number of Industries", y = "Count")
-#4000 records with near to 500 count_industry values.
-```
-
-
-
-```{r , fig.cap=""}
-g51 %>%
-  ggplot(mapping = aes(x = fct_reorder(industry,count_industry), y = count_industry, fill = sex)) +
-  geom_col(mapping = aes(x = reorder(industry,count_industry), y = count_industry, fill = sex)) +
-  labs(title = "Population Share of Industries", y = "Number of Employees") +
-  scale_y_continuous(label=label_number()) +
-  coord_flip() 
-g51 %>%
-  ggplot(mapping = aes(x = fct_reorder(industry,count_industry), y = count_industry, fill = sex)) +
-  geom_col(mapping = aes(x = reorder_within(industry,count_industry, sex), y = count_industry, fill = sex)) +
-  labs(title = "Population Share of Industries", y = "Number of Employees") +
-  scale_y_continuous(label=label_number()) +
-  coord_flip() 
-```
-```{r}
-vicpopulation <- g51 %>%
-  group_by(SA4_CODE_2016) %>%
-  summarise(population = sum(count_industry)) %>%
-  ungroup()
-population <- vicpopulation %>%
-  summarise(population=sum(population))
-vicpopulation <- g51 %>%
-  group_by(SA4_CODE_2016, sex) %>%
-  summarise(population = sum(count_industry)) %>%
-  ungroup(sex) %>%
-  pivot_wider(names_from = sex,
-              values_from = population) %>%
-  rename(malepopulation = M,
-         femalepopulation = `F`) %>%
-  full_join(vicpopulation)
-```
-```{r}
-vicpopulation %>% 
-  full_join(sa4_geomap, 
-            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
-  ggplot() +
-  geom_sf(mapping = aes(geometry= geometry, fill=population)) +
-  geom_sf_text(aes(geometry= geometry,label=SA4_CODE_2016, colour="white"), 
-               check_overlap=TRUE)+
-  theme_void() 
-```
-```{r}
-g51 %>%
-  pivot_wider(names_from = sex,
-              values_from = count_industry) %>%
-  ggplot(mapping = aes(x = M, y = `F`, colour = industry)) +
-  geom_point() +
-  labs(title = "Population: Male vs Female", 
-       x = "Male Population",
-       y= "Female Population") +
-  scale_y_continuous(label=label_number()) +
-  scale_x_continuous(label=label_number()) +
-  theme(legend.position = "bottom")
-```
-```{r}
-g51indmfnest <- g51 %>%
-  pivot_wider(names_from = sex,
-              values_from = count_industry) %>%
-  select(industry, `F`, M ) %>%
-  group_by(industry) %>%
-  nest() %>%
-  mutate(model = map(data, lm)) %>%
-  mutate(aug = map(model, broomstick::augment)) %>%
-  unnest(aug)
-mvf <- ggplot(g51indmfnest,
-       aes(x = M)) +
-# index represent splitting value,
-#geom_point(aes(y = `F`, colour = industry, aplha=0)) +
-geom_line(aes(y = .fitted, colour = industry)) +
-  theme(legend.position = "bottom")  +
-  labs(title = "Population: Male vs Female", 
-       x = "Male Population",
-       y= "Female Population")
-  # geom_text(aes(y = .fitted,label=industry, colour="white"), 
-  #              check_overlap=TRUE)
-ggplotly(mvf) %>%
-  hide_legend()
-```
-
-```{r}
-g51redundantage <-  g51[rep(rownames(g51), g51$count_industry), ]
-ageindcount <- g51redundantage %>%
-  ggplot(mapping = aes(x = age_min, y = industry)) +
-  geom_count() +
-  labs(title = "Population: Industries and Age", x = "Age") +
-  theme(axis.title.y = element_blank())
-ggplotly(ageindcount)
-```
-```{r agedistribution}
-g51redundantage %>%
-  ggplot()+
-  geom_density(mapping = aes( x = as.numeric(age_min),
-                              colour = sex, 
-                              alpha = 0.5)) +
-  scale_x_continuous()
-```
-
-```{r}
-popindage <- g51 %>%
-  group_by(industry, age_min) %>%
-  summarise(count_indage = sum(count_industry)) %>%
-  ungroup()
-nodes <- data.frame(node = unique(popindage$industry),
-                    category = "industry") %>%
-  full_join(data.frame(node = unique(popindage$age_min),
-                    category = "age"))
-popindage <- popindage[,c(1,2,3,1)]
-networkindage <-   graph_from_data_frame(d=popindage,directed = TRUE, vertices = nodes)
-a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
-set.seed(122)
-networkindage %>%
-  ggraph(layout = "stress") +
-  geom_edge_link2(aes(edge_alpha = count_indage,edge_width = count_indage,edge_color = industry),arrow = a) +
-  geom_node_point(aes(size = 2, colour =category) )+
-  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
-theme_void() +
-  theme(legend.position = "none")
-```
-
-
-```{r }
-popindarea <- g51 %>%
-  group_by(SA4_CODE_2016, industry) %>%
-  summarise(count_indarea = sum(count_industry)) %>%
-  ungroup()
-nodesarea <- data.frame(node = unique(popindarea$SA4_CODE_2016),
-                    category = "area") %>%
-  full_join(data.frame(node = unique(popindarea$industry),
-                    category = "industry"))
-popindarea <- popindarea[,c(1,2,3,2)]
-networkindarea <-   graph_from_data_frame(d=popindarea,directed = TRUE, vertices = nodesarea)
-a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
-networkindarea %>%
-  ggraph(layout = "stress") +
-  geom_edge_link2(aes(edge_alpha = count_indarea,edge_width = count_indarea,edge_color = industry),arrow = a) +
-  geom_node_point(aes(size = 2, colour =category) )+
-  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
-theme_void() +
-  theme(legend.position = "none")
-```
-
-```{r popindarea, fig.cap="Spatial Industry Distribution"}
-popindareamax <- popindarea %>% 
-  select(1:3) %>%
-  group_by(SA4_CODE_2016) %>%
-  slice_max(count_indarea)
-popindareamax %>% 
-  full_join(sa4_geomap, 
-            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
-  ggplot() +
-  geom_sf(mapping = aes(geometry= geometry, fill=industry)) +
- # geom_sf_text(aes(geometry= geometry,label=industry, colour="white"), check_overlap=TRUE)+
-  theme_void() +
-  theme(legend.position = "bottom")
-#major industry in cbd is helthcare
-#major industry in country side is agriculture
-```
-
-```{r popareaind, fig.cap=""}
-popindarea <- g51 %>%
-  group_by(SA4_CODE_2016, industry) %>%
-  summarise(count_indarea = sum(count_industry)) %>%
-  ungroup()
-popareaindmax <- popindarea %>% 
-  select(1:3) %>%
-  group_by(industry) %>%
-  slice_max(count_indarea) %>%
-  arrange(SA4_CODE_2016)
-popareaindmax %>% 
-  full_join(sa4_geomap, 
-            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
-  ggplot() +
-  geom_sf(mapping = aes(geometry= geometry, fill=industry)) +
-  geom_sf_text(aes(geometry= geometry,label=industry, colour="white"), check_overlap=TRUE)+
-  theme_void() +
-  theme(legend.position = "none")
-popareaindmax %>%
-  ggplot(mapping = aes(x = fct_reorder(industry,count_industry), y = count_industry, fill = sex)) +
-  geom_col(mapping = aes(x = reorder_within(industry,count_indarea, SA4_CODE_2016), y = count_indarea, fill = industry)) +
-  labs(title = "Region and Best Industry", y = "Number of Employees") +
-  scale_y_continuous(label=label_number()) +
-  coord_flip()  +
-  theme(legend.position = "none")
-```
-
-```{r , fig.cap=""}
-g57 %>%
-  ggplot(mapping = aes(x = fct_reorder(occupation,count_occupation), y = count_occupation, fill = sex)) +
-  geom_col(mapping = aes(x = reorder(occupation, count_occupation), y = count_occupation, fill = sex)) +
-  labs(title = "Population Share of Occupation", y = "Number of Employees") +
-  scale_y_continuous(label=label_number()) +
-  coord_flip() 
-g57 %>%
-  ggplot(mapping = aes(x = fct_reorder(occupation,count_occupation), y = count_occupation, fill = sex)) +
-  geom_col(mapping = aes(x = reorder_within(occupation,count_occupation, sex), y = count_occupation, fill = sex)) +
-  labs(title = "Population Share of Occupation", y = "Number of Employees") +
-  scale_y_continuous(label=label_number()) +
-  coord_flip() 
-```
-
-```{r}
-g57 %>%
-  pivot_wider(names_from = sex,
-              values_from = count_occupation) %>%
-  ggplot(mapping = aes(x = M, y = `F`, colour = occupation)) +
-  geom_point() +
-  labs(title = "Population: Male vs Female", 
-       x = "Male Population",
-       y= "Female Population") +
-  scale_y_continuous(label=label_number()) +
-  scale_x_continuous(label=label_number()) +
-  theme(legend.position = "bottom")
-```
-```{r}
-g57occmfnest <- g57 %>%
-  pivot_wider(names_from = sex,
-              values_from = count_occupation) %>%
-  select(occupation, `F`, M ) %>%
-  group_by(occupation) %>%
-  nest() %>%
-  mutate(model = map(data, lm)) %>%
-  mutate(aug = map(model, broomstick::augment)) %>%
-  unnest(aug)
-mvfocc <- ggplot(g57occmfnest,
-       aes(x = M)) +
-# index represent splitting value,
-#geom_point(aes(y = `F`, colour = industry, aplha=0)) +
-geom_line(aes(y = .fitted, colour = occupation)) +
-  theme(legend.position = "bottom")  +
-  labs(title = "Population: Male vs Female", 
-       x = "Male Population",
-       y= "Female Population")
-  # geom_text(aes(y = .fitted,label=industry, colour="white"), 
-  #              check_overlap=TRUE)
-ggplotly(mvfocc) %>%
-  hide_legend()
-```
-
-```{r}
-g57redundantage <-  g57[rep(rownames(g57), g57$count_occupation), ]
-ageocccount <- g57redundantage %>%
-  ggplot(mapping = aes(x = age_min, y = occupation)) +
-  geom_count() +
-  labs(title = "Population: Occupation and Age", x = "Age") +
-  theme(axis.title.y = element_blank())
-ggplotly(ageocccount)
-```
-```{r agedistributiong57}
-g57redundantage %>%
-  ggplot()+
-  geom_density(mapping = aes( x = as.numeric(age_min),
-                              colour = sex, 
-                              alpha = 0.5)) +
-  scale_x_continuous()
-```
-
-```{r}
-popoccage <- g57 %>%
-  group_by(occupation, age_min) %>%
-  summarise(count_occage = sum(count_occupation)) %>%
-  ungroup()
-nodesocc <- data.frame(node = unique(popoccage$occupation),
-                    category = "occupation") %>%
-  full_join(data.frame(node = unique(popindage$age_min),
-                    category = "age"))
-popoccage <- popoccage[,c(1,2,3,1)]
-networkoccage <-   graph_from_data_frame(d=popoccage,directed = TRUE, vertices = nodesocc)
-a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
-set.seed(122)
-networkoccage %>%
-  ggraph(layout = "stress") +
-  geom_edge_link2(aes(edge_alpha = count_occage,edge_width = count_occage,edge_color = occupation),arrow = a) +
-  geom_node_point(aes(size = 2, colour =category) )+
-  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
-theme_void() +
-  theme(legend.position = "none")
-```
-
-
-```{r }
-popareaocc <- g57 %>%
-  group_by(SA4_CODE_2016, occupation) %>%
-  summarise(count_occarea = sum(count_occupation)) %>%
-  ungroup()
-nodesareaocc <- data.frame(node = unique(popareaocc$SA4_CODE_2016),
-                    category = "area") %>%
-  full_join(data.frame(node = unique(popareaocc$occupation),
-                    category = "occupation"))
-popareaocc <- popareaocc[,c(1,2,3,2)]
-networkoccarea <-   graph_from_data_frame(d=popareaocc,directed = TRUE, vertices = nodesareaocc)
-a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
-networkoccarea %>%
-  ggraph(layout = "stress") +
-  geom_edge_link2(aes(edge_alpha = count_occarea,edge_width = count_occarea,edge_color = occupation),arrow = a) +
-  geom_node_point(aes(size = 2, colour =category) )+
-  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
-theme_void() +
-  theme(legend.position = "none")
-```
-
-```{r popoccarea, fig.cap="Spatial Industry Distribution"}
-popoccareamax <- popareaocc %>% 
-  select(1:3) %>%
-  group_by(SA4_CODE_2016) %>%
-  slice_max(count_occarea)
-popoccareamax %>% 
-  full_join(sa4_geomap, 
-            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
-  ggplot() +
-  geom_sf(mapping = aes(geometry= geometry, fill=occupation)) +
- # geom_sf_text(aes(geometry= geometry,label=industry, colour="white"), check_overlap=TRUE)+
-  theme_void() +
-  theme(legend.position = "bottom")
-#major industry in cbd is helthcare
-#major industry in country side is agriculture
-```
-
-```{r popareaocc, fig.cap=""}
-popoccarea <- g57 %>%
-  group_by(SA4_CODE_2016, occupation) %>%
-  summarise(count_occarea = sum(count_occupation)) %>%
-  ungroup()
-popareaoccmax <- popoccarea %>% 
-  select(1:3) %>%
-  group_by(occupation) %>%
-  slice_max(count_occarea) %>%
-  arrange(SA4_CODE_2016)
-popareaoccmax %>% 
-  full_join(sa4_geomap, 
-            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
-  ggplot() +
-  geom_sf(mapping = aes(geometry= geometry, fill=occupation)) +
-  geom_sf_text(aes(geometry= geometry,label=occupation, colour="white"), check_overlap=TRUE)+
-  theme_void() +
-  theme(legend.position = "none")
-popareaoccmax %>%
-  ggplot(mapping = aes(x = fct_reorder(occupation,count_occarea), y = count_occarea, fill = sex)) +
-  geom_col(mapping = aes(x = reorder_within(occupation,count_occarea, SA4_CODE_2016), y = count_occarea, fill = occupation)) +
-  labs(title = "Region and Best Occupation", y = "Number of Employees") +
-  scale_y_continuous(label=label_number()) +
-  coord_flip()  +
-  theme(legend.position = "none")
-```
-
-
 
 ```{r}
 g52 <- map_dfr(census_paths[12:14], ~{
@@ -777,10 +324,811 @@ g58 <- g58 %>%
 ```
 
 
-```{r hr_plots, fig.show='hold', out.width="50%"}
+\section{Introduction}
+
+\section{Victoria Population: Overview}
+
+### Population Map
+
+```{r}
+vicpopulation <- g51 %>%
+  group_by(SA4_CODE_2016) %>%
+  summarise(population = sum(count_industry)) %>%
+  ungroup()
+population <- vicpopulation %>%
+  summarise(population=sum(population))
+vicpopulation <- g51 %>%
+  group_by(SA4_CODE_2016, sex) %>%
+  summarise(population = sum(count_industry)) %>%
+  ungroup(sex) %>%
+  pivot_wider(names_from = sex,
+              values_from = population) %>%
+  rename(malepopulation = M,
+         femalepopulation = `F`) %>%
+  full_join(vicpopulation)
+```
+```{r}
+vicpopulation %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=population)) +
+  geom_sf_text(aes(geometry= geometry,label=SA4_CODE_2016, colour="white"), 
+               check_overlap=TRUE)+
+  theme_void() 
+```
+
+- Most Victorian Population is concentrated in the Melbourne City Region.
+- Other regions Though large have a less population.
+
+### Population Table
+```{r}
+vicpopulation %>%
+  kable(caption = "Victoriqn Population") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"), latex_options = "hold_position")
+
+```
+
+
+### Age Distribution
+
+```{r agedistributiong57, fig.height=4}
+g57redundantage <-  g57[rep(rownames(g57), g57$count_occupation), ]
+
+g57redundantage %>%
+  ggplot()+
+  geom_density(mapping = aes( x = as.numeric(age_min),
+                              colour = sex, 
+                              alpha = 0.5)) +
+  labs(x="age") +
+  scale_x_continuous()
+```
+
+
+- Most population is Middle Aged, 20 to 50 years.
+- Old people are vulnerable with a low population.
+- Age distribution is similar for both male and female population.
+
+
+
+\newpage
+\section{Victoria Population: Gender}
+
+- Highest people are are Health Care Professionals and the ratio between men to women is less than one.
+- Similarly, in construction more men are employed as laborers.
+- The population of women in the education sector is far exceeds that of men.
+- Management & Commerce is the field that the most population have studied.
+- More men have studied Engineering and Technology as compared to females. However, more people are employed in Health Care than in industries relating to Engineering.
+- More women have studied Management and Commerce, however more men are employed as managers.
+- Victorian population is educated upto level 7 and most are employed as professionals.
+- However, a large population is employed as labourers when the population share of people who studied below high school is very less.
+
+- [GenderLinearModel] shows the relationship between male and female populations
+
+
+### Population by Education
+
+- Most of the residents achieved the level 7, which refers to the bachelor degree, and there are almost twice as many female as male.
+
+- Majority of male residents achieved at the level 3 and 4.
+
+
+```{r}
+g46a %>%
+  ggplot(mapping = aes(x = fct_reorder(afq_level,count_edu_lvl), y = count_edu_lvl, fill = sex)) +
+  geom_col(mapping = aes(x = reorder_within(afq_level,count_edu_lvl, sex), y = count_edu_lvl, fill = sex)) +
+  labs(title = "Population Share of education level", y = "Number of students") +
+  scale_y_continuous(label=label_number()) +
+  theme(axis.title.y = element_blank())+
+  coord_flip()
+```
+
+### Population by Industry
+
+
+
+```{r}
+g51 %>%
+  ggplot(mapping = aes(x = fct_reorder(industry,count_industry), y = count_industry, fill = sex)) +
+  geom_col(mapping = aes(x = reorder_within(industry,count_industry, sex), y = count_industry, fill = sex)) +
+  labs(title = "Population Share of Industries", y = "Number of Employees") +
+  scale_y_continuous(label=label_number()) +
+  theme(axis.title.y = element_blank())+
+  coord_flip() 
+```
+
+
+
+### Population by Field
+
+
+
+```{r}
+ggplot(g47, aes(x = reorder_within(field,count_field,sex),
+                      y = count_field,
+                      fill = sex)) +
+         geom_col() +
+         labs(x = "Field",
+              y = "number of observations",
+              title = "Field by gender") +
+  scale_y_continuous(label=label_number()) +
+  theme(axis.title.y = element_blank())+
+  coord_flip()
+
+```
+
+
+
+### Population by Occupation
+
+
+```{r}
+g57 %>%
+  ggplot(mapping = aes(x = fct_reorder(occupation,count_occupation), y = count_occupation, fill = sex)) +
+  geom_col(mapping = aes(x = reorder_within(occupation,count_occupation, sex), y = count_occupation, fill = sex)) +
+  labs(title = "Population Share of Occupation", y = "Number of Employees") +
+  scale_y_continuous(label=label_number()) +
+    theme(axis.title.y = element_blank())+
+  coord_flip() 
+```
+
+
+### Occupation: Male vs Female
+
+```{r}
+g57 %>%
+  pivot_wider(names_from = sex,
+              values_from = count_occupation) %>%
+  ggplot(mapping = aes(x = M, y = `F`, colour = occupation)) +
+  geom_point() +
+  labs(title = "Population: Male vs Female", 
+       x = "Male Population",
+       y= "Female Population") +
+  scale_y_continuous(label=label_number()) +
+  scale_x_continuous(label=label_number()) +
+  theme(legend.position = "bottom")
+```
+
+### Occupation: Male vs Female
+
+```{r}
+g57occmfnest <- g57 %>%
+  pivot_wider(names_from = sex,
+              values_from = count_occupation) %>%
+  select(occupation, `F`, M ) %>%
+  group_by(occupation) %>%
+  nest() %>%
+  mutate(model = map(data, lm)) %>%
+  mutate(aug = map(model, broomstick::augment)) %>%
+  unnest(aug)
+mvfocc <- ggplot(g57occmfnest,
+       aes(x = M)) +
+# index represent splitting value,
+#geom_point(aes(y = `F`, colour = industry, aplha=0)) +
+geom_line(aes(y = .fitted, colour = occupation)) +
+  geom_abline(slope = 1) +
+  theme(legend.position = "bottom")  +
+  labs(title = "Population: Male vs Female", 
+       x = "Male Population",
+       y= "Female Population")
+  # geom_text(aes(y = .fitted,label=industry, colour="white"), 
+  #              check_overlap=TRUE)
+ggplotly(mvfocc) %>%
+  hide_legend()
+```
+
+
+
+### Industry: Male vs Female
+
+```{r}
+g51 %>%
+  pivot_wider(names_from = sex,
+              values_from = count_industry) %>%
+  ggplot(mapping = aes(x = M, y = `F`, colour = industry)) +
+  geom_point() +
+  labs(title = "Population: Male vs Female", 
+       x = "Male Population",
+       y= "Female Population") +
+  scale_y_continuous(label=label_number()) +
+  scale_x_continuous(label=label_number()) +
+  theme(legend.position = "bottom")
+```
+
+### Industry: Male vs Female
+
+```{r}
+g51indmfnest <- g51 %>%
+  pivot_wider(names_from = sex,
+              values_from = count_industry) %>%
+  select(industry, `F`, M ) %>%
+  group_by(industry) %>%
+  nest() %>%
+  mutate(model = map(data, lm)) %>%
+  mutate(aug = map(model, broomstick::augment)) %>%
+  unnest(aug)
+mvf <- ggplot(g51indmfnest,
+       aes(x = M)) +
+# index represent splitting value,
+#geom_point(aes(y = `F`, colour = industry, aplha=0)) +
+geom_line(aes(y = .fitted, colour = industry)) +
+    geom_abline(slope = 1) +
+  theme(legend.position = "bottom")  +
+  labs(title = "Population: Male vs Female", 
+       x = "Male Population",
+       y= "Female Population")
+
+  # geom_text(aes(y = .fitted,label=industry, colour="white"), 
+  #              check_overlap=TRUE)
+ggplotly(mvf) %>%
+  hide_legend()
+```
+
+\newpage
+\section{Victoria Population: Age}
+
+- As seen from the age distribution, all sectors have people in the age group 25 to 45.
+- The age group, 25-35 shares the highest population in every sector.
+- A key observation is that some people aged over 75 are still working.
+
+
+<!-- 
+networks
+ -->
+
+### Population by Education
+
+
+```{r}
+popeduage <- g46a %>%
+  group_by(educationlevel, age_min) %>%
+  summarise(count_eduage = sum(count_edu_lvl)) %>%
+  ungroup()
+nodes <- data.frame(node = unique(popeduage$educationlevel),
+                    category = "education level") %>%
+  full_join(data.frame(node = unique(popeduage$age_min),
+                    category = "age"))
+popeduage <- popeduage[,c(1,2,3,1)]
+networkeduage <-   graph_from_data_frame(d=popeduage,directed = TRUE, vertices = nodes)
+a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
+set.seed(122)
+networkeduage %>%
+  ggraph(layout = "stress") +
+  geom_edge_link2(aes(edge_alpha = count_eduage,edge_width = count_eduage,edge_color = educationlevel),arrow = a) +
+  geom_node_point(aes(size = 2, colour =category) )+
+  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+theme_void() +
+  theme(legend.position = "none")
+```
+
+
+### Population by Industries
+
+
+
+```{r}
+popindage <- g51 %>%
+  group_by(industry, age_min) %>%
+  summarise(count_indage = sum(count_industry)) %>%
+  ungroup()
+nodes <- data.frame(node = unique(popindage$industry),
+                    category = "industry") %>%
+  full_join(data.frame(node = unique(popindage$age_min),
+                    category = "age"))
+popindage <- popindage[,c(1,2,3,1)]
+networkindage <-   graph_from_data_frame(d=popindage,directed = TRUE, vertices = nodes)
+a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
+set.seed(122)
+networkindage %>%
+  ggraph(layout = "stress") +
+  geom_edge_link2(aes(edge_alpha = count_indage,edge_width = count_indage,edge_color = industry),arrow = a) +
+  geom_node_point(aes(size = 2, colour =category) )+
+  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+theme_void() +
+  theme(legend.position = "none")
+```
+
+
+
+### Population by Field
+
+```{r}
+popfieldage <- g47 %>%
+  group_by(field, age_min) %>%
+  summarise(count_fieldage = sum(count_field)) %>%
+  ungroup() %>%
+  filter(!is.na(field))
+nodes <- data.frame(node = unique(popfieldage$field),
+                    category = "field") %>%
+  full_join(data.frame(node = unique(popfieldage $age_min),
+                    category = "age")) 
+popfieldage <- popfieldage [,c(1,2,3,1)]
+networkfieldage <-   graph_from_data_frame(d= popfieldage,directed = TRUE, vertices = nodes)
+a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
+set.seed(122)
+networkfieldage %>%
+  ggraph(layout = "stress") +
+  geom_edge_link2(aes(edge_alpha = count_fieldage, edge_width = count_fieldage,edge_color = field),arrow = a) +
+  geom_node_point(aes(size = 2, colour =category) )+
+  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+theme_void() +
+  theme(legend.position = "none")
+```
+
+
+
+
+### Population by Occupation
+
+```{r}
+popoccage <- g57 %>%
+  group_by(occupation, age_min) %>%
+  summarise(count_occage = sum(count_occupation)) %>%
+  ungroup()
+nodesocc <- data.frame(node = unique(popoccage$occupation),
+                    category = "occupation") %>%
+  full_join(data.frame(node = unique(popindage$age_min),
+                    category = "age"))
+popoccage <- popoccage[,c(1,2,3,1)]
+networkoccage <-   graph_from_data_frame(d=popoccage,directed = TRUE, vertices = nodesocc)
+a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
+set.seed(122)
+networkoccage %>%
+  ggraph(layout = "stress") +
+  geom_edge_link2(aes(edge_alpha = count_occage,edge_width = count_occage,edge_color = occupation),arrow = a) +
+  geom_node_point(aes(size = 2, colour =category) )+
+  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+theme_void() +
+  theme(legend.position = "none")
+```
+
+<!-- 
+tables
+-->
+
+### Population by Education, Age
+
+
+```{r}
+g46a %>%
+  group_by(afq_level, age_min) %>%
+  summarise(population=sum(count_edu_lvl)) %>%
+  group_by(afq_level) %>%
+  slice_max(population, n=1) %>%
+  arrange(age_min)%>%
+  kable(caption = "Education: Population") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"), latex_options = "hold_position")
+```
+
+
+### Population by Industries, Age
+
+
+
+```{r}
+g51 %>%
+  group_by(industry, age_min) %>%
+  summarise(population=sum(count_industry)) %>%
+  group_by(industry) %>%
+  slice_max(population, n=1) %>%
+  arrange(age_min)%>%
+  kable(caption = "Industry: Population") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"), latex_options = "hold_position")
+```
+
+
+
+### Population by Field
+
+
+
+```{r}
+g47 %>%
+  group_by(field, age_min) %>%
+  summarise(population=sum(count_field)) %>%
+  group_by(field) %>%
+  slice_max(population, n=1) %>%
+  arrange(age_min)%>%
+  kable(caption = "Field: Population") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"), latex_options = "hold_position")
+```
+
+
+
+
+### Population by Occupation
+
+
+```{r}
+g57%>%
+  group_by(occupation, age_min) %>%
+  summarise(population=sum(count_occupation)) %>%
+  group_by(occupation) %>%
+  slice_max(population, n=1) %>%
+  arrange(age_min)%>%
+  kable(caption = "Occupation: Population") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"), latex_options = "hold_position")
+```
+
+
+\newpage
+\section{Victoria: SA4 Sectors}
+
+
+- The bar plots represent the SA4 regions and its working population with respect to their education levels, field of study, industry of employment and occupations.
+
+- It can be observed that the region 206 had the most number of people with highest education levels which justifies that highest number of people in region 2016 were employed as professionals in their respective industries.
+
+- Management and commerce, engineering and technology were the fields of study for most population and agriculture, environment and mixed field programs had the least population share.
+
+- Health care, manufacturing and retail trade were the industries with most population while people were employed most for occupations of Professionals and Managers.
+
+
+### Education Level: Region
+
+
+```{r bestedu, fig.cap="Best education level of each region"}
+popareaedu <- g46a %>%
+  group_by(SA4_CODE_2016, afq_level) %>%
+  summarise(count_eduarea = sum(count_edu_lvl)) %>%
+  ungroup()
+
+bestedu <- popareaedu %>% 
+  select(1:3) %>%
+  group_by(afq_level) %>%
+  slice_max(count_eduarea) %>%
+  arrange(SA4_CODE_2016)
+
+bestedu %>%
+  ggplot() +
+  geom_col(mapping = aes(x = reorder_within(afq_level,count_eduarea, SA4_CODE_2016), y = count_eduarea, fill = afq_level)) +
+  labs(title = "Region and Best education level", 
+       x = "Fields with region code",
+       y = "Number of Students") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip()  +
+  theme(legend.position = "none")
+```
+
+
+### Industry: Region
+
+```{r popareaind, fig.cap=""}
+popindarea <- g51 %>%
+  group_by(SA4_CODE_2016, industry) %>%
+  summarise(count_indarea = sum(count_industry)) %>%
+  ungroup()
+popareaindmax <- popindarea %>% 
+  select(1:3) %>%
+  group_by(industry) %>%
+  slice_max(count_indarea) %>%
+  arrange(SA4_CODE_2016)
+
+popareaindmax %>%
+  ggplot(mapping = aes(x = fct_reorder(industry,count_industry), y = count_industry, fill = sex)) +
+  geom_col(mapping = aes(x = reorder_within(industry,count_indarea, SA4_CODE_2016), y = count_indarea, fill = industry)) +
+  labs(title = "Region and Best Industry", y = "Number of Employees") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip()  +
+  theme(legend.position = "none")
+```
+
+
+
+
+### Field: Region
+
+
+
+```{r bestfield, fig.cap="Best field of each region"}
+popareafield <- g47 %>%
+  group_by(SA4_CODE_2016, field) %>%
+  summarise(count_fieldarea = sum(count_field)) %>%
+  ungroup()
+
+bestfield <- popareafield %>% 
+  select(1:3) %>%
+  group_by(field) %>%
+  slice_max(count_fieldarea) %>%
+  arrange(SA4_CODE_2016)
+
+bestfield %>%
+  ggplot() +
+  geom_col(mapping = aes(x = reorder_within(field,count_fieldarea, SA4_CODE_2016), y = count_fieldarea, fill = field)) +
+  labs(title = "Region and Best Field", 
+       x = "Fields with region code",
+       y = "Number of Students") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip()  +
+  theme(legend.position = "none")
+```
+
+
+
+
+### Occupation: Region
+
+
+```{r popareaocc, fig.cap=""}
+popoccarea <- g57 %>%
+  group_by(SA4_CODE_2016, occupation) %>%
+  summarise(count_occarea = sum(count_occupation)) %>%
+  ungroup()
+popareaoccmax <- popoccarea %>% 
+  select(1:3) %>%
+  group_by(occupation) %>%
+  slice_max(count_occarea) %>%
+  arrange(SA4_CODE_2016)
+
+popareaoccmax %>%
+  ggplot(mapping = aes(x = fct_reorder(occupation,count_occarea), y = count_occarea, fill = sex)) +
+  geom_col(mapping = aes(x = reorder_within(occupation,count_occarea, SA4_CODE_2016), y = count_occarea, fill = occupation)) +
+  labs(title = "Region and Best Occupation", y = "Number of Employees") +
+  scale_y_continuous(label=label_number()) +
+  coord_flip()  +
+  theme(legend.position = "none")
+```
+
+<!-- 
+Maps
+-->
+
+
+- The maps represent the SA4 regions and the distribution of population by their education levels, industries, field of study and occupations respectively.
+
+- Most population has completed education level 7 with management and commerce as their respective fields of study.
+
+- It can be observed that the highest number of people are employed in the occupations: Professionals, Managers and Technicians and trade workers.
+
+- Major industry in the city side is healthcare and the country regions are more operational in agricultural activities.
+
+
+### Education Level: Region
+
+
+```{r edmap, fig.cap="Spatial Education Level Distribution"}
+
+popareaedu <- g46a %>%
+  group_by(SA4_CODE_2016, afq_level) %>%
+  summarise(count_eduarea = sum(count_edu_lvl)) %>%
+  ungroup()
+popareaedumax <- popareaedu %>% 
+  select(1:3) %>%
+  group_by(SA4_CODE_2016) %>%
+  slice_max(count_eduarea) %>%
+  arrange(SA4_CODE_2016)
+
+popareaedumax %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=afq_level)) +
+  geom_sf_text(aes(geometry= geometry,label=afq_level), colour="black", check_overlap=TRUE)+
+  theme_void() +
+  scale_fill_brewer() +
+  theme(legend.position = "bottom")
+```
+
+
+### Industry: Region
+
+```{r indmap, fig.cap="Spatial Industry Distribution"}
+popindarea <- g51 %>%
+  group_by(SA4_CODE_2016, industry) %>%
+  summarise(count_indarea = sum(count_industry)) %>%
+  ungroup()
+popindareamax <- popindarea %>% 
+  select(1:3) %>%
+  group_by(SA4_CODE_2016) %>%
+  slice_max(count_indarea)
+popindareamax %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=industry)) +
+  geom_sf_text(aes(geometry= geometry,label=industry ), colour="black",check_overlap=TRUE)+
+  theme_void() +
+  scale_fill_brewer() +
+  theme(legend.position = "bottom")
+#major industry in cbd is helthcare
+#major industry in country side is agriculture
+```
+
+
+
+### Field: Region
+
+
+
+```{r fieldmap, fig.cap="Spatial Study Field Distribution"}
+popareafield <- g47 %>%
+  group_by(SA4_CODE_2016, field) %>%
+  summarise(count_fieldarea = sum(count_field)) %>%
+  ungroup()
+
+popareafieldmax <- popareafield %>% 
+  select(1:3) %>%
+  group_by(SA4_CODE_2016) %>%
+  slice_max(count_fieldarea) %>%
+  arrange(SA4_CODE_2016)
+
+popareafieldmax %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=field)) +
+  geom_sf_text(aes(geometry= geometry,label=field), colour="black", check_overlap=TRUE)+
+  theme_void() +
+  scale_fill_brewer() +
+  theme(legend.position = "bottom")
+
+```
+
+
+
+
+### Occupation: Region
+
+
+```{r occmap, fig.cap="Spatial Occupation Distribution"}
+
+popareaocc <- g57 %>%
+  group_by(SA4_CODE_2016, occupation) %>%
+  summarise(count_occarea = sum(count_occupation)) %>%
+  ungroup()
+popoccareamax <- popareaocc %>% 
+  select(1:3) %>%
+  group_by(SA4_CODE_2016) %>%
+  slice_max(count_occarea)
+popoccareamax %>% 
+  full_join(sa4_geomap, 
+            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
+  ggplot() +
+  geom_sf(mapping = aes(geometry= geometry, fill=occupation)) +
+  geom_sf_text(aes(geometry= geometry,label=occupation), colour="black", check_overlap=TRUE)+
+  theme_void() +
+  scale_fill_brewer() +
+  theme(legend.position = "bottom")
+
+```
+
+
+<!-- 
+Networks
+-->
+
+
+### Education Level: Region
+
+
+```{r}
+popeduarea <- g46a %>%
+ group_by(SA4_CODE_2016, afq_level) %>%
+  summarise(count_eduarea = sum(count_edu_lvl)) %>%
+  ungroup()
+nodesarea <- data.frame(node = unique(popeduarea$SA4_CODE_2016),
+                    category = "area") %>%
+  full_join(data.frame(node = unique(popeduarea$afq_level),
+                    category = "afq_level"))
+popeduarea <- popeduarea[,c(1,2,3,2)]
+networkeduarea <-   graph_from_data_frame(d=popeduarea,directed = TRUE, vertices = nodesarea)
+a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
+networkeduarea %>%
+  ggraph(layout = "stress") +
+  geom_edge_link2(aes(edge_alpha = count_eduarea,edge_width = count_eduarea,edge_color = afq_level),arrow = a) +
+  geom_node_point(aes(size = 2, colour =category) )+
+  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+theme_void() +
+  theme(legend.position = "none")
+```
+
+
+### Industry: Region
+
+```{r }
+popindarea <- g51 %>%
+  group_by(SA4_CODE_2016, industry) %>%
+  summarise(count_indarea = sum(count_industry)) %>%
+  ungroup()
+nodesarea <- data.frame(node = unique(popindarea$SA4_CODE_2016),
+                    category = "area") %>%
+  full_join(data.frame(node = unique(popindarea$industry),
+                    category = "industry"))
+popindarea <- popindarea[,c(1,2,3,2)]
+networkindarea <-   graph_from_data_frame(d=popindarea,directed = TRUE, vertices = nodesarea)
+a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
+networkindarea %>%
+  ggraph(layout = "stress") +
+  geom_edge_link2(aes(edge_alpha = count_indarea,edge_width = count_indarea,edge_color = industry),arrow = a) +
+  geom_node_point(aes(size = 2, colour =category) )+
+  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+theme_void() +
+  theme(legend.position = "none")
+```
+
+
+
+
+### Field: Region
+
+
+
+```{r}
+popfieldarea <- g47 %>%
+ group_by(SA4_CODE_2016, field) %>%
+  summarise(count_fieldarea = sum(count_field)) %>%
+  ungroup()
+nodesarea <- data.frame(node = unique(popfieldarea$SA4_CODE_2016),
+                    category = "area") %>%
+  full_join(data.frame(node = unique(popfieldarea$field),
+                    category = "field"))
+popfieldarea <- popfieldarea[,c(1,2,3,2)]
+networkfieldarea <-   graph_from_data_frame(d=popfieldarea,directed = TRUE, vertices = nodesarea)
+a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
+networkfieldarea %>%
+  ggraph(layout = "stress") +
+  geom_edge_link2(aes(edge_alpha = count_fieldarea,edge_width = count_fieldarea,edge_color = field),arrow = a) +
+  geom_node_point(aes(size = 2, colour =category) )+
+  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+theme_void() +
+  theme(legend.position = "none")
+```
+
+
+
+
+### Occupation: Region
+
+
+```{r }
+popareaocc <- g57 %>%
+  group_by(SA4_CODE_2016, occupation) %>%
+  summarise(count_occarea = sum(count_occupation)) %>%
+  ungroup()
+nodesareaocc <- data.frame(node = unique(popareaocc$SA4_CODE_2016),
+                    category = "area") %>%
+  full_join(data.frame(node = unique(popareaocc$occupation),
+                    category = "occupation"))
+popareaocc <- popareaocc[,c(1,2,3,2)]
+networkoccarea <-   graph_from_data_frame(d=popareaocc,directed = TRUE, vertices = nodesareaocc)
+a <- grid::arrow(type = "closed", length = unit(0.2,"inches"))
+networkoccarea %>%
+  ggraph(layout = "stress") +
+  geom_edge_link2(aes(edge_alpha = count_occarea,edge_width = count_occarea,edge_color = occupation),arrow = a) +
+  geom_node_point(aes(size = 2, colour =category) )+
+  geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+theme_void() +
+  theme(legend.position = "none")
+```
+
+
+\newpage
+\section{G52 and G58}
+
+<!--
+g52,g58
+-->
+
+<!--
+G52
+-->
+
+
+### Chart A
+
+- It can be observed from both figures that overall females worked more than men. However, as the number of work-hours increased men have worked more than women.
+
+```{r, include=FALSE}
 p1 <- g52 %>% 
   mutate(hr_min = as.numeric(hr_min)) %>% 
   summarise(hr_min = sum(hr_min, na.rm = TRUE))
+p2 <- g52 %>% 
+  mutate(hr_max = as.numeric(hr_max)) %>% 
+  summarise(hr_max = sum(hr_max, na.rm = TRUE))
+```
+
+```{r hr_plots, fig.show='hold', out.width="50%"}
+p1 <- g52 %>%  
   ggplot(g52, 
            mapping = aes(x = hr_min,
                          y = count_industry,
@@ -793,9 +1141,7 @@ p1 <- g52 %>%
            ggtitle("Min hours worked for Industries")
 p1
 
-p2 <- g52 %>% 
-  mutate(hr_max = as.numeric(hr_max)) %>% 
-  summarise(hr_max = sum(hr_max, na.rm = TRUE))
+p2 <- g52 %>%   
   ggplot(g52, 
            mapping = aes(x = hr_max,
                          y = count_industry,
@@ -809,9 +1155,10 @@ p2 <- g52 %>%
 p2
 ```
 
-It can be observed from fig \@ref(fig:hr_plots) that overall females worked more than men. However, as the number of work-hours increased men have worked more than women.
 
+### Chart B
 
+- It can be observed from figure that industries like health care, education and training, construction and Professional and technical services have more working population as the working hours increased. Mining, electricity, gas, water showed low working population irrespective of work hours.
 ```{r ind_hrs}
 g52redundanthrs <-  g52[rep(rownames(g52), g52$count_industry), ]
 
@@ -825,13 +1172,26 @@ hrindcount <- g52redundanthrs %>%
 ggplotly(hrindcount)
 ```
 
-It can be observed from fig \@ref(fig:ind_hrs) that industries like health care, education and training, construction and Professional and technical services have more working population as the working hours increased. Mining, electricity, gas, water and agriculture forestry and fishing showed low working population irrespective of work hours.
 
+<!--
+G58
+-->
 
-```{r hrs_plots, fig.show='hold', out.width="50%"}
+### Chart C
+
+- It can be observed from figure that overall females worked more than men at all occupations. Although, for maximum hours worked, as number of working-hours increased, the number of men and women remained the same.
+
+```{r, include=FALSE}
 p3 <- g58 %>% 
   mutate(hrs_min = as.numeric(hrs_min)) %>% 
   summarise(hrs_min = sum(hrs_min, na.rm = TRUE))
+p4 <- g58 %>% 
+  mutate(hrs_max = as.numeric(hrs_max)) %>% 
+  summarise(hrs_max = sum(hrs_max, na.rm = TRUE))
+```
+
+```{r hrs_plots, fig.show='hold', out.width="50%"}
+p3 <- g58 %>% 
   ggplot(g58, 
            mapping = aes(x = hrs_min,
                          y = count_occupation,
@@ -846,8 +1206,6 @@ p3 <- g58 %>%
 p3
 
 p4 <- g58 %>% 
-  mutate(hrs_max = as.numeric(hrs_max)) %>% 
-  summarise(hrs_max = sum(hrs_max, na.rm = TRUE))
   ggplot(g58, 
            mapping = aes(x = hrs_max,
                          y = count_occupation,
@@ -861,7 +1219,9 @@ p4 <- g58 %>%
 p4
 ```
 
-It can be observed from fig \@ref(fig:hrs_plots) that overall females worked more than men at all occupations. Although, for maximum hours worked, as number of working-hours increased, the number of men and women remained the same.
+
+
+- It can be observed from figure that the most number of employees in the SA4 regions are employed in the occupations of Professionals, Managers and Technicians and trade workers. Professionals accounted for highest number of employees for region 206, while machinery operators and drivers accounted for the least number of employees for region 213 respectively.
 
 ```{r popareaoccupation, fig.cap=""}
 
@@ -899,19 +1259,89 @@ bestfield %>%
 ```
 
 
-It can be observed from fig \@ref(fig:popareaoccupation) tha the most number of employees in the SA4 regions are employed in the occupations of Professionals, Managers and Technicians and trade workers. Professionals accounted for highest number of employees for region 206, while machinery operators and drivers accounted for the least number of employees for region 213 respectively.
+\addcontentsline{toc}{subsection}{Conclusion}
+\subsection*{Conclusion}
+
+<b><font face="Georgia" size="5em" color="#063c91">Conclusion</font></b>
+
+The education levels, field of study, industry of employment and occupation was studied for the Victorian SA4 level populations for the distributions according to gender and sex. The tables and plots were compared to mark the covariations between the population distributions.For example, the population trend between the field of study and industry of employment. Networks were drawn based on the population weights to analyze these trends. Some of the trends like more men were employed as managers when more women had studied management were found to be interesting. Cholropeth maps were made to analyze these trends spatially. 
+
+The goal of this report is to create a data story from these statistical summaries to enumerate the facts from the data and link them to the real world. The data provided by the Australian Bureau of Statistics is an aggregated open data and in no form identifies individuals who participated in the census. The ABS aims to integrate the census data with other datasets to make this census data more interesting. Thus, we aim to do the same and bring some interesting data stories as we progress building this report. 
 
 
+\newpage
+
+\subsection*{R Packages}
+
+@R-base
+
+@R-bookdown
+@R-citation
+@R-dplyr,
+ 
+
+@R-forcats,
+ 
+
+@R-ggplot2,
+  
+
+@R-kableExtra,
+ 
+@R-knitr,
+ 
+
+@R-naniar,
+ 
+@R-patchwork,
 
 
+@R-purrr,
 
 
+@R-readr,
+  
 
+@R-scales,
+  
 
+@R-stringr,
+ 
 
+@R-tibble,
+  
+@R-tidyr,
+ 
+@R-tidyverse,
+  
 
+@R-tinytex,
+ 
 
+@R-visdat,
+ 
+@bookdown2016,
+  
 
+@ggplot22016,
+ 
 
+@knitr2015,
+ 
 
+@knitr2014,
+ 
+
+@tidyverse2019,
+ 
+
+@tinytex2019,
+  
+
+@visdat2017
+ 
+
+```{r ref.label=knitr::all_labels(), echo=FALSE, eval=FALSE}
+
+```
 

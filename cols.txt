@@ -1,7 +1,5 @@
-<<<<<<< HEAD
-=======
+
 47
->>>>>>> mohammed_faizan
 M_NatPhyl_Scn_15_24  Natural_and_Physical_Sciences
 M_InfoTech_15_24    Information_Technology
 M_Eng_RelTec_15_24  Engineering_and_Technologies
@@ -14,9 +12,7 @@ M_Society_Cult_15_24  Society_and_Culture
 M_Creative_Arts_15_24 Creative_Arts
 M_Fd_Hosp_Psnl_Svcs_15_24   Food_Hospitality_and_Personal_Services    
 M_MixFld_Prgm_15_24         Mixed_Field_Programmes
-<<<<<<< HEAD
-M_FldStd_NS_15_24       Not Stated
-=======
+
 M_FldStd_NS_15_24       Not Stated
 
 51
@@ -54,4 +50,3 @@ M15_19_Sales_W Sales_workers
 M15_19_Mach_oper_drivers Machinery_operators_and_drivers
 M15_19_Labourers
 M15_19_Occu_ID_NS Inadequately_described_Not_stated
->>>>>>> mohammed_faizan
