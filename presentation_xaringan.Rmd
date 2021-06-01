@@ -170,7 +170,7 @@ responses <- responses_ntpvt %>%
                values_to = "percentage")
 ```
 
-.pull-left1[
+.pull-left[
 ```{r echo=TRUE, eval=FALSE}
 responses %>%
   ggplot() +
@@ -189,7 +189,7 @@ responses %>%
 ```
 ]
 
-.pull-right1[
+.pull-right[
 ```{r echo=FALSE, eval=TRUE}
 responses %>%
   ggplot() +
@@ -217,7 +217,7 @@ knitr::include_graphics("figs/informationtodata.41c!openelement&fieldelemformat=
 ---
 class: center, top
 
-.pull-left[Sample Paper Form
+.pull-left2[Sample Paper Form
 .tiny[<span>by <a href="https://www.abs.gov.au/ausstats/abs@.nsf/0/d45601538d018a35ca257ea600148936/Body/0.3104!OpenElement&FieldElemFormat=gif">ABS</a> </span>]
 ```{r out.width = '50%', echo = FALSE}
 knitr::include_graphics("https://www.abs.gov.au/ausstats/abs@.nsf/0/d45601538d018a35ca257ea600148936/Body/0.3104!OpenElement&FieldElemFormat=gif")
@@ -323,6 +323,18 @@ knitr::include_graphics("figs/tablescreenshot.png")
 ```
 ]
 
+---
+class: center, middle
+
+## Thanking
+
+### .blue[Dr Emi Tanaka]
+### Lecturer Department of Econometric and Business Statistics.
+### Monash University
+
+.pull-left[Code Reference
+.tiny[<a href="https://wcd.numbat.space/tutorials/tutorial-07.html">here</a>]
+]
 ---
 class: left, top
 
