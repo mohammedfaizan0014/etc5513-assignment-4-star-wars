@@ -1,0 +1,35 @@
+
+
+background-image: url("figs/ana-bg-2-rect.jpg")
+background-size: cover
+class: hide-slide-number split-70
+count: false
+
+.column.shade_black[.content[
+
+<br><br>
+
+
+
+.bottom_abs.width100[
+
+Lecturer: `r rmarkdown::metadata$author`
+
+Department of Econometrics and Business Statistics<br>
+
+
+`r rmarkdown::metadata$date`
+
+
+]
+
+<br />
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+
+
+]]
+
+
+

@@ -1,0 +1,951 @@
+/*******************************************************************************
+Defaults/general settings
+*******************************************************************************/
+
+/* Get rid of the rogue linebreak just before the footer */
+body>br {
+	display: none;
+}
+
+td.content {
+	padding: 0;
+}
+.content>p {
+    display:none;
+}
+
+.censusPage .contentBody hr {
+	border-style: solid;
+	border-width: 0 0 5px 0;
+	border-color: rgb(230,230,230);
+}
+
+/*******************************************************************************
+Fonts
+*******************************************************************************/
+
+/* GENERAL */
+.content {
+	font-family: Arial, Tahoma, Verdana, sans-serif;
+}
+/* Special override class when things don't play nice */
+.rightalign {
+	text-align: right !important;
+}
+
+/* BODY TEXT */
+.censusPage .contentBody, .bigLinkPage .contentBody {
+	font-size: 14px;/*87.5%; /* 14px */
+	font-family: Arial, Tahoma, Verdana, sans-serif;
+	color: #223f83;
+	width: auto;
+}
+/* TB manual is to have grey text */
+.tablebuildermanual .contentBody {
+	color: #505050;
+}
+
+/* HYPERLINKS */
+/*.censusPage a:link, .censusPage a:visited {color: #187bbb; text-decoration: none;}
+.censusPage a:hover, .censusPage a:active {color: #187bbb; text-decoration: underline;}*/
+.censusPage .contentBody a:link {color: #223f83; text-decoration: underline;}
+.censusPage .contentBody a:visited {color: #187bbb; text-decoration: underline;}
+.censusPage .contentBody a:hover, .censusPage .contentBody a:active {color: #223f83; background-color: #fff795;}
+
+/* CENSUS HEADER */
+#censusheader * {
+	color: #fff;
+}
+#censusheader .censusbreadcrumb {
+	font-size: 90%;
+}
+#censusheader .censusbreadcrumb a {
+	text-decoration: none;
+    border-bottom:none;
+    font-size:12px;
+}
+
+#censusheader .censusbreadcrumb a:hover {
+    text-decoration: underline;
+}
+
+/*#censusheader .censusbreadcrumb a:link, #censusheader .censusbreadcrumb a:visited {
+	text-decoration: none;
+}
+#censusheader .censusbreadcrumb a:hover, #censusheader .censusbreadcrumb a:active, #censusheader .censusbreadcrumb a:focus {
+	text-decoration: underline;
+}*/
+#censusheader h2 {
+	font-size: 215%;
+}
+#censusheader h3, /* Only the census splash page used to use this but it wasn't a heading - but now it's being used for other things (e.g. CoB QSs) */
+#censusheader .tagline {
+	font-size: 180%;
+	font-weight: bold;
+}
+#censusheader .censusintro {
+	font-size: 90%;
+	line-height: 130%;
+}
+
+/* HEADER */
+.tablebuilderheader h2, .tablebuilderheader p, .tablebuilderheader a {
+	color: #505050 !important;
+}
+.tablebuilderheader h2 {
+	font-size: 180% !important;
+}
+
+/* CALLOUT TEXT */
+.censusPage .contentCallout {
+	font-size: 18px;/*112.5%; /* 18px */
+	line-height: 150%;
+	color: #767676;
+}
+
+/* HEADINGS */
+.productTitle, .censusPage h3, .bigLinkPage h3, .censusPage h4 {
+	font-family: Arial, Tahoma, Verdana, sans-serif;
+	font-weight: bold;
+	color: #187bbb;
+	margin: 0;
+	padding: 0 0 5px;
+}
+.productTitle, .contentBody h3 {
+	font-size: 16px;/*100%; /* 16px */
+}
+.censusPage h4 {
+	font-size: 14px;/*87.5%; /* 14px */
+}
+.productTitle, /*.censusPage .bordertop h4,*/ .tbLogin h3 {
+	color: #223f83;
+}
+/* hyperlink colours */
+.productTitle a:link, .productTitle a:visited {color:#223f83;} /* unvisited & visited links */
+.productTitle a:hover, .productTitle a:active {color:#187bbb;} /* mouse-over & selected links */
+.productTitle a {text-decoration:none;} /* get rid of link underline */
+
+/* BIG LINK PAGES (LEVEL 1) */
+.bigLink h3 a:link {
+	color: #223f83 !important;
+	text-decoration: none !important;
+}
+.bigLink h3 a:visited {
+	color: #187bbb;
+}
+.bigLink h3 a:hover, .bigLink h3 a:active {
+	text-decoration: none !important;
+}
+.bigLink h3 a:focus {
+	text-decoration: underline !important;
+}
+.bigLink P {
+	overflow: hidden;
+}
+
+/* TABLE TEXT */
+.datatable, .footnote {
+	font-size: 13px;/*92.86%; /*81.25%; /* 13px */
+	font-family: Arial, Tahoma, Verdana, sans-serif;
+	color: #223f83;
+}
+.datatable th, .footnote th {
+	text-align: left;
+	font-weight: normal;
+}
+.datatable caption, .footnote caption {
+	font-weight: bold;
+	text-align: left;
+}
+/* star ratings table */
+.datatable#starRatings th {
+	text-align: right;
+	font-weight: bold;
+	font-size: 18px;/*112.5%; /* 18px */
+}
+
+/* SEARCHBOX STYLING */
+.qsSearch .title {
+	color: #223f83;
+	font-size: 90%;
+	text-align: right;
+}	
+.cpSearch .title {
+	color:#521848;
+	font-size: 80%;
+	letter-spacing:-1px;
+	text-align: right;
+}
+#homepage .qsSearch .title {
+	text-align: left;
+}
+.qsSearch .title span, .cpSearch .title span {
+	font-weight: bold;
+}
+.qsSearch select {
+	color: #223f83;
+	font-size: 80%;
+}
+.cpSearch select {
+	color: #521848;
+	font-size: 80%;
+}
+.qsSearch input, .cpSearch input{
+	color: #505050;
+}
+.qsSearch .searchNav, .cpSearch .searchNav {
+	font-size: 70%;
+	text-align: right;	
+}
+
+/* SIDE NAV */
+.tertiarynav {
+	font-size: 12px; /*75%; /* 12px */
+	font-weight: 600;
+	color: #187bbb;
+}
+.tertiarynav b {
+	color: #223f83;
+	font-weight: 600;
+}
+/* hyperlink colours */
+.tertiarynav a:link, .tertiarynav a:visited {color:#187bbb;} /* unvisited & visited links */
+.tertiarynav a:hover, .tertiarynav a:active {color:#223f83;} /* mouse-over & selected links */
+.tertiarynav a {text-decoration:none;} /* get rid of link underline */
+
+/* TB & DP LOGIN WIDGET */
+.loginWidget .loginTitle, .loginWidget .loginButton, .loginWidget .loginLinks {
+	color: #223f83;
+}
+.loginWidget .loginTitle, .loginWidget .loginButton {
+	font-family: Arial, Tahoma, Verdana, sans-serif;
+	font-size: 14px;
+}
+.loginWidget .loginTitle {
+	letter-spacing: -1px;
+}
+.loginWidget .loginButton, .loginWidget .loginButton:hover {
+	text-align: center;
+	text-decoration: none;
+}
+.loginWidget .loginTitle span, .loginWidget .loginButton {
+	font-weight: bold;
+}
+.loginWidget .loginLinks {
+	font-size: 70%;
+	text-align: right;	
+}
+
+/* PAGINATOR */
+.pageme {
+	font-size: 14px;/*87.5%; /* 14px */
+	color: #505050;
+}
+.pageme h3 a {
+	color: #187bbb;
+	text-decoration: none;
+}
+.pageme .date {
+	font-weight:bold;
+	color: #505050;
+}
+
+.pageNav{
+	font-size: 18px;/*112.5%; /* 18px */
+	color: #505050;
+	text-align: center;
+}
+.pageNav li a{
+	color: #505050;
+	font-weight: bold;
+	text-decoration:none;
+}
+.pageNav .currentPage a {
+	color: white;
+} 
+
+/* BACK TO TOP */
+#back-top a {
+	font-family: Arial, Tahoma, Verdana, sans-serif;
+	font-size: 11px;
+	line-height: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+/* CENSUS VIDEO UPDATES PAGE */
+#fourCol {
+	color:#223F83;
+}
+#fourCol .contentHeader {
+	font-size:18px;/*110%;*/
+	font-weight:700;
+}
+#fourCol .contentBody {
+	font-size:13px;/*80%;*/
+}
+/* The above should be genericised & merged into a class */
+.fourCol {
+	color:#223F83;
+	font-size:13px;/*80%;*/
+}
+
+/*******************************************************************************
+XPage-built Media filter for the 2011 Census June release pages
+*******************************************************************************/
+
+.content #contentXpage {
+	width: 840px;
+}
+
+#preListingsContent br {
+	display: none; /* gets rid of extra break in the header */
+}
+#listings {
+	color: #505050;
+	width: 550px;
+	float: left;
+	margin-top: 30px;
+	margin-left: 30px;
+	margin-bottom: 30px;
+}
+#listings .listingsHeading {
+	display: block;
+	margin-bottom: 4px;
+}
+#listings .listingsHeading a {
+	font-weight: bold;
+	color: #187bbb;
+}
+#listings .listingsSecLine, #listings .listingsSummary, #listings .noResultsText {
+	font-size: 14px;/*90%;*/
+}
+#listings .listingsSecLine {
+	display: block;
+	margin-bottom: 5px;
+}
+#listings .listingsSummary {
+	display: block;
+	margin-bottom: 15px;
+}
+#listings .noResultsText {
+	position: relative;
+	left: 25%;
+	top: 30px;
+}
+#listings br {
+	display: none;
+}
+
+#listingsFilter {
+	font-size: 12px;
+	float: left;
+	width: 210px;
+	margin-top: 30px;
+	margin-left: 50px;
+}
+#listingsFilter .filterIcon {
+	margin-top: -4px;
+	margin-right: -3px;
+	float: right;
+}
+#listingsFilter ul {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+#listingsFilter ul li {
+	background: #eaebec;
+	padding: 5px;
+	margin-bottom: 1px;
+}
+#listingsFilter ul li.selectedFilter {
+	color: #505050;
+	font-weight: normal;
+}
+#listingsFilter ul li a {
+	color: #505050;
+	font-weight: bold;
+	text-decoration: none;
+	/* the following allows the anchor to be bigger than it really is, and make the whole li a link */
+	display: inline-block;
+	width: 150px;
+	margin: -5px -29px -5px -31px;
+	*margin-left: -35px; /* this is supposed to work in IE, but doesn't */
+	padding: 5px 29px 5px 31px;
+}
+#listingsFilter ul li, #listingsFilter ul div div li.selectedFilter, #listingsFilter ul li a:hover {
+	font-weight: bold;
+	color: #187bbb;
+}
+#listingsFilter ul div div li {
+	list-style: circle inside url('/ausstats/wmdata.nsf/activeimages/filter_normal/$File/filter_normal.png');
+	margin-left: 5px;
+}
+#listingsFilter ul div div li.selectedFilter, #listingsFilter ul div div li:hover {
+	list-style: circle inside url('/ausstats/wmdata.nsf/activeimages/filter_selected/$File/filter_selected.png');
+}
+#listingsFilter hr {
+	display: none; /* why are horizontal rules being used anyway?!? */
+}
+
+#listingsPager {
+	float: right;
+	margin-right: 260px;
+	margin-bottom: 30px;
+}
+#listingsPager .xspPagerContainer, #listingsPager .xspPagerLeft {
+	background-color: transparent;
+}
+#listingsPager .xspGroup {
+	font-size: 15px;/*14pt;*/
+	font-weight: bold;
+	padding-top: 4px;
+}
+#listingsPager .xspGroup span span {
+	color: #187bbb;
+	display: inline-block;
+	border-color: #bfbfbf; /* for the vertical lines between page numbers */
+}
+#listingsPager .xspGroup span span a {
+	color: #505050;
+	font-weight: normal !important;
+}
+
+#MRLink {
+	margin-top: 80px;
+	margin-bottom: -63px; /* gets it in line with the pager */
+}
+
+/*******************************************************************************
+SearchBox styling
+*******************************************************************************/
+
+.qsSearch, .cpSearch {
+	height: 90px;
+	width: 210px;
+	background:url('/ausstats/wmdata.nsf/activeimages/widget-background/$File/widget-background.png') no-repeat;
+	position: relative;
+}
+#homepage .qsSearch {
+	height:78px;
+	width:182px;
+	background:url('/ausstats/wmdata.nsf/activeimages/widget-background-small/$File/widget-background-small.png') no-repeat;
+	/*  margin-left: -11px; */
+}
+
+.qsSearch select, .cpSearch select {
+	margin-top: 10px;
+	margin-left: 8px;
+	padding: 0;
+	border: 1px solid #bfbfbf;
+	height: 20px !important;
+	width: 52px;
+	background: url('/ausstats/wmdata.nsf/activeimages/widget-gradient/$File/widget-gradient.png');
+}
+#homepage .qsSearch select {
+	margin-top: 8px;
+}
+.qsSearch .title, .cpSearch .title {
+	display: block;
+	position: absolute;
+	top: 12px;
+	left: 65px;
+	padding: 0;
+	margin: 0;
+	height: 20px;
+	width: 140px;
+}
+.cpSearch .title {
+	left: auto;
+	right: 8px;
+}
+#homepage .qsSearch .title {
+	top: 10px;
+	left: 8px;
+}
+.qsSearch .title span {
+	margin-right:-4px;
+	}
+.cpSearch .title span {
+	margin-right:-3px;
+}
+.qsSearch input, .cpSearch input{
+	position: absolute;
+	top: 40px;
+	left: 8px;
+	background: url('/ausstats/wmdata.nsf/activeimages/widget-gradient/$File/widget-gradient.png');
+	border: 1px solid #bfbfbf;
+	border-right: 0 none;
+	padding: 0;
+	width: 159px;
+	height: 18px;
+}
+#homepage .qsSearch input {
+	top: 33px;
+	width: 130px;
+}
+.qsSearch .gwt-SearchWidget-Button, .cpSearch .gwt-SearchWidget-Button{
+	position: absolute;
+	top: 40px;
+	right: 8px;
+	background: url('/ausstats/wmdata.nsf/activeimages/go-button/$File/go-button.png') no-repeat 0px -1px;
+	border: 1px solid #bfbfbf;
+	width: 35px;
+	height: 20px;
+}
+#homepage .qsSearch button {
+	top: 33px;
+}
+.qsSearch button:hover, .cpSearch button:hover, .qsSearch button:focus, .cpSearch button:focus {
+	background-image: url('/ausstats/wmdata.nsf/activeimages/go-button-hover/$File/go-button-hover.png');
+	border-color: #bfbfbf;
+}
+.qsSearch button:active, .cpSearch button:active {
+	background-image: url('/ausstats/wmdata.nsf/activeimages/go-button-hover/$File/go-button-hover.png');
+	background-position: 0px 0px !important;
+	border-color: #187bbb !important;
+}
+.qsSearch .searchNav, .cpSearch .searchNav {
+	position: absolute;
+	right: 8px;
+	bottom: 9px;
+}
+
+/*******************************************************************************
+TB & DP login widget
+*******************************************************************************/
+.loginWidget {
+	position: relative;
+	width: 210px;
+	height: 70px;
+	background: url('/ausstats/wmdata.nsf/activeimages/login-background/$File/login-background.png') no-repeat;
+}
+.loginWidget .loginTitle {
+	position: absolute;
+	top: 5px;
+	left: 8px;
+}	
+.loginWidget .loginButton {
+	display: block;
+	position: absolute;
+	top: 24px;
+	left: 40px;
+	width: 130px;
+	height: 21px;
+	padding-top: 4px;
+	*padding-bottom: 5px;
+	background: url('/ausstats/wmdata.nsf/activeimages/login-button-hover/$File/login-button-hover.png') no-repeat;
+}		
+.loginWidget .loginButton:hover {
+	height: 20px;
+	padding-top: 5px;
+	background: url('/ausstats/wmdata.nsf/activeimages/login-button-normal/$File/login-button-normal.png') no-repeat;
+}
+.loginWidget .loginLinks {
+	position: absolute;
+	bottom: 5px;
+	right: 8px;
+}
+
+/*******************************************************************************
+Override for TB pages that don't have header images
+*******************************************************************************/
+
+.tablebuilderheader {
+	height: 150px !important;
+}
+
+/*******************************************************************************
+Census header
+*******************************************************************************/
+
+#censusheader {
+	position: relative;
+	width: 840px;
+	height: 260px;
+	background: #fff url('/ausstats/wmdata.nsf/activeimages/census1/$File/census1.jpg');
+}
+#censusheader .censusbreadcrumb, #censusheader h2, #censusheader .tagline, #censusheader h3, #censusheader .censusintro {
+	position: absolute;
+	left: 30px;
+	margin: 0;
+	padding: 0;
+}
+#censusheader .censusbreadcrumb {
+	top: 20px;
+	width: 550px;
+}
+#censusheader h2 {
+	top: 65px;
+	width: 400px;
+}
+#censusheader .tagline, #censusheader h3 {
+	top: 100px;
+	width: 400px;
+}
+#censusheader .censusintro {
+	top: 110px;
+	width: 350px;
+}
+
+/*******************************************************************************
+Big Link Pages (Level 1)
+*******************************************************************************/
+
+.bigLinkPage {
+	margin: 0 !important;
+	width: 840px !important;
+}
+.bigLink {
+	position: relative;
+	height: 135px;
+	padding: 0 !important;
+	border-bottom: 1px #eaebec solid !important;
+	background: transparent url('/ausstats/wmdata.nsf/activeimages/bigarrow/$File/bigarrow.png') no-repeat 787px 35px !important;
+}
+.bigLink:hover, .bigLink:active {
+	background: #eaebec url('/ausstats/wmdata.nsf/activeimages/bigarrow_hover/$File/bigarrow_hover.png') no-repeat 787px 35px !important;
+}
+.bigLink P {
+	position: absolute;
+	top: 55px;
+	left: 30px;
+	width: 530px;
+	height: 48px;
+	cursor: pointer;
+}
+.bigLink A {
+	display: block;
+	position: absolute;
+	padding: 30px 0 0 30px;
+	width: 810px;
+	height: 105px;
+}
+.bigLink A, .bigLink A:hover {
+	z-index: 100;
+}
+
+/*******************************************************************************
+Census Video Updates 4-column page
+*******************************************************************************/
+
+#fourCol .contentHeader {
+	border-bottom:1px solid #E6E6E6;
+}
+#fourCol .widgetCol {
+	padding-left: 52px;
+}
+#fourCol .contentBody {
+	padding: 10px 3px;
+	width:131px;
+}
+#fourCol .contentBody img {
+	margin-bottom:10px;
+}
+/* The above should be genericised & merged into a class */
+.fourCol {
+	border-bottom: 1px solid #e6e6e6 !important;
+}
+.fourCol tr td {
+	padding: 10px 3px;
+	width: 131px;
+}
+.fourCol tr td img {
+	margin-bottom: 10px;
+}
+
+/*******************************************************************************
+General page styling
+*******************************************************************************/
+
+.censusPage, .bigLinkPage {
+	width: 810px;
+	margin-top: 30px;
+	margin-left: 30px;
+}
+
+.censusPage img {
+	margin: 0;
+	border: 0;
+	padding: 0;
+}
+
+.censusPage .contentBody, .bigLinkPage .contentBody {
+	padding: 0;
+}
+
+/* correct extra newlines */
+.censusPage .contentBody p, .bigLinkPage .contentBody p {
+	margin: 0;
+}
+
+.censusPage, .bigLinkPage, .censusPage table, .censusPage td, .bigLinkPage td {
+	border-spacing: 0; /* Firefox doesn't like border-collapse, so we use this and the asterisk-hack (for IE) to get the browsers consistent */
+	*border-collapse: collapse;
+	border:0 none;
+}
+
+.censusPage .contentBody ul, .censusPage .contentBody ol {
+	margin-top: 5px;
+	margin-bottom: 0;
+}
+
+.censusPage .imgCol {
+	width: 50px;
+	padding: 0 15px 0 0;
+}
+
+/* this one's questionable... */
+.censusPage .imgCol, .censusPage .contentBody, .bigLinkPage .contentBody, .censusPage .widgetCol, .censusPage .widget, .censusPage .contentCallout, .censusPage .tertiarynav
+{
+	padding-bottom: 15px;
+}
+
+.censusPage .widgetCol
+{
+	padding-left: 50px;
+	padding-right: 0;
+	padding-top: 0;
+	width: 210px;
+}
+
+.censusPage .contentCallout {
+	padding-top: 50px;
+}
+
+.censusPage .bordertop, .bigLinkPage .bordertop {
+	padding: 15px 0 0 0;
+	border-top: 2px solid #E6E6E6;
+	width: auto;
+}
+
+/*******************************************************************************
+Table styling
+*******************************************************************************/
+
+.datatable {
+	border-collapse: collapse;
+}
+.datatable, .datatable tr td, .datatable tr th {
+	border: 2px solid #eaebec;
+}
+.datatable th {
+	background-color: #c4ddee;
+	padding: 10px 5px;
+}
+.datatable td {
+	padding: 5px;
+}
+.datatable .oddline td, td.oddline {
+	background-color: #eaebec;
+}
+.datatable caption {
+	padding-bottom: 5px;
+}
+table .top td {
+	vertical-align: top;
+}
+
+.footnote {
+	width: 550px;
+}
+
+/* star ratings table */
+.datatable#starRatings {
+	width: 550px;
+}
+.datatable#starRatings th {
+	width: 27px; /* this + padding + borders = 40px */
+	padding: 2px 5px 0;
+}
+.datatable#starRatings td {
+	width: 497px; /* this + padding + borders = 510px */
+}
+
+/*******************************************************************************
+Right-side navigator
+*******************************************************************************/
+
+.tertiarynav {
+	padding: 0 0 15px;
+	margin: 0;
+}
+.tertiarynav p, .tertiarynav li {
+	background-color: #eaebec;		
+	margin: 0 0 1px;
+	padding: 5px;
+}
+.tertiarynav ol, .tertiarynav ul {
+	list-style-position: inside; /* puts the numbers for a list inside the element's box */
+	margin: 0; /* get rid of list's default margins */
+	padding: 0;
+}
+.tertiarynav ol, .tertiarynav ol li {
+	list-style-type: decimal-leading-zero;
+}
+.tertiarynav ul, .tertiarynav ul li {
+	list-style-type: none;
+}
+/* the following is to simulate a hanging indent for each list item - this one's set up for double figures */
+.tertiarynav ol li {
+	/* to move the hanging text - increase the padding whilst decreasing the indent by the same amount */
+	text-indent: -24px;
+	*text-indent: -26px; /* negative values push the first line left */
+	padding-left: 35px; /* +5px for padding we defined earlier */
+}
+.tertiarynav ol li a, .tertiarynav ol li b {
+	*margin-left: 10px;
+}
+/* the following is to simulate a hanging indent for each list item - this one's set up for double figures */
+.tertiarynav ul li {
+	/* to move the hanging text - increase the padding whilst decreasing the indent by the same amount */
+	text-indent: -24px;
+	*text-indent: -26px; /* negative values push the first line left */
+	padding-left: 15px; /* +5px for padding we defined earlier */
+}
+.tertiarynav ul li a, .tertiarynav ul li b {
+	*margin-left: 10px;
+}
+
+/* the following is to fix an issue caused by the zabs stylesheet */
+.sitewrapper #mainContent .tertiarynav ul {
+    margin-top: 0px;
+}
+.sitewrapper #mainContent .tertiarynav li {
+    margin-left: 0px;
+}
+
+/*******************************************************************************
+Paginator
+*******************************************************************************/
+
+.pageme {
+	margin-top: -20px;
+}
+.pageme h3 {
+	margin-top: 20px;
+	padding: 0;
+}
+.pageme .date {
+	margin: 2px 0 6px;
+}
+.pageme h4 {
+	padding-top: 5px;
+	padding-bottom: 0;
+}
+
+.pageNav {
+	margin: 0;
+}
+.pageNav li {
+	padding: 0;
+	display: inline;
+}
+.pageNav li a {
+	padding: 10px;
+	display: inline-block;
+}
+.pageNav .currentPage {
+	background-color: #187bbb;
+}
+
+/*******************************************************************************
+Back to top
+*******************************************************************************/
+
+#back-top {
+	display: none; /* gets rid of it flashing when it first loads */
+    position: fixed;
+    bottom: 100px;
+    /* and because IE doesn't like position:fixed in quirks mode... */
+	_position:absolute;
+	_top:expression(document.body.scrollTop+document.body.clientHeight-this.clientHeight-80);
+    left: 7%;/* 88px;*/
+}
+#back-top a {
+    width: 50px;
+    display: block;
+    color: #a5a5a5;
+    /* transition */
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    transition: 1s;
+}
+#back-top a:hover {
+    color: #505050;
+}
+/* arrow icon (span tag) */
+#back-top span {
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin-bottom: 7px;
+    /* rounded corners */
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    /* transition */
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    transition: 1s;
+    background-color: #a5a5a5;
+    background-image: url('/ausstats/wmdata.nsf/activeimages/up-arrow/$File/up-arrow.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+#back-top a:hover span {
+    background-color: #505050;
+}
+
+/*******************************************************************************
+Settings for when the pages are printed
+*******************************************************************************/
+
+@media print {
+	.censusPage, .bigLinkPage {
+		margin-left: 0;
+	}
+	.censusPage .contentBody, .bigLinkPage .contentBody {
+		font-size: 12pt; /* 14px */
+		color: black;
+	}
+	.censusPage .widgetCol {
+		display: none;
+	}
+	.tablebuilderheader h2 {
+		font-size: 29.52pt !important; /* 180% */
+	}
+	.productTitle, .contentBody h3 {
+		font-size: 13.8pt; /* 16px */
+	}
+	.censusPage h4 {
+		font-size: 12pt; /* 14px */
+	}
+	.datatable {
+		font-size: 11.16pt; /* 13px */
+	}
+	.datatable#starRatings th {
+		font-size: 15.48pt; /* 18px */
+	}
+	#back-top {
+		left: -9999em;
+	}
+	#homepage .headerRow {
+		font-size: 16.44pt; /* 120% */
+	}
+	#homepage .contentRow {
+		font-size: 12pt; /* 14px */
+	}
+	#homepage .footerRow a {
+		font-size: 13.8pt; /* 13px */
+	}
+	#fourCol .contentHeader {
+		font-size: 15.48pt; /* 18px */
+	}
+	#fourCol .contentBody {
+		font-size: 11.16pt; /* 13px */
+	}
+
+}
