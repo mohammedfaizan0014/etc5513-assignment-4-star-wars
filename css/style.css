@@ -163,6 +163,16 @@ a, a > code {
   width: 30%;
 }
 
+.pull-left2 {
+  float: left;
+  width: 70%;
+}
+
+.pull-right2 {
+  float: right;
+  width: 70%;
+}
+
 .pull-right ~ * {
   clear: both;
 }
