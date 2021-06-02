@@ -45,7 +45,7 @@ always_allow_html: true
 ```{r setup, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(fig.path = "Figures/", fig.align ="center",
                       out.width = "50%", echo = FALSE, 
-                      messages = FALSE, 
+                      message = FALSE, 
                       warning = FALSE)
 # Loading Libraries
 library(tidyverse)
@@ -501,10 +501,10 @@ g57 %>%
 
 
 \begin{figure}[H]
-\includegraphics[width=6in, height = 6in]{Figures/popedusex-1}
-\includegraphics[width=6in, height = 6in]{Figures/popindsex-1}
-\includegraphics[width=6in, height = 6in]{Figures/popfieldsex-1}
-\includegraphics[width=6in, height = 6in]{Figures/popoccsex-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/popedusex-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/popindsex-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/popfieldsex-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/popoccsex-1}
 \caption{Population: Gender}
 \label{fig:populationgender}
 \end{figure}
@@ -571,10 +571,10 @@ g57 %>%
 The Figure \ref{fig:populationtopic} shows the total populations for sub-divisions within each topic.
 
 \begin{figure}[H]
-\includegraphics[width=6in, height = 6in]{Figures/poptopicsex-1}
-\includegraphics[width=6in, height = 6in]{Figures/poptopicsex-2}
-\includegraphics[width=6in, height = 6in]{Figures/poptopicsex-3}
-\includegraphics[width=6in, height = 6in]{Figures/poptopicsex-4}
+\includegraphics[width=3.5in, height = 4in]{Figures/poptopicsex-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/poptopicsex-2}
+\includegraphics[width=3.5in, height = 4in]{Figures/poptopicsex-3}
+\includegraphics[width=3.5in, height = 4in]{Figures/poptopicsex-4}
 \caption{Population: Topic}
 \label{fig:populationtopic}
 \end{figure}
@@ -918,6 +918,7 @@ networkeduage %>%
   geom_edge_link2(aes(edge_alpha = count_eduage,edge_width = count_eduage,edge_color = educationlevel),arrow = a) +
   geom_node_point(aes(size = 2, colour =category) )+
   geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+    ggtitle("Education and Age") +
 theme_void() +
   theme(legend.position = "none")
 ```
@@ -945,6 +946,7 @@ networkindage %>%
   geom_edge_link2(aes(edge_alpha = count_indage,edge_width = count_indage,edge_color = industry),arrow = a) +
   geom_node_point(aes(size = 2, colour =category) )+
   geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+    ggtitle("Industry and Age") +
 theme_void() +
   theme(legend.position = "none")
 ```
@@ -972,6 +974,7 @@ networkfieldage %>%
   geom_edge_link2(aes(edge_alpha = count_fieldage, edge_width = count_fieldage,edge_color = field),arrow = a) +
   geom_node_point(aes(size = 2, colour =category) )+
   geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+    ggtitle("Field and Age") +
 theme_void() +
   theme(legend.position = "none")
 ```
@@ -1000,7 +1003,8 @@ networkoccage %>%
   geom_edge_link2(aes(edge_alpha = count_occage,edge_width = count_occage,edge_color = occupation),arrow = a) +
   geom_node_point(aes(size = 2, colour =category) )+
   geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
-theme_void() +
+  ggtitle("Occupation and Age") +
+theme_void() + 
   theme(legend.position = "none")
 ```
 
@@ -1031,10 +1035,10 @@ First inferences from these networks are:
 
 
 \begin{figure}[H]
-\includegraphics[width=6in, height = 6in]{Figures/networkeduage-1}
-\includegraphics[width=6in, height = 6in]{Figures/networkfieldage-1}
-\includegraphics[width=6in, height = 6in]{Figures/networkindage-1}
-\includegraphics[width=6in, height = 6in]{Figures/networkoccage-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/networkeduage-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/networkfieldage-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/networkindage-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/networkoccage-1}
 \caption{Network: Topic and Age}
 \label{fig:networktopicage}
 \end{figure}
@@ -1368,6 +1372,9 @@ popoccareamax %>%
 Networks
 -->
 
+The network graphs represent the relationship between the SA4 regions and the population with respect to the education levels, Industry, Field of Study and Occupations. For analysis, we grouped the SA4 region codes with education levels, industry, occupation and fields of study, then created a data frame for nodes and joined both data frames to create the network graphs.
+
+
 <!-- 
 ### Education Level: Region
 -->
@@ -1473,6 +1480,11 @@ theme_void() +
   theme(legend.position = "none")
 ```
 
+From the network graphs it can be observed that
+ - Region 206 has most population for all sectors throughout the graphs.
+ - Highest number of people have studied Management and Commerce.
+ - For Industries, Health care and Professional and scientific services accounted for highest population.
+ - Highest number of employees were employed as Professionals and Managers.
 
 \newpage
 \section{G52 and G58}
