@@ -19,7 +19,7 @@ author:
   email: yli807@student.monash.edu
   correspondingauthor: true
   qualifications:  MBAt
-department: Our consultancy - Star Wars\newline Mohammed Faizan &\newline Adarsh More&\newline Yanhui LI
+department: Our consultancy - Star Wars\newline Mohammed Faizan &\newline Adarsh More &\newline Yanhui LI
 organization: Monash University
 bibliography: 
 - references.bib
@@ -27,7 +27,7 @@ bibliography:
 biblio-style: authoryear-comp
 linestretch: 1.5
 output:
-  bookdown::html_document2:
+  bookdown::pdf_document2:
     template: monashreport2.tex
     fig_caption: yes
     fig_height: 5
@@ -42,10 +42,10 @@ keep_md: true
 always_allow_html: true
 ---
 
-```{r echo=FALSE, include=FALSE}
+```{r setup, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(fig.path = "Figures/", fig.align ="center",
                       out.width = "50%", echo = FALSE, 
-                      messages = FALSE, 
+                      message = FALSE, 
                       warning = FALSE)
 # Loading Libraries
 library(tidyverse)
@@ -76,16 +76,16 @@ library(ggraph)
 knitr::write_bib(c(.packages()), "packages.bib")
 ```
 
-```{r}
+```{r celldiscriptors, eval=FALSE}
 celldiscriptors <- read_excel(here::here("data/australian_census_data_2016/Metadata/Metadata_2016_GCP_DataPack.xlsx"), sheet=2, skip=10)
 ```
 
-```{r}
+```{r }
 data_path <- here::here("data/australian_census_data_2016/")
 ```
 
 
-```{r}
+```{r datapath}
 data_path <- here::here("data/australian_census_data_2016/")
 census_paths <- glue::glue(data_path, "/2016 Census GCP All Geographies for VIC/SA4/VIC/2016Census_G{number}{alpha}_VIC_SA4.csv", 
                          number = c("46","46","47","47","47","51","51","51","51","57","57", "52", "52", "52", "52", "58", "58"), alpha = c("A","B","A","B","C","A","B","C","D","A","B", "A","B","C","D", "A","B"))
@@ -122,7 +122,7 @@ g46a<- read_csv(census_paths[1]) %>%
 ```
 
 
-```{r}
+```{r g46rename}
 g46a <- g46a %>% 
   mutate(afq_level =case_when(str_detect(educationlevel, "GradDip_and_GradCert") ~ "Level 8",
                             str_detect(educationlevel, "PGrad") ~ "Level 9",
@@ -136,7 +136,7 @@ g46a <- g46a %>%
                             TRUE ~ educationlevel)) %>% 
   rename(count_edu_lvl = count)
 ```
-```{r}
+```{r g47read}
 g47 <- map_dfr(census_paths[3:4], ~{
   df <- read_csv(.x) %>%
       select(-starts_with("P"), -contains("Tot"), -contains("InadDes")) %>%
@@ -155,7 +155,7 @@ g47 <- map_dfr(census_paths[3:4], ~{
 ```
 
 
-```{r}
+```{r g47rename} 
 g47 <- g47 %>% 
   mutate(field =case_when(
     str_detect(field, "NatPhyl_Scn") ~ "Natural_and_Physical_Sciences",
@@ -174,7 +174,7 @@ g47 <- g47 %>%
   select(-category) %>%
   rename(count_field = count)
 ```
-```{r}
+```{r g51read}
 g51 <- map_dfr(census_paths[6:8], ~{
   df <- read_csv(.x) %>%
       select(-starts_with("P"), -contains("Tot")) %>%
@@ -189,7 +189,7 @@ g51 <- map_dfr(census_paths[6:8], ~{
                 remove = FALSE)
 })
 ```
-```{r}
+```{r g51rename}
 g51 <- g51 %>% 
   mutate(industry =case_when(
                             str_detect(industry, "Ag_For_Fshg") ~ "Agriculture_forestry_and_fishing",
@@ -216,7 +216,7 @@ g51 <- g51 %>%
   select(-category) %>%
   rename(count_industry = count)
 ```
-```{r}
+```{r g57read}
 g57 <- map_dfr(census_paths[10], ~{
   df <- read_csv(.x) %>%
       select(-starts_with("P"), -contains("Tot")) %>%
@@ -232,7 +232,7 @@ g57 <- map_dfr(census_paths[10], ~{
                 remove = FALSE)  
 })
 ```
-```{r}
+```{r g57rename}
 g57 <- g57 %>% 
   mutate(occupation =case_when(
                             str_detect(occupation, "TechnicTrades_W") ~ "Technicians_and_trades_workers",
@@ -247,7 +247,7 @@ g57 <- g57 %>%
   rename(count_occupation = count)
 ```
 
-```{r}
+```{r g52read}
 g52 <- map_dfr(census_paths[12:14], ~{
   df <- read_csv(.x) %>%
       select(-starts_with("P"), -contains("Tot")) %>%
@@ -263,7 +263,7 @@ g52 <- map_dfr(census_paths[12:14], ~{
                 remove = FALSE)
 })
 ```
-```{r}
+```{r g52rename}
 g52 <- g52 %>% 
   mutate(industry =case_when(
                             str_detect(industry, "AgriForestFish") ~ "Agriculture_forestry_and_fishing",
@@ -290,7 +290,7 @@ g52 <- g52 %>%
   select(-category) %>%
   rename(count_industry = count)
 ```
-```{r}
+```{r g58read}
 g58 <- map_dfr(census_paths[16], ~{
   df <- read_csv(.x) %>%
       select(-starts_with("P"), -contains("Tot")) %>%
@@ -306,7 +306,7 @@ g58 <- map_dfr(census_paths[16], ~{
                 remove = FALSE)  
 })
 ```
-```{r}
+```{r g58rename}
 g58 <- g58 %>% 
   mutate(occupation =case_when(
                             str_detect(occupation, "Mng") ~ "Manager",
@@ -323,16 +323,16 @@ g58 <- g58 %>%
   rename(count_occupation = count)
 ```
 
-
+\newpage
 \section{Introduction}
 
 <!--
 # Introduction
 -->
 
-The Australian Bureau of Statistics(ABS) conducts the census for Australia every 5 years which includes all people present in Australia on the census night irrespective of their nationality. @CensusDefinition defines census as "systematically calculating, acquiring and recording information about the members of a given population. This term is used mostly in connection with national population and housing censuses." A census aims to include the entire population as supposed to sampling and therefore data is recorded for every individual. However, when this data is released in public for interested institutions such as businesses, other government organizations, NGOs and other researchers it is only ethical to de-identify the data. Ethics has always been argued for risk versus benefit. With census data capturing personal details it must be de-identified and therefore ABS makes it available after perturbation as aggregated data[Confidentiality](https://www.abs.gov.au/ausstats/abs@.nsf/Lookup/by%20Subject/2900.0~2016~Main%20Features~Turning%20your%20information%20into%20Census%20data~3).  
+The Australian Bureau of Statistics(ABS) conducts the census for Australia every 5 years which includes all people present in Australia on the census night irrespective of their nationality. @CensusDefinition defines census as "systematically calculating, acquiring and recording information about the members of a given population. This term is used mostly in connection with national population and housing censuses." A census aims to include the entire population as supposed to sampling and therefore data is recorded for every individual. However, when this data is released in public for interested institutions such as businesses, other government organizations, NGOs and other researchers it is only ethical to de-identify the data. Ethics has always been argued for risk versus benefit. With census data capturing personal details it must be de-identified and therefore ABS makes it available after perturbation as aggregated data[(Confidentiality)](https://www.abs.gov.au/ausstats/abs@.nsf/Lookup/by%20Subject/2900.0~2016~Main%20Features~Turning%20your%20information%20into%20Census%20data~3).  
 
-Census being a population data is able to capture insights about small geographic boundaries and demographics precisely. The 2016 Census data was output using the 2016 Australian Statistical Geography Standard [(ASGS)](https://www.abs.gov.au/websitedbs/d3310114.nsf/home/australian+statistical+geography+standard+(asgs)).The ABS Structures are a hierarchy of areas developed for the release of ABS statistical information. This statistical information represents data for all census geographies from Australia down to Statistical Area Level 1.@CensusDefinition say "Data can be represented visually or analyzed in complex statistical models, to show the difference between certain areas, or to understand the association between different personal characteristics."
+Census being a population data is able to capture insights about small geographic boundaries and demographics precisely. The 2016 Census data was output using the 2016 Australian Statistical Geography Standard [(ASGS)](https://www.abs.gov.au/websitedbs/d3310114.nsf/home/australian+statistical+geography+standard+(asgs)).The ABS Structures are a hierarchy of areas developed for the release of ABS statistical information. This statistical information represents data for all census geographies from Australia down to Statistical Area Level 1. @CensusDefinition say "Data can be represented visually or analyzed in complex statistical models, to show the difference between certain areas, or to understand the association between different personal characteristics."
 
 Our report is based on 2016 census data from the Australian Bureau of Statistics(ABS). In 2016, Census collected data for 10 million dwellings and approximately 24 million people, the largest number counted to date. The report dwells on the SA4 regions of Victoria and the topics for analysis are the Field of Study, Education Qualifications, Industry of Employment and Occupation. We try to determine the association between these topics based on age and gender. To further support these association insights, data from the Victorian Public Sector Commission(VPSC) is included.
 
@@ -414,7 +414,7 @@ g57redundantage %>%
 
 
 
-
+\newpage
 \newpage
 \section{Victoria Population: Gender}
 
@@ -501,10 +501,10 @@ g57 %>%
 
 
 \begin{figure}[H]
-\includegraphics[width=6in, height = 6in]{Figures/}
-\includegraphics[width=6in, height = 6in]{Figures/}
-\includegraphics[width=6in, height = 6in]{Figures/}
-\includegraphics[width=6in, height = 6in]{Figures/}
+\includegraphics[width=3.5in, height = 4in]{Figures/popedusex-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/popindsex-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/popfieldsex-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/popoccsex-1}
 \caption{Population: Gender}
 \label{fig:populationgender}
 \end{figure}
@@ -568,13 +568,14 @@ g57 %>%
   coord_flip() 
 ```
 
+\newpage
 The Figure \ref{fig:populationtopic} shows the total populations for sub-divisions within each topic.
 
 \begin{figure}[H]
-\includegraphics[width=6in, height = 6in]{Figures/}
-\includegraphics[width=6in, height = 6in]{Figures/}
-\includegraphics[width=6in, height = 6in]{Figures/}
-\includegraphics[width=6in, height = 6in]{Figures/}
+\includegraphics[width=3.5in, height = 4in]{Figures/poptopicsex-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/poptopicsex-2}
+\includegraphics[width=3.5in, height = 4in]{Figures/poptopicsex-3}
+\includegraphics[width=3.5in, height = 4in]{Figures/poptopicsex-4}
 \caption{Population: Topic}
 \label{fig:populationtopic}
 \end{figure}
@@ -627,7 +628,7 @@ geom_line(aes(y = .fitted, colour = occupation)) +
        y= "Female Population")
   # geom_text(aes(y = .fitted,label=industry, colour="white"), 
   #              check_overlap=TRUE)
-
+mvfocc
 ```
 
 
@@ -726,7 +727,7 @@ geom_line(aes(y = .fitted, colour = field)) +
 
   # geom_text(aes(y = .fitted,label=industry, colour="white"), 
   #              check_overlap=TRUE)
-
+mvf
 ```
 
 <!--
@@ -775,11 +776,11 @@ geom_line(aes(y = .fitted, colour = educationlevel)) +
 
   # geom_text(aes(y = .fitted,label=industry, colour="white"), 
   #              check_overlap=TRUE)
-
+mvf
 ```
 
 
-A linear model to determine the male to female population ratio is fit for the male and female population with respect to occupations and industries. A line(slope=1, black line) decides the value of this ratio. The models above this line have a higher female population and the models below this line have a higher male population. These models are shown in Figure \ref{fig:lmmvfocc} and Figure \ref{fig:lmmvfind}. 
+A linear model to determine the male to female population ratio is fit for the male and female population with respect to occupations and industries. A line(slope=1, black line) decides the value of this ratio. The models above this line have a higher female population and the models below this line have a higher male population. These models are shown in Figure \ref{fig:lmmvfedu}, Figure \ref{fig:lmmvfocc}, Figure \ref{fig:lmmvffield} and Figure \ref{fig:lmmvfind}. 
 
 <!--
 Education level
@@ -798,12 +799,12 @@ Whereas, for people having a qualification of certificate level 3 and 4, men far
 Male and female population is comparable with respect to professionals(a major occupation), however females have a higher ratio.
 
 \begin{figure}[H]
-\includegraphics[width=6in, height = 2in]{Figures/}
+\includegraphics[width=6in, height = 2in]{Figures/lmmvfedu-1}
 \caption{Education Level: Male vs Female(linear model)}
 \label{fig:lmmvfedu}
 \end{figure}
 
-
+\newpage
 <!--
 Occupation
 -->
@@ -825,7 +826,7 @@ Whereas, more men are employed as(ratio M:F):
 Male and female population is comparable with respect to professionals(a major occupation), however females have a higher ratio. Probable reason is the low education levels of men as seen above.
 
 \begin{figure}[H]
-\includegraphics[width=6in, height = 2in]{Figures/}
+\includegraphics[width=6in, height = 2in]{Figures/lmmvfocc-1}
 \caption{Occupation: Male vs Female(linear model)}
 \label{fig:lmmvfocc}
 \end{figure}
@@ -856,12 +857,12 @@ Whereas, more men studied(ratio M:F):
 
 
 \begin{figure}[H]
-\includegraphics[width=6in, height = 2in]{Figures/}
+\includegraphics[width=6in, height = 2in]{Figures/lmmvffield-1}
 \caption{Field: Male vs Female(linear model)}
 \label{fig:lmmvffield}
 \end{figure}
 
-
+\newpage
 <!--
 Industry
 -->
@@ -883,7 +884,7 @@ Probable reason is their field of study.
 Male and female population is comparable in Administrative and support services, Financial and insurance services, Accommodation and food services and Professional scientific and technical services, however males have a higher ratio.
 
 \begin{figure}[H]
-\includegraphics[width=6in, height = 2in]{Figures/}
+\includegraphics[width=6in, height = 2in]{Figures/lmmvfind-1}
 \caption{Industry: Male vs Female(linear model)}
 \label{fig:lmmvfind}
 \end{figure}
@@ -918,6 +919,7 @@ networkeduage %>%
   geom_edge_link2(aes(edge_alpha = count_eduage,edge_width = count_eduage,edge_color = educationlevel),arrow = a) +
   geom_node_point(aes(size = 2, colour =category) )+
   geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+    ggtitle("Education and Age") +
 theme_void() +
   theme(legend.position = "none")
 ```
@@ -945,6 +947,7 @@ networkindage %>%
   geom_edge_link2(aes(edge_alpha = count_indage,edge_width = count_indage,edge_color = industry),arrow = a) +
   geom_node_point(aes(size = 2, colour =category) )+
   geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+    ggtitle("Industry and Age") +
 theme_void() +
   theme(legend.position = "none")
 ```
@@ -972,6 +975,7 @@ networkfieldage %>%
   geom_edge_link2(aes(edge_alpha = count_fieldage, edge_width = count_fieldage,edge_color = field),arrow = a) +
   geom_node_point(aes(size = 2, colour =category) )+
   geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
+    ggtitle("Field and Age") +
 theme_void() +
   theme(legend.position = "none")
 ```
@@ -1000,11 +1004,14 @@ networkoccage %>%
   geom_edge_link2(aes(edge_alpha = count_occage,edge_width = count_occage,edge_color = occupation),arrow = a) +
   geom_node_point(aes(size = 2, colour =category) )+
   geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
-theme_void() +
+  ggtitle("Occupation and Age") +
+theme_void() + 
   theme(legend.position = "none")
 ```
 
-A network plot is a representation of the relationship between vertices and the strength of this relationship is determined by the edge weight(width, opacity, length, etc). In order to understand the relation between the topics and the age, the Figure \ref{fig:networktopicage} is a network plot representing the relationships between the sub-divisions within each topic and the age of the people. First inferences from these networks are:
+A network plot is a representation of the relationship between vertices and the strength of this relationship is determined by the edge weight(width, opacity, length, etc). In order to understand the relation between the topics and the age, the Figure \ref{fig:networktopicage} is a network plot representing the relationships between the sub-divisions within each topic and the age of the people. The edge weight is determined by the population size that belongs to that connection.The network graphs are based on the population and distribution can be compared only within each age group since different age groups have different populations.
+
+First inferences from these networks are:
 
 - Highest population within each sub-division for
 
@@ -1017,29 +1024,41 @@ A network plot is a representation of the relationship between vertices and the 
 - As seen from the age distribution, all sectors have people in the age group 25 to 45.
 - The age group, 25-35 shares the highest population in every sector.
 - A key observation is that some people aged over 75 are still working.
+- The size of not stated educational level for all age group are similar.
+- Other popular fields of study are engineering and technology, health and society and culture and education.
+
+- Industries
+  - In industries, a large part of residents who work in Health care and social assistance are in the     age group of 25-35 as it has the thickest link on the graph. 
+  - Also, the manufacturing, professional scientific and technical services , retail trade and            education and training have a similar size.
+- Occupation:
+  - In occupation, for young people in the age group of 15-24, most of them are working as community and personal service workers, sales workers and some of them are laborers. This might because most of them are still looking for part time jobs in this age and in relatively speaking, requirements of part-time jobs are not as strict as the full-time jobs.
+  - A key observation is also founded that some seniors who aged over 75 are still working from this plot.
 
 
 \begin{figure}[H]
-\includegraphics[width=6in, height = 6in]{Figures/}
-\includegraphics[width=6in, height = 6in]{Figures/}
-\includegraphics[width=6in, height = 6in]{Figures/}
-\includegraphics[width=6in, height = 6in]{Figures/}
+\includegraphics[width=3.5in, height = 4in]{Figures/networkeduage-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/networkfieldage-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/networkindage-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/networkoccage-1}
 \caption{Network: Topic and Age}
 \label{fig:networktopicage}
 \end{figure}
 
 
 
-\new
+\newpage
+
+The following tables presents the age group with highest population for every sector and the age group [25-35) is found to be dominating every sector owing to the fact that this age group is the highest population of Victoria.
 
 <!-- 
 tables
 -->
 
+<!-- 
 ### Population by Education, Age
+-->
 
-
-```{r}
+```{r tableregionedu}
 g46a %>%
   group_by(afq_level, age_min) %>%
   summarise(population=sum(count_edu_lvl)) %>%
@@ -1050,12 +1069,12 @@ g46a %>%
   kable_styling(bootstrap_options = c("striped", "hover"), latex_options = "hold_position")
 ```
 
-
+<!-- 
 ### Population by Industries, Age
+-->
 
 
-
-```{r}
+```{r tableregionind}
 g51 %>%
   group_by(industry, age_min) %>%
   summarise(population=sum(count_industry)) %>%
@@ -1067,12 +1086,12 @@ g51 %>%
 ```
 
 
-
+<!-- 
 ### Population by Field
+-->
 
 
-
-```{r}
+```{r tableregionfield}
 g47 %>%
   group_by(field, age_min) %>%
   summarise(population=sum(count_field)) %>%
@@ -1085,11 +1104,11 @@ g47 %>%
 
 
 
-
+<!-- 
 ### Population by Occupation
+-->
 
-
-```{r}
+```{r tableregionocc}
 g57%>%
   group_by(occupation, age_min) %>%
   summarise(population=sum(count_occupation)) %>%
@@ -1100,24 +1119,19 @@ g57%>%
   kable_styling(bootstrap_options = c("striped", "hover"), latex_options = "hold_position")
 ```
 
-
 \newpage
+\newpage
+
 \section{Victoria: SA4 Sectors}
 
 
-- The bar plots represent the SA4 regions and its working population with respect to their education levels, field of study, industry of employment and occupations.
-
-- It can be observed that the region 206 had the most number of people with highest education levels which justifies that highest number of people in region 2016 were employed as professionals in their respective industries.
-
-- Management and commerce, engineering and technology were the fields of study for most population and agriculture, environment and mixed field programs had the least population share.
-
-- Health care, manufacturing and retail trade were the industries with most population while people were employed most for occupations of Professionals and Managers.
 
 
+<!--
 ### Education Level: Region
+-->
 
-
-```{r bestedu, fig.cap="Best education level of each region"}
+```{r popareaedu, fig.cap="Education Level: Region", include=FALSE}
 popareaedu <- g46a %>%
   group_by(SA4_CODE_2016, afq_level) %>%
   summarise(count_eduarea = sum(count_edu_lvl)) %>%
@@ -1140,10 +1154,11 @@ bestedu %>%
   theme(legend.position = "none")
 ```
 
-
+<!--
 ### Industry: Region
+-->
 
-```{r popareaind, fig.cap=""}
+```{r popareaind, fig.cap="Industry: Region", include=FALSE}
 popindarea <- g51 %>%
   group_by(SA4_CODE_2016, industry) %>%
   summarise(count_indarea = sum(count_industry)) %>%
@@ -1165,12 +1180,12 @@ popareaindmax %>%
 
 
 
-
+<!--
 ### Field: Region
+-->
 
 
-
-```{r bestfield, fig.cap="Best field of each region"}
+```{r popareafield, fig.cap="Field: Region", include=FALSE}
 popareafield <- g47 %>%
   group_by(SA4_CODE_2016, field) %>%
   summarise(count_fieldarea = sum(count_field)) %>%
@@ -1195,11 +1210,11 @@ bestfield %>%
 
 
 
-
+<!--
 ### Occupation: Region
+-->
 
-
-```{r popareaocc, fig.cap=""}
+```{r popareaocc, fig.cap="Occupation: Region", include=FALSE}
 popoccarea <- g57 %>%
   group_by(SA4_CODE_2016, occupation) %>%
   summarise(count_occarea = sum(count_occupation)) %>%
@@ -1219,24 +1234,36 @@ popareaoccmax %>%
   theme(legend.position = "none")
 ```
 
+
+The bar plots represent the SA4 regions and its working population with respect to their education levels, field of study, industry of employment and occupations. Each plot shows the region which had the highest population belonging to that subdivision(Figure \ref{fig:popareatopic}). 
+
+- It can be observed that the region 206 had the most number of people with highest education levels which justifies that highest number of people in region 2016 were employed as professionals in their respective industries.
+
+- Management and commerce, engineering and technology were the fields of study for most population and agriculture, environment and mixed field programs had the least population share.
+
+- Health care, manufacturing and retail trade were the industries with most population while people were employed most for occupations of Professionals and Managers.
+
+\begin{figure}[H]
+\includegraphics[width=3.5in, height = 4in]{Figures/popareaedu-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/popareaind-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/popareafield-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/popareaocc-1}
+\caption{Sub-divisions and SA4 Regions}
+\label{fig:popareatopic}
+\end{figure}
+
+
+\newpage
+\subsection*{Maps}
 <!-- 
 Maps
 -->
 
-
-- The maps represent the SA4 regions and the distribution of population by their education levels, industries, field of study and occupations respectively.
-
-- Most population has completed education level 7 with management and commerce as their respective fields of study.
-
-- It can be observed that the highest number of people are employed in the occupations: Professionals, Managers and Technicians and trade workers.
-
-- Major industry in the city side is health care and the country regions are more operational in agricultural activities.
-
-
+<!-- 
 ### Education Level: Region
+-->
 
-
-```{r edmap, fig.cap="Spatial Education Level Distribution"}
+```{r edmap, fig.cap="Spatial Education Level Distribution", include=FALSE}
 
 popareaedu <- g46a %>%
   group_by(SA4_CODE_2016, afq_level) %>%
@@ -1254,15 +1281,16 @@ popareaedumax %>%
   ggplot() +
   geom_sf(mapping = aes(geometry= geometry, fill=afq_level)) +
   geom_sf_text(aes(geometry= geometry,label=afq_level), colour="black", check_overlap=TRUE)+
+  ggtitle("Spatial Education Level Distribution") +
   theme_void() +
   scale_fill_brewer() +
   theme(legend.position = "bottom")
 ```
 
-
+<!-- 
 ### Industry: Region
-
-```{r indmap, fig.cap="Spatial Industry Distribution"}
+-->
+```{r indmap, fig.cap="Spatial Industry Distribution", include=FALSE}
 popindarea <- g51 %>%
   group_by(SA4_CODE_2016, industry) %>%
   summarise(count_indarea = sum(count_industry)) %>%
@@ -1277,6 +1305,7 @@ popindareamax %>%
   ggplot() +
   geom_sf(mapping = aes(geometry= geometry, fill=industry)) +
   geom_sf_text(aes(geometry= geometry,label=industry ), colour="black",check_overlap=TRUE)+
+  ggtitle("Spatial Industry Distribution") +
   theme_void() +
   scale_fill_brewer() +
   theme(legend.position = "bottom")
@@ -1285,12 +1314,12 @@ popindareamax %>%
 ```
 
 
-
+<!-- 
 ### Field: Region
+-->
 
 
-
-```{r fieldmap, fig.cap="Spatial Study Field Distribution"}
+```{r fieldmap, fig.cap="Spatial Study Field Distribution", include=FALSE}
 popareafield <- g47 %>%
   group_by(SA4_CODE_2016, field) %>%
   summarise(count_fieldarea = sum(count_field)) %>%
@@ -1308,6 +1337,7 @@ popareafieldmax %>%
   ggplot() +
   geom_sf(mapping = aes(geometry= geometry, fill=field)) +
   geom_sf_text(aes(geometry= geometry,label=field), colour="black", check_overlap=TRUE)+
+  ggtitle("Spatial Study Field Distribution") +
   theme_void() +
   scale_fill_brewer() +
   theme(legend.position = "bottom")
@@ -1316,11 +1346,11 @@ popareafieldmax %>%
 
 
 
-
+<!-- 
 ### Occupation: Region
+-->
 
-
-```{r occmap, fig.cap="Spatial Occupation Distribution"}
+```{r occmap, fig.cap="Spatial Occupation Distribution", include=FALSE}
 
 popareaocc <- g57 %>%
   group_by(SA4_CODE_2016, occupation) %>%
@@ -1336,22 +1366,42 @@ popoccareamax %>%
   ggplot() +
   geom_sf(mapping = aes(geometry= geometry, fill=occupation)) +
   geom_sf_text(aes(geometry= geometry,label=occupation), colour="black", check_overlap=TRUE)+
+  ggtitle("Spatial Occupation Distribution") +
   theme_void() +
   scale_fill_brewer() +
   theme(legend.position = "bottom")
 
 ```
 
+The maps \ref{fig:bestsubdivision} represent the SA4 regions and the distribution of population by their education levels, industries, field of study and occupations respectively.
 
+- Most population has completed education level 7 with management and commerce as their respective fields of study.
+
+- It can be observed that the highest number of people are employed in the occupations: Professionals, Managers and Technicians and trade workers.
+
+- Major industry in the city side is health care and the country regions are more operational in agricultural activities.
+
+
+\begin{figure}[H]
+\includegraphics[width=3.5in, height = 4in]{Figures/edmap-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/indmap-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/fieldmap-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/occmap-1}
+\caption{Maps: Best Sub-division for each Region}
+\label{fig:bestsubdivision}
+\end{figure}
+
+
+\newpage
+\subsection*{Networks}
 <!-- 
 Networks
 -->
-
-
+<!-- 
 ### Education Level: Region
+-->
 
-
-```{r}
+```{r networkeduarea, include=FALSE}
 popeduarea <- g46a %>%
  group_by(SA4_CODE_2016, afq_level) %>%
   summarise(count_eduarea = sum(count_edu_lvl)) %>%
@@ -1368,14 +1418,16 @@ networkeduarea %>%
   geom_edge_link2(aes(edge_alpha = count_eduarea,edge_width = count_eduarea,edge_color = afq_level),arrow = a) +
   geom_node_point(aes(size = 2, colour =category) )+
   geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
-theme_void() +
+  ggtitle("Education Level and Region") +
+  theme_void() +
   theme(legend.position = "none")
 ```
 
-
+<!-- 
 ### Industry: Region
+-->
 
-```{r }
+```{r networkindarea, include=FALSE}
 popindarea <- g51 %>%
   group_by(SA4_CODE_2016, industry) %>%
   summarise(count_indarea = sum(count_industry)) %>%
@@ -1392,18 +1444,19 @@ networkindarea %>%
   geom_edge_link2(aes(edge_alpha = count_indarea,edge_width = count_indarea,edge_color = industry),arrow = a) +
   geom_node_point(aes(size = 2, colour =category) )+
   geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
-theme_void() +
+  ggtitle("Industry and Region") +
+  theme_void() +
   theme(legend.position = "none")
 ```
 
 
 
-
+<!-- 
 ### Field: Region
+-->
 
 
-
-```{r}
+```{r networkfieldarea, include=FALSE}
 popfieldarea <- g47 %>%
  group_by(SA4_CODE_2016, field) %>%
   summarise(count_fieldarea = sum(count_field)) %>%
@@ -1420,17 +1473,18 @@ networkfieldarea %>%
   geom_edge_link2(aes(edge_alpha = count_fieldarea,edge_width = count_fieldarea,edge_color = field),arrow = a) +
   geom_node_point(aes(size = 2, colour =category) )+
   geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
-theme_void() +
+  ggtitle("Field and Region") +
+  theme_void() +
   theme(legend.position = "none")
 ```
 
 
 
-
+<!-- 
 ### Occupation: Region
+-->
 
-
-```{r }
+```{r networkoccarea, include=FALSE}
 popareaocc <- g57 %>%
   group_by(SA4_CODE_2016, occupation) %>%
   summarise(count_occarea = sum(count_occupation)) %>%
@@ -1447,19 +1501,35 @@ networkoccarea %>%
   geom_edge_link2(aes(edge_alpha = count_occarea,edge_width = count_occarea,edge_color = occupation),arrow = a) +
   geom_node_point(aes(size = 2, colour =category) )+
   geom_node_text(aes(label = name), repel = TRUE,  point.padding = unit(0.15, "lines")) +
-theme_void() +
+  ggtitle("Occupation and Region") +
+  theme_void() +
   theme(legend.position = "none")
 ```
 
+The network graphs \ref{fig:areatopic} represent the relationship between the SA4 regions and the population with respect to the education levels, Industry, Field of Study and Occupations. For analysis, we grouped the SA4 region codes with education levels, industry, occupation and fields of study, then created a data frame for nodes and joined both data frames to create the network graphs.
+
+
+From the network graphs it can be observed that
+ - Region 206 has most population for all sectors throughout the graphs.
+ - Highest number of people have studied Management and Commerce.
+ - For Industries, Health care and Professional and scientific services accounted for highest population.
+ - Highest number of employees were employed as Professionals and Managers.
+ 
+\begin{figure}[H]
+\includegraphics[width=3.5in, height = 4in]{Figures/networkeduarea-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/networkindarea-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/networkfieldarea-1}
+\includegraphics[width=3.5in, height = 4in]{Figures/networkoccarea-1}
+\caption{Network: SA4 Regions and Topic}
+\label{fig:areatopic}
+\end{figure}
 
 \newpage
-\section{G52 and G58}
+\section{Working Hours and Age in Industries and Occupation}
 
+<!--
 # G52 and G58
-   This section of the report represents the population of the SA4 regions aged 15 years and above. The population is represented by their Occupations and the Industries they are employed in and also by Sex and weekly working hours. The purpose is to determine whether males or females have worked for more hours, which industries have highest working population and region-wise which occupations had most number of employees.
-   For the analysis, the tables G52 and G58 were cleaned and relevant variables were renamed. For the cleaning process we excluded the total and population variables, converted the data frame into longer format and joined it with the geopath for SA4 geomap. We then summarized the minimum and maximum hours of the population working for industries as well as employees in occupations. The summarized data was plotted to compare the minimum and maximum working hours by gender.
-   We used the summarized data to plot the minimum hours worked by people with respect to each industry in a count plot. Furthermore, we summarized the number of people and grouped them by the SA4 codes for each region and arranged the data sets in descending order to plot region-wise bar plots representing the regions, education level, field of study, industries and occupations.
-   Lastly, we plotted the distribution of population by their education levels, industries, field of study and occupations on 4 maps respectively. The analysis involved mapping the geometric values of the regions on the sa4 geomap with respect to total population and the respective industries and occupations.
+-->
 
 <!--
 g52,g58
@@ -1470,11 +1540,8 @@ G52
 -->
 
 
-### Chart A
 
-- It can be observed from both figures that overall females worked more than men. However, as the number of work-hours increased men have worked more than women.
-
-```{r, include=FALSE}
+```{r hrplotscalc, include=FALSE}
 p1 <- g52 %>% 
   mutate(hr_min = as.numeric(hr_min)) %>% 
   summarise(hr_min = sum(hr_min, na.rm = TRUE))
@@ -1483,7 +1550,7 @@ p2 <- g52 %>%
   summarise(hr_max = sum(hr_max, na.rm = TRUE))
 ```
 
-```{r hr_plots, fig.show='hold', out.width="50%"}
+```{r hrplots, fig.show='hold', out.width="50%", include=FALSE}
 p1 <- g52 %>%  
   ggplot(g52, 
            mapping = aes(x = hr_min,
@@ -1510,12 +1577,36 @@ p2 <- g52 %>%
            ggtitle("Max hours worked for Industries")
 p2
 ```
+This section of the report represents the population of the SA4 regions aged 15 years and above. The population is represented by their Occupations and the Industries they are employed in and also by Sex and weekly working hours. The purpose is to determine whether males or females have worked for more hours, which industries have highest working population and region-wise which occupations had most number of employees.
+
+For the analysis, the tables G52 and G58 were cleaned and relevant variables were renamed. For the cleaning process we excluded the total and population variables, converted the data frame into longer format and joined it with the geopath for SA4 geomap. We then summarized the minimum and maximum hours of the population working for industries as well as employees in occupations. The summarized data was plotted to compare the minimum and maximum working hours by gender.
+
+We used the summarized data to plot the minimum hours worked by people with respect to each industry in a count plot. Furthermore, we summarized the number of people and grouped them by the SA4 codes for each region and arranged the data sets in descending order to plot region-wise bar plots representing the regions, education level, field of study, industries and occupations.
+
+Lastly, we plotted the distribution of population by their education levels, industries, field of study and occupations on 4 maps respectively. The analysis involved mapping the geometric values of the regions on the sa4 geomap with respect to total population and the respective industries and occupations.
 
 
+<!--
+### Chart A
+-->
+
+- It can be observed from Figure \ref{fig:wrkhrcmpind} that overall females worked more than men. However, as the number of work-hours increased men have worked more than women.
+
+\begin{figure}[H]
+\includegraphics[width=3.5in, height = 2in]{Figures/hrplots-1}
+\includegraphics[width=3.5in, height = 2in]{Figures/hrplots-2}
+\caption{Working hour comparison: Industry}
+\label{fig:wrkhrcmpind}
+\end{figure}
+
+<!--
 ### Chart B
+-->
 
-- It can be observed from figure that industries like health care, education and training, construction and Professional and technical services have more working population as the working hours increased. Mining, electricity, gas, water showed low working population irrespective of work hours.
-```{r ind_hrs}
+- It can be observed from Figure \@ref(fig:indhrs) that industries like health care, education and training, construction and Professional and technical services have more working population as the working hours increased. Mining, electricity, gas, water showed low working population irrespective of work hours.
+- From Figure \@ref(fig:indages) it is observed that people in the age group [15,24] work more in accomodation and food services and retail trade. A probable reason is part-time job for the students. The hours worked between 1 to 15 hours also has a higher population in these industries.
+
+```{r indhrs, fig.cap="Population: Industries and hours"}
 g52redundanthrs <-  g52[rep(rownames(g52), g52$count_industry), ]
 
 
@@ -1525,19 +1616,34 @@ hrindcount <- g52redundanthrs %>%
   labs(title = "Population: Industries and hours", x = "Hours") +
   theme(axis.title.y = element_blank())
 
-ggplotly(hrindcount)
+hrindcount
 ```
 
+
+```{r indages, fig.cap="Population: Industries and Age Groups"}
+g51redundantage <-  g51[rep(rownames(g51), g51$count_industry), ]
+
+
+ageindcount <- g51redundantage %>%
+  ggplot(mapping = aes(x = age_min, y = industry)) +
+  geom_count() +
+  labs(title = "Population: Industries and Age", x = "Age") +
+  theme(axis.title.y = element_blank())
+
+ageindcount
+```
 
 <!--
 G58
 -->
 
+<!--
 ### Chart C
+-->
 
-- It can be observed from figure that overall females worked more than men at all occupations. Although, for maximum hours worked, as number of working-hours increased, the number of men and women remained the same.
 
-```{r, include=FALSE}
+
+```{r hrsplotscalc, include=FALSE}
 p3 <- g58 %>% 
   mutate(hrs_min = as.numeric(hrs_min)) %>% 
   summarise(hrs_min = sum(hrs_min, na.rm = TRUE))
@@ -1546,7 +1652,7 @@ p4 <- g58 %>%
   summarise(hrs_max = sum(hrs_max, na.rm = TRUE))
 ```
 
-```{r hrs_plots, fig.show='hold', out.width="50%"}
+```{r hrsplots, fig.show='hold', out.width="50%", fig.cap="", include=FALSE}
 p3 <- g58 %>% 
   ggplot(g58, 
            mapping = aes(x = hrs_min,
@@ -1575,50 +1681,22 @@ p4 <- g58 %>%
 p4
 ```
 
+\newpage
+
+It can be observed from Figure \ref{fig:wrkhrcmpocc} that overall females worked more than men in all occupations. Although, for maximum hours worked, as number of working-hours increased, the number of men and women remained the same.
+
+\begin{figure}[H]
+\includegraphics[width=3.5in, height = 3in]{Figures/hrsplots-1}
+\includegraphics[width=3.5in, height = 3in]{Figures/hrsplots-2}
+\caption{Working hour comparison: Occupation}
+\label{fig:wrkhrcmpocc}
+\end{figure}
 
 
-- It can be observed from figure that the most number of employees in the SA4 regions are employed in the occupations of Professionals, Managers and Technicians and trade workers. Professionals accounted for highest number of employees for region 206, while machinery operators and drivers accounted for the least number of employees for region 213 respectively.
-
-```{r popareaoccupation, fig.cap=""}
-
-popareaoccupation <- g58 %>%
-  group_by(SA4_CODE_2016, occupation) %>%
-  summarise(count_occupationarea = sum(count_occupation)) %>%
-  ungroup()
-
-popareaoccupationmax <- popareaoccupation %>% 
-  select(1:3) %>%
-  group_by(SA4_CODE_2016) %>%
-  slice_max(count_occupationarea) %>%
-  arrange(SA4_CODE_2016)
-popareaoccupationmax %>% 
-  full_join(sa4_geomap, 
-            by = c("SA4_CODE_2016"="SA4_CODE")) %>%
-  ggplot() +
-  geom_sf(mapping = aes(geometry= geometry, fill=occupation)) +
-  geom_sf_text(aes(geometry= geometry,label=occupation, colour="white"), check_overlap=TRUE)+
-  theme_void() +
-  theme(legend.position = "bottom")
-bestfield <- popareaoccupation %>% 
-  select(1:3) %>%
-  group_by(occupation) %>%
-  slice_max(count_occupationarea) %>%
-  arrange(SA4_CODE_2016)
-	
-bestfield %>%
-  ggplot() +
-  geom_col(mapping = aes(x = reorder_within(occupation,count_occupationarea, SA4_CODE_2016), y = count_occupationarea, fill = occupation)) +
-  labs(title = "Region and Best Occupation", y = "Number of Employees") +
-  scale_y_continuous(label=label_number()) +
-  coord_flip()  +
-  theme(legend.position = "none")
-```
-
-
+\newpage
 \addcontentsline{toc}{subsection}{Conclusion}
 \subsection*{Conclusion}
 
-<b><font face="Georgia" size="5em" color="#063c91">Conclusion</font></b>
 
 The education levels, field of study, industry of employment and occupation was studied for the Victorian SA4 level populations for the distributions according to gender and sex. The tables and plots were compared to mark the covariations between the population distributions.For example, the population trend between the field of study and industry of employment. Networks were drawn based on the population weights to analyze these trends. Some of the trends like more men were employed as managers when more women had studied management were found to be interesting. Cholropeth maps were made to analyze these trends spatially. 
 
@@ -1697,7 +1775,7 @@ The goal of this report is to create a data story from these statistical summari
 @visdat2017
  
 
-```{r ref.label=knitr::all_labels(), echo=FALSE, eval=FALSE}
+```{r codeprint, ref.label=knitr::all_labels(), echo=FALSE, eval=FALSE}
 
 ```
 

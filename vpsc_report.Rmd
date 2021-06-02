@@ -117,6 +117,10 @@ employer %>%
   geom_col(aes(x=Type, y=Headcount))+
   theme(axis.text.x = element_text(angle = 45))
 ```
+
+Health services have the largest number of employees while counting the number of employees within each employment type, following by Government school closely.  This result is the same as the main report analysis based on the 2016 census data that health care and social assistance is the industry with highest population.
+
+
 ```{r}
 #notrequired
 employment_number_ind %>% 
@@ -140,6 +144,10 @@ employment_number_ind %>%
   facet_wrap(~Group) +
   theme(axis.text.x = element_text(angle = 45))
 ```
+
+More females are employed in public health care and government school was founded while comparing the number of employees in different gender. According to the main report analysis, this might be due to the amounts of female studies in Health and Education field are far more than male residents.
+
+
 ```{r}
 employment_number_occ %>% 
   pivot_longer(cols = -c(`Occupation`,Gender,Measure),
@@ -152,6 +160,9 @@ employment_number_occ %>%
   theme(axis.text.x = element_text(angle = 45))
 ```
 
+Therefore, for similar reasons to the industry, more females are employed in the health-related occupations which are health and welfare support workers, health therapy, diagnostic and promotion professionals, medical practitioners in this above plot. School teachers that can link to government school is also facing the same situation. However, although more female study in Management and Commerce, more male managers are hired. Same observation is founded in the main report as well.
+
+
 ```{r}
 salary_occ %>%
   ggplot()+
@@ -160,6 +171,10 @@ salary_occ %>%
   facet_wrap(~Group) +
   coord_flip()
 ```
+
+Medical practitioners got paid most compare to other occupation, it might be the main reason for health services become the hottest industry. Even though the salary of medical practitioners is the most lucrative, however, female employees are generally having only half of the male employees’ salary. The second place in well-paid is managers which male and female employees are having similar salary, and labourers are having the least.
+
+
 ```{r}
 salary_ind %>%
   filter(str_detect(Group, "Man|Woman")) %>%
@@ -169,3 +184,5 @@ salary_ind %>%
   facet_wrap(~Group) +
   coord_flip()
 ```
+
+Public health care has the highest salary in the whole industry, and female employees are having a larger amount in total compare to male. This may because more female employees are hired in the health industry rather than getting paid more to each of them. Same reason can be applied to the government school, but compared to the health industry, education industry is relatively better for female employees, as the wages of school teachers of different genders are about the same, while the male employee wages are almost twice as much as females in health industry.
