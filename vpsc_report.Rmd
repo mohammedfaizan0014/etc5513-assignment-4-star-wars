@@ -118,6 +118,7 @@ employer %>%
   theme(axis.text.x = element_text(angle = 45))
 ```
 ```{r}
+#notrequired
 employment_number_ind %>% 
   pivot_longer(cols = -c(`Industry sector`,Group,Measure),
                names_to = "year",
