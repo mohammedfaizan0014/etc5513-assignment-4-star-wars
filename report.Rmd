@@ -71,6 +71,21 @@ library(igraph)
 library(ggraph)
 ```
 
+# Introduction
+    Our report is based on 2016 census data from the Australian Bureau of Statistics(ABS). The census is conducted every five years and the data is aggregated which includes all the people present in Australia on the night of the census.In 2016, Census collected data for 10 million dwellings and approximately 24 million people, the largest number counted to date. 
+    For our project, we decided to work on the SA4 regions of Victoria and the main topics for analysis are the Field of Study, Education Qualifications, Industry of Employment and Occupation. We are trying to determine if their is a relationship between the Fields of Study and Educational Qualifications also with Industry of Employment and Occupations. For Level of Education and Field of Study the analysis is conducted by Age and Sex while for Industry of Employment and Occupation by Age and weekly working hours by sex.
+
+# G52 and G58
+   This section of the report represents the population of the SA4 regions aged 15 years and above. The population is represented by their Occupations and the Industries they are employed by also by Sex and weekly working hours. The purpose is to determine whether males or females have worked for more hours, which industries have highest working population and region-wise which occupations had most number of employees.
+   For the analysis, the tables G52 and G58 were cleaned and relevant variables were renamed. For the cleaning process we excluded the total and population variables, converted the data frame into longer format and joined it with the geopath for SA4 geomap. We then summarized the minimum and maximum hours of the population working for industries as well as employees in occupations. The summarized data was plotted to compare the minimum and maximum working hours by gender.
+   We used the summarized data to plot the minimum hours worked by people with respect to each industry in a count plot. Furthermore, we summarized the number of people and grouped them by the SA4 codes for each region and arranged the data sets in descending order to plot region-wise bar plots representing the regions, education level, field of study, industries and occupations.
+   Lastly, we plotted the distribution of population by their education levels, industries, field of study and occupations on 4 maps respectively. The analysis involved mapping the geometric values of the regions on the sa4 geomap with respect to total population and the respective industries and occupations.
+   
+
+
+
+
+
 ```{r writing_packages_bibliographies}
 knitr::write_bib(c(.packages()), "packages.bib")
 ```
@@ -78,7 +93,6 @@ knitr::write_bib(c(.packages()), "packages.bib")
 ```{r}
 celldiscriptors <- read_excel(here::here("data/australian_census_data_2016/Metadata/Metadata_2016_GCP_DataPack.xlsx"), sheet=2, skip=10)
 ```
-
 
 ```{r}
 data_path <- here::here("data/australian_census_data_2016/")
