@@ -2,10 +2,10 @@
 %Å‚Å„ÅœÅ”\r
 1 0 obj
 <<
-/CreationDate (D:20210602173642)
-/ModDate (D:20210602173642)
+/CreationDate (D:20210602184252)
+/ModDate (D:20210602184252)
 /Title (R Graphics Output)
-/Producer (R 4.0.5)
+/Producer (R 4.0.4)
 /Creator (R)
 >>
 endobj
@@ -1118,9 +1118,7 @@ endobj
 10 0 obj
 <<
 /Type /Encoding /BaseEncoding /WinAnsiEncoding
-/Differences [ 45/minus 96/quoteleft
-144/dotlessi /grave /acute /circumflex /tilde /macron /breve /dotaccent
-/dieresis /.notdef /ring /cedilla /.notdef /hungarumlaut /ogonek /caron /space]
+/Differences [ 45/minus ]
 >>
 endobj
 11 0 obj
@@ -1140,9 +1138,9 @@ xref
 0000000292 00000 n 
 0000476306 00000 n 
 0000480105 00000 n 
-0000480363 00000 n 
+0000480200 00000 n 
 trailer
 << /Size 12 /Info 1 0 R /Root 2 0 R >>
 startxref
-480461
+480298
 %%EOF
