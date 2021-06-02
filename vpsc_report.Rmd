@@ -145,7 +145,7 @@ employment_number_ind %>%
   theme(axis.text.x = element_text(angle = 45))
 ```
 
-More females are employed in public health care and government school was founded while comparing the number of employees in different gender. According to the main report analysis, this might be due to the amounts of female studies in Health and Education field are far more than male residents.
+More females are employed in public health care and government school was founded while comparing the number of employees in different gender. According to the main report analysis, this might be due to the amounts of female studies in Health and Education field are far more than male.
 
 
 ```{r}
