@@ -339,7 +339,7 @@ Our report is based on 2016 census data from the Australian Bureau of Statistics
 \newpage
 \section{Data Preparation}
 
-The census data was not in accordance to the tidy data definition and was spread across multiple files. Datapacks are provided in CSV format. Geopacks include comprehensive data files and associated Geographic Information System (GIS) boundary files in a format suitable for loading into proprietary software and/or client custom-built systems. Hence appropriate cleaning was performed and cell values were renamed in a more human readable context.
+The census data was not in accordance to the tidy data definition and was spread across multiple files. Datapacks are provided in CSV format. Geopacks include comprehensive data files and associated Geographic Information System (GIS) boundary files in a format suitable for loading into proprietary software and/or client custom-built systems. Hence appropriate cleaning was performed and cell values were renamed in a more human readable context. 
 
 \newpage 
 \section{Victoria Population: Overview}
@@ -1579,12 +1579,7 @@ p2
 ```
 This section of the report represents the population of the SA4 regions aged 15 years and above. The population is represented by their Occupations and the Industries they are employed in and also by Sex and weekly working hours. The purpose is to determine whether males or females have worked for more hours, which industries have highest working population and region-wise which occupations had most number of employees.
 
-For the analysis, the tables G52 and G58 were cleaned and relevant variables were renamed. For the cleaning process we excluded the total and population variables, converted the data frame into longer format and joined it with the geopath for SA4 geomap. We then summarized the minimum and maximum hours of the population working for industries as well as employees in occupations. The summarized data was plotted to compare the minimum and maximum working hours by gender.
-
 We used the summarized data to plot the minimum hours worked by people with respect to each industry in a count plot. Furthermore, we summarized the number of people and grouped them by the SA4 codes for each region and arranged the data sets in descending order to plot region-wise bar plots representing the regions, education level, field of study, industries and occupations.
-
-Lastly, we plotted the distribution of population by their education levels, industries, field of study and occupations on 4 maps respectively. The analysis involved mapping the geometric values of the regions on the sa4 geomap with respect to total population and the respective industries and occupations.
-
 
 <!--
 ### Chart A
