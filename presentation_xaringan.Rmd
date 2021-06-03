@@ -4,7 +4,7 @@ subtitle: "ETC5513 Assignment 4: Star Wars"
 author: "Mohammed Faizan; Adarsh More; Yanhui LI"
 institute: "Department of Econometrics and Business Statistics"
 bibliography: 
-- reference.bib
+- references.bib
 - packages.bib
 biblio-style: authoryear-comp
 output:
@@ -18,7 +18,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.path = "Figures/", fig.align ="center",
                       out.width = "50%", echo = FALSE, 
-                      messages = FALSE, 
+                      message = FALSE, 
                       warning = FALSE)
 options(htmltools.dir.version = FALSE)
 ```
