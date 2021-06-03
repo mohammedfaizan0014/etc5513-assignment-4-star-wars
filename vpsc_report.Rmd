@@ -1,0 +1,273 @@
+---
+title: "Supporting Report: Victorian Public Sector Commission"
+subtitle: "ETC5513 Assignment 4: Star Wars"
+author:
+- familyname: Faizan
+  othernames: Mohammed
+  address: Monash University
+  email: mfai0014@student.monash.edu
+  correspondingauthor: true
+  qualifications:  MBAt
+- familyname: More
+  othernames: Adarsh
+  address: Monash University
+  email: amor0060@student.monash.edu
+  qualifications: MBAt
+- familyname: LI
+  othernames: Yanhui
+  address: Monash University
+  email: yli807@student.monash.edu
+  correspondingauthor: true
+  qualifications:  MBAt
+department: Our consultancy - Star Wars\newline Mohammed Faizan &\newline Adarsh More&\newline Yanhui LI
+organization: Monash University
+bibliography: 
+- references.bib
+- packages.bib
+biblio-style: authoryear-comp
+linestretch: 1.5
+output:
+  bookdown::pdf_document2:
+    template: monashreport2.tex
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 8
+    includes:
+      in_header: preamble.tex
+    keep_tex: yes
+    number_sections: yes
+    citation_package: biblatex
+keep_md: true
+always_allow_html: true
+---
+
+```{r echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(fig.path = "Figures/", fig.align ="center",
+                      out.width = "50%", echo = FALSE, 
+                      message = FALSE, 
+                      warning = FALSE)
+# Loading Libraries
+library(tidyverse)
+library(readr)
+library(kableExtra)
+library(tinytex)
+library(bookdown)
+library(naniar)
+library(visdat)
+library(citation)
+library(knitr)
+library(scales)
+library(patchwork)
+library(sf)
+library(glue)
+library(unglue)
+library(sugarbag)
+library(readxl)
+library(plotly)
+library(tidytext)
+library(ggplot2)
+library(igraph)
+library(ggraph)
+```
+
+```{r}
+vpsc_data <- here::here("data/vpsc_data/")
+```
+
+```{r}
+employer <- read.csv(glue::glue(vpsc_data, "data-1h4Zk.csv"))
+```
+
+```{r}
+work_location <- read_excel(glue::glue(vpsc_data, "Work-location.xlsx"),skip=1) %>%
+  mutate(across(starts_with("June"), as.numeric)) 
+
+```
+
+```{r}
+salary_occ <- read_excel(glue::glue(vpsc_data, "Remuneration.xlsx"),skip=1,sheet=2) %>%
+  mutate(across(starts_with("June"), as.integer)) %>%
+  filter(!str_detect(Group,"^ For executives, Total Remuneration Package (TRP),  inclusive of salary, superannuation and packaged benefits is used.
+N"))
+```
+```{r}
+salary_ind <- read_xlsx(glue::glue(vpsc_data, "Remuneration.xlsx"),skip=1,sheet=1, col_types="text",guess_max=11) %>%
+  mutate(across(starts_with("June"), as.integer)) %>%
+  filter(str_detect(Measure, "Non-casual employees|Median full time equivalent base"))
+```
+
+```{r}
+employment_number_ind <- read_excel(glue::glue(vpsc_data, "Employment-numbers-over-time.xlsx"),skip=1,sheet=1) 
+  
+```
+```{r}
+employment_number_occ <- read_excel(glue::glue(vpsc_data, "Employment-numbers-over-time.xlsx"),skip=1,sheet=2) 
+```
+
+```{r}
+employment_type <- read_excel(glue::glue(vpsc_data, "Employment-status-ongoing-fixed-term-and-casual-employment.xlsx"),skip=1,sheet=1,na="-")  %>%
+    mutate(across(starts_with("June"), as.numeric)) 
+
+```
+
+
+
+\newpage
+\section{Introduction}
+
+The Victorian Public Sector Commission (VPSC) was established on 1 April 2014, and it has a range of legislated functions to help strengthen the efficiency, effectiveness and capability of the public sector and maintain its integrity. This report will be analyzed based on the survey data collected and reported by VPSC to support the arguments made from ABS data.
+
+
+\section{Arguments made from ABS Data}
+
+- Highest population are Health Care Professionals and the ratio between men to women is less than one.
+- Similarly, in construction more men are employed as laborers.
+- The population of women in the education sector is far exceeds that of men.
+- Management & Commerce is the field that the most population have studied.
+- More men have studied Engineering and Technology as compared to females. However, more people are employed in Health Care than in industries relating to Engineering.
+- More women have studied Management and Commerce, however more men are employed as managers.
+
+
+\section{Supporting Analysis for the Arguments made from ABS Data}
+
+Health services have the largest number of employees while counting the number of employees within each employment type, followed by Government school closely.  This result is the same as the ABS report analysis based on the 2016 census data that health care and social assistance is the industry with highest population.
+```{r}
+employer %>%
+  ggplot()+
+  geom_col(aes(x=Type, y=Headcount))+
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+
+
+
+```{r eval=FALSE}
+#notrequired
+employment_number_ind %>% 
+  pivot_longer(cols = -c(`Industry sector`,Group,Measure),
+               names_to = "year",
+               values_to = "Headcount") %>%
+  filter(Group=="All employees" & Measure=="Headcount") %>%
+  ggplot()+
+  geom_col(aes(x=`Industry sector`, y=`Headcount`))+
+  facet_wrap(~year, ncol=2) +
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+It was found that more females are employed in public health care and government schools while comparing the number of employees in different gender. According to the main report analysis, this might be due to the fact that female residents studied Health and Education field far more than that of male residents.
+```{r}
+employment_number_ind %>% 
+  pivot_longer(cols = -c(`Industry sector`,Group,Measure),
+               names_to = "year",
+               values_to = "Headcount") %>%
+  filter(Group %in% c("Man","Woman") & Measure=="Headcount") %>%
+  ggplot()+
+  geom_col(aes(x=`Industry sector`, y=`Headcount`))+
+  facet_wrap(~Group) +
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+
+
+
+Therefore, for similar reasons to the industry, more females are employed in the health-related occupations which are health and welfare support workers, health therapy, diagnostic and promotion professionals, medical practitioners in this above plot. School teachers that can link to government school is also facing the same situation. However, more women study in Management and Commerce, more male managers are hired. Same observation is founded in the main report as well.
+```{r}
+employment_number_occ %>% 
+  pivot_longer(cols = -c(`Occupation`,Gender,Measure),
+               names_to = "year",
+               values_to = "Headcount") %>%
+  filter(Gender %in% c("Man","Woman") & Measure=="Headcount") %>%
+  ggplot()+
+  geom_col(aes(x=`Occupation`, y=`Headcount`))+
+  facet_wrap(~Gender) +
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+
+
+
+Medical practitioners got paid most compared to other occupations, which might be the main reason for health services becoming the hottest industry. Even though the salary of medical practitioners is the most lucrative, female employees are generally earn only half of the male employees’ salary. The second place in well-paid is managers where male and female employees have similar salary, and labourers earn  the least.
+
+```{r}
+salary_occ %>%
+  ggplot()+
+  geom_col(aes(x=reorder(`Occupation`,`June 2016`) , y=`June 2016`))+
+  theme(axis.text.x = element_text(angle = 45), axis.title.y = element_blank())+
+  facet_wrap(~Group) +
+  coord_flip()
+```
+
+
+
+
+Public health care has the highest salary in the whole industry, and female employees are having a larger amount in total compare to male. This may because more female employees are hired in the health industry rather than getting paid more to each of them. Same reason can be applied to the government school, but compared to the health industry, education industry is relatively better for female employees, as the wages of school teachers of different genders are about the same, while the male employee wages are almost twice as much as females in health industry.
+```{r}
+salary_ind %>%
+  filter(str_detect(Group, "Man|Woman")) %>%
+  ggplot()+
+  geom_col(aes(x=reorder(`Industry sector`,`June 2016`) , y=`June 2016`))+
+  theme(axis.text.x = element_text(angle = 45), axis.title.y = element_blank())+
+  facet_wrap(~Group) +
+  coord_flip()
+```
+
+
+\newpage
+\addcontentsline{toc}{subsection}{Conclusion}
+\subsection*{Conclusion}
+
+To support the arguments made by the main report based on the ABS data, this report is created to further understand the employment type, industry, occupation, and their salary in Victoria according to the gender.
+
+Findings that employees in health-related industry and occupation earn the most was further proved the reason why health services have the largest number of employees. However, there is a huge difference in salary between employees of different genders, that male employees are paid more than female, and as found in the main report, more men were employed as managers when more women had studied management. Even though majority of female are with high education level and practical skills for works, they are still facing inequality in the workplace. The discrimination against women at work place is a serious historical issue and measures have to be taken to realize gender equality.
+
+
+\newpage
+
+\subsection*{Data Source and References}
+
+- @vpsc Workforce data, facts and visuals (state of the public sector)
+
+\subsection*{R Packages}
+
+@R-base,
+@R-bookdown,
+@R-citation,
+@R-dplyr,
+@R-ggplot2,
+@R-kableExtra,
+@R-knitr,
+@R-naniar,
+@R-patchwork,
+@R-purrr,
+@R-readr,
+@R-scales,
+@R-stringr,
+@R-tibble,
+@R-tidyr,
+@R-tidyverse,
+@R-tinytex,
+@R-visdat,
+@bookdown2016,
+@ggplot22016,
+@knitr2015,
+@knitr2014,
+@tidyverse2019,
+@tinytex2019,
+@visdat2017,
+@R-sf,
+@R-glue,
+@R-unglue,
+@R-sugarbag,
+@R-readxl,
+@R-plotly,
+@R-tidytex,
+@R-igraph,
+@R-ggraph
+ 
+
+```{r codeprint, ref.label=knitr::all_labels(), echo=FALSE, eval=FALSE}
+
+```
+
+
+
