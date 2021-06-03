@@ -16,7 +16,7 @@ output:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.path = "Figures/", fig.align ="center",
+knitr::opts_chunk$set(fig.path = "PresentationFigures/", fig.align ="center",
                       out.width = "50%", echo = FALSE, 
                       message = FALSE, 
                       warning = FALSE)
