@@ -1,52 +1,36 @@
 
-47
-M_NatPhyl_Scn_15_24  Natural_and_Physical_Sciences
-M_InfoTech_15_24    Information_Technology
-M_Eng_RelTec_15_24  Engineering_and_Technologies
-M_ArchtBldng_15_24  Architecture_and_Building
-M_Ag_Envir_Rltd_Sts_15_24  Agriculture_Environment
-M_Health_15_24      Health
-M_Educ_15_24        Education
-M_Mgnt_Com_15_24    Management_and_Commerce
-M_Society_Cult_15_24  Society_and_Culture
-M_Creative_Arts_15_24 Creative_Arts
-M_Fd_Hosp_Psnl_Svcs_15_24   Food_Hospitality_and_Personal_Services    
-M_MixFld_Prgm_15_24         Mixed_Field_Programmes
+- @ABS General
+- @absgeopack Geopacks
+- @absdatapack Datapacks
+- @absdataprocess Confidentiality in ABS Data
+- @absasgs Australian Statistical Geography Standard (ASGS)
+- @datacleaning Data Cleaning Reference
 
-M_FldStd_NS_15_24       Not Stated
+\newpage
+\addcontentsline{toc}{subsection}{Conclusion}
+\subsection*{Conclusion}
 
-51
-M_Ag_For_Fshg_15_19 Agriculture_forestry_and_fishing
-M_Mining_15_19
-M_Manufact_15_19 Manufacturing
-M_El_Gas_Wt_Waste_15_19 Electricity_gas_water_and_waste_service
-M_Constru_15_19 Construction
-M_WhlesaleTde_15_19  Wholesale_trade
-M_RetTde_15_19 Retail_trade
-M_Accom_food_15_19 Accommodation_and_food_services
-M_Trans_post_wrehsg_15_19 Transport_postal_and_warehousing
-M_Info_media_teleco_15_19 Information_media_and_telecommunications
-M_Fin_Insur_15_19 Financial_and_insurance_services
-M_RtnHir_REst_15_19 Rental_hiring_and_real_estate_services
-M_Pro_scien_tec_15_19 Professional_scientific_and_technical_services
-M_Admin_supp_15_19 Administrative_and_support_services
-M_Public_admin_sfty_15_19 Public_administration_and_safety
-M_Educ_trng_15_19 Education_and_training
-M_HlthCare_SocAs_15_19 Health_care_and_social_assistance
-M_Art_recn_15_19 Arts_and_recreation_services
-M_Oth_scs_15_19 Other_services
-M_ID_NS_15_19 Inadequately_described_Not_stated
+
+The education levels, field of study, industry of employment and occupation was studied for the Victorian SA4 level populations for the distributions according to gender and sex. The tables and plots were compared to mark the covariations between the population distributions.For example, the population trend between the field of study and industry of employment. Networks were drawn based on the population weights to analyze these trends. Some of the trends like more men were employed as managers when more women had studied management were found to be interesting. Chloropeth maps were made to analyze these trends spatially. Indeed, there exists an association between these topics as the numbers were parallel in related sub-divisions within each topic. In conclusion it was found that highest population for education level is bachelor degree, for field of education is management and commerce, industry of employment is health care and social assistance and occupation is professionals.
+
+The goal of this report was to create a data story from these statistical summaries to enumerate the facts from the data and link them to the real world. The data provided by the Australian Bureau of Statistics is aggregated open data and in no form identifies individuals who participated in the census. The ABS aims to integrate the census data with other datasets to make this census data more interesting. Thus, we analyzed the data from Victorian Public Sector Commission to support some of the insights made from this ABS Census 2016 data.
 
 
 
+\newpage
+\section{Introduction}
 
-57
-M15_19_Managers
-M15_19_Professionals
-M15_19_TechnicTrades_Wrs Technicians_and_trades_workers
-M15_19_CommunPersnlSvc_W Community_and_personal_service_workers
-M15_19_ClericalAdminis_W Clerical_and_administrative_workers
-M15_19_Sales_W Sales_workers
-M15_19_Mach_oper_drivers Machinery_operators_and_drivers
-M15_19_Labourers
-M15_19_Occu_ID_NS Inadequately_described_Not_stated
+<!--
+# Introduction
+-->
+
+The Australian Bureau of Statistics(ABS) conducts the census for Australia every 5 years which includes all people present in Australia on the census night irrespective of their nationality. @CensusDefinition defines census as "systematically calculating, acquiring and recording information about the members of a given population. This term is used mostly in connection with national population and housing censuses." A census aims to include the entire population as supposed to sampling and therefore data is recorded for every individual. However, when this data is released in public for interested institutions such as businesses, other government organizations, NGOs and other researchers it is only ethical to de-identify the data. Ethics has always been argued for risk versus benefit. With census data capturing personal details it must be de-identified and therefore ABS makes it available after perturbation as aggregated data @absdataprocess .  
+
+Census being a population data is able to capture insights about small geographic boundaries and demographics precisely. The 2016 Census data was output using the 2016 Australian Statistical Geography Standard @absasgs .The ABS Structures are a hierarchy of areas developed for the release of ABS statistical information. This statistical information represents data for all census geographies from Australia down to Statistical Area Level 1. @CensusDefinition say "Data can be represented visually or analyzed in complex statistical models, to show the difference between certain areas, or to understand the association between different personal characteristics."
+
+Our report is based on 2016 census data from the Australian Bureau of Statistics(ABS). In 2016, Census collected data for 10 million dwellings and approximately 24 million people, the largest number counted to date. The report dwells on the SA4 regions of Victoria and the topics for analysis are the Field of Study, Education Qualifications, Industry of Employment and Occupation. We try to determine the association between these topics based on age and gender. To further support these association insights, data from the Victorian Public Sector Commission(VPSC) is included.
+
+\newpage
+\section{Data Preparation}
+
+The census data was not in accordance to the tidy data definition and was spread across multiple files. Datapacks are provided in CSV format. Geopacks include comprehensive data files and associated Geographic Information System (GIS) boundary files in a format suitable for loading into proprietary software and/or client custom-built systems. Hence appropriate cleaning was performed and cell values were renamed in a more human readable context. This cleaning method was well tutored by @datacleaning in the lectures of [ETC5512]("https://wcd.numbat.space/tutorials/tutorial-07.html").

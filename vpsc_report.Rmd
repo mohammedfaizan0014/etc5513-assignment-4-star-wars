@@ -115,8 +115,7 @@ employment_type <- read_excel(glue::glue(vpsc_data, "Employment-status-ongoing-f
 \newpage
 \section{Introduction}
 
-The Victorian Public Sector Commission (VPSC) was established on 1 April 2014, and it has a range of legislated functions to help strengthen the efficiency, effectiveness and capability of the public sector and maintain its integrity. 
-This report will be analysed based on the dataset that government data collected and reported by VPSC to support the arguments made from ABS data.
+The Victorian Public Sector Commission (VPSC) was established on 1 April 2014, and it has a range of legislated functions to help strengthen the efficiency, effectiveness and capability of the public sector and maintain its integrity. This report will be analyzed based on the survey data collected and reported by VPSC to support the arguments made from ABS data.
 
 
 \section{Arguments made from ABS Data}
@@ -219,79 +218,51 @@ salary_ind %>%
 
 To support the arguments made by the main report based on the ABS data, this report is created to further understand the employment type, industry, occupation, and their salary in Victoria according to the gender.
 
-Findings that employees in health-related industry and occupation earn the most was further proved the reason why Health services have the largest number of employees. However, there is a huge difference in salary between employees of different genders, that male employees are paid more than female, and as found in the main report, more men were employed as managers when more women had studied management. Even though majority of female are with high education level and practical skills for works, they are still facing inequality in the workplace. The discrimination against women in professions is a serious historical issue and it will take a long time to fade.
+Findings that employees in health-related industry and occupation earn the most was further proved the reason why health services have the largest number of employees. However, there is a huge difference in salary between employees of different genders, that male employees are paid more than female, and as found in the main report, more men were employed as managers when more women had studied management. Even though majority of female are with high education level and practical skills for works, they are still facing inequality in the workplace. The discrimination against women at work place is a serious historical issue and measures have to be taken to realize gender equality.
 
 
 \newpage
 
+\subsection*{Data Source and References}
+
+- @vpsc Workforce data, facts and visuals (state of the public sector)
+
 \subsection*{R Packages}
 
-@R-base
-
-@R-bookdown
-@R-citation
+@R-base,
+@R-bookdown,
+@R-citation,
 @R-dplyr,
- 
-
-@R-forcats,
- 
-
 @R-ggplot2,
-  
-
 @R-kableExtra,
- 
 @R-knitr,
- 
-
 @R-naniar,
- 
 @R-patchwork,
-
-
 @R-purrr,
-
-
 @R-readr,
-  
-
 @R-scales,
-  
-
 @R-stringr,
- 
-
 @R-tibble,
-  
 @R-tidyr,
- 
 @R-tidyverse,
-  
-
 @R-tinytex,
- 
-
 @R-visdat,
- 
 @bookdown2016,
-  
-
 @ggplot22016,
- 
-
 @knitr2015,
- 
-
 @knitr2014,
- 
-
 @tidyverse2019,
- 
-
 @tinytex2019,
-  
-
-@visdat2017
+@visdat2017,
+@R-sf,
+@R-glue,
+@R-unglue,
+@R-sugarbag,
+@R-readxl,
+@R-plotly,
+@R-tidytex,
+@R-igraph,
+@R-ggraph
  
 
 ```{r codeprint, ref.label=knitr::all_labels(), echo=FALSE, eval=FALSE}
