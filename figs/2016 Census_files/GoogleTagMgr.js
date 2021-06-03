@@ -1,0 +1,11 @@
+// JavaScript source code
+var dataLayer = [{"gtm.whitelist":["google","hjtc","lcl","fsl"],"gtm.blacklist":["customScripts","customPixels"]}];
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+var f=d.getElementsByTagName(s)[0];
+var j=d.createElement(s);
+var dl=l!='dataLayer'?'&l='+l:'';
+j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'';
+j.async=true;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WSG6NHM');
+
+
